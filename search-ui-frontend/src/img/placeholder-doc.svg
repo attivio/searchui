@@ -1,0 +1,29 @@
+<svg id="3fbcb0a4-2011-40c8-b029-24ceec81a0f2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="206" height="264" viewBox="0 0 206 264">
+  <defs>
+    <style>
+      .\32 8dfcffa-a000-41f9-af29-659ed4f3642c {
+        fill: none;
+        stroke: #e6e7e8;
+        stroke-miterlimit: 10;
+        stroke-width: 5.7px;
+      }
+
+      .\32 dda78ba-f555-4c5f-86da-c5679ac029ab {
+        fill: #e6e7e8;
+      }
+    </style>
+  </defs>
+  <title>placeholder-doc</title>
+  <g>
+    <path class="28dfcffa-a000-41f9-af29-659ed4f3642c" d="M8,20.9V243.1a11.4,11.4,0,0,0,11.4,11.4H186.6A11.4,11.4,0,0,0,198,243.1V47.5l-38-38H19.4A11.4,11.4,0,0,0,8,20.9Z"/>
+    <path class="28dfcffa-a000-41f9-af29-659ed4f3642c" d="M198,47.5H169.5A9.5,9.5,0,0,1,160,38V9.5"/>
+    <path class="2dda78ba-f555-4c5f-86da-c5679ac029ab" d="M128.8,85H55.3a7.4,7.4,0,0,1,0-14.7h73.5a7.4,7.4,0,1,1,0,14.7Z"/>
+    <g>
+      <path class="2dda78ba-f555-4c5f-86da-c5679ac029ab" d="M149.1,127.9H51.2a3.3,3.3,0,1,1,0-6.6h97.9a3.3,3.3,0,1,1,0,6.6Z"/>
+      <path class="2dda78ba-f555-4c5f-86da-c5679ac029ab" d="M132.7,146.8H51.2a3.3,3.3,0,0,1,0-6.6h81.4a3.3,3.3,0,0,1,0,6.6Z"/>
+      <path class="2dda78ba-f555-4c5f-86da-c5679ac029ab" d="M149.1,165.7H51.2a3.3,3.3,0,1,1,0-6.6h97.9a3.3,3.3,0,1,1,0,6.6Z"/>
+      <path class="2dda78ba-f555-4c5f-86da-c5679ac029ab" d="M132.7,184.7H51.2a3.3,3.3,0,0,1,0-6.6h81.4a3.3,3.3,0,0,1,0,6.6Z"/>
+      <path class="2dda78ba-f555-4c5f-86da-c5679ac029ab" d="M149.1,197a3.3,3.3,0,1,1,0,6.6H51.2a3.3,3.3,0,1,1,0-6.6"/>
+    </g>
+  </g>
+</svg>

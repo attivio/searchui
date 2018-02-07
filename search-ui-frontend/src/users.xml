@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- For details about the format of this file, see: https://answers.attivio.com/display/extranet55/XML+Authentication+Provider#XMLAuthenticationProvider-XMLFileSyntax -->
+<!-- To generate OBF or MD5 values for password, use the aie-exec password tool. -->
+<principals>
+  <user id="aieadmin" name="Attivio Administrator" password="attivio" />
+</principals>

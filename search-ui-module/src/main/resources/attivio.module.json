@@ -1,0 +1,6 @@
+{
+  "name":"search-ui",
+  "moduleVersion":"${project.version}",
+  "description":"Used to host the Search UI from within Attivio nodes",
+  "initClassName":"com.attivio.suit.search-ui.ModuleInit"
+}
