@@ -50,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/error",
             "/loggedout",
             "/sockjs-node/**",
+            "/log",
             "/**/*.css",
             "/**/*.ttf",
             "/**/*.eot",
