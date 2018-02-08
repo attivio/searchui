@@ -30,8 +30,7 @@ import { mastheadTabInfo } from '../SailApp';
 type SailSearchPageProps = {
   /**
    * Optional. The location of the node through which to interact with Attivio.
-   * Defaults to the value in the configuration if it's available or
-   * 'http://localhost:17000' if it's not.
+   * Defaults to the value in the configuration.
    */
   baseUri: string;
   /**
@@ -77,7 +76,7 @@ type SailSearchPageProps = {
    * An optional list of facet field names which will be used to determine
    * the order in which the facets are shown. Any facets not named here will
    * appear after the called-out ones, in the order they are in in the
-   * response.facets array of the parent Searcher compoinent.
+   * response.facets array of the parent Searcher component.
    */
   orderHint: Array<string>;
   /** Controls the colors used to show various entity types (the value can be any valid CSS color) */
@@ -89,7 +88,7 @@ type SailSearchPageProps = {
  */
 class SailSearchPage extends React.Component<SailSearchPageProps, SailSearchPageProps, void> {
   static defaultProps = {
-    baseUri: 'http://localhost:17000',
+    baseUri: '',
     showScores: false,
     entityFields: new Map([['people', 'People'], ['locations', 'Locations'], ['companies', 'Companies']]),
     debugViewToggle: false,

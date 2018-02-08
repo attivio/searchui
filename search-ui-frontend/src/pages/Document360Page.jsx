@@ -35,8 +35,7 @@ type Document360PageProps = {
   history: PropTypes.object.isRequired;
   /**
    * Optional. The location of the node through which to interact with Attivio.
-   * Defaults to the value in the configuration if it's available or
-   * 'http://localhost:17000' if it's not.
+   * Defaults to the value in the configuration.
    */
   baseUri: string;
   /** A map of the field names to the label to use for any entity fields */
@@ -97,7 +96,7 @@ type Document360PageState = {
 
 class Document360Page extends React.Component<Document360PageDefaultProps, Document360PageProps, Document360PageState> { // eslint-disable-line max-len
   static defaultProps = {
-    baseUri: 'http://localhost:17000',
+    baseUri: '',
     entityFields: new Map(),
     title: FieldNames.TITLE,
     uri: FieldNames.URI,
