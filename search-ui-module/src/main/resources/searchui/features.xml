@@ -8,8 +8,8 @@
 						http://www.attivio.com/configuration http://www.attivio.com/configuration/attivio-config.xsd ">
 
   <features>
-    <f:deployWebapp directory="webapps/search-ui" context-path="/searchui" nodeset="*">
-      <f:menuEntry label="Search UI" path="tools" />
+    <f:deployWebapp directory="webapps/searchui" context-path="/searchui" nodeset="*" requires-authentication="true">
+      <f:menuEntry label="Search UI" path="search" uri="/searchui" blank="true" />
     </f:deployWebapp>
   </features>
 	

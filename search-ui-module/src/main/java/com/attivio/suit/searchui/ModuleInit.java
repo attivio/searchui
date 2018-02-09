@@ -11,6 +11,6 @@ public class ModuleInit {
   private static final Logger LOG = LoggerFactory.getLogger(ModuleInit.class);
     
   static {
-    LOG.info("Loaded module search-ui");
+    LOG.info("Loaded module searchui");
   }
 }

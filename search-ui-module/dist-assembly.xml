@@ -29,7 +29,7 @@
       </excludes>
     </dependencySet>
     <dependencySet>
-      <outputDirectory>webapps/search-ui</outputDirectory>
+      <outputDirectory>webapps/searchui/dist</outputDirectory>
       <includes>
         <include>com.attivio.suit:search-ui-frontend:zip:dist</include>
       </includes>

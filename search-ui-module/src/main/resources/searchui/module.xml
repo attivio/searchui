@@ -5,20 +5,13 @@
                                  http://www.attivio.com/configuration/features/core http://www.attivio.com/configuration/features/coreFeatures.xsd">
 
   <imports>
-    <import resource="search-ui/beans.xml" type="spring"/>
+    <import resource="searchui/beans.xml" type="spring"/>
   </imports>
   
   <configuration>
     <environment-properties>
-      <file-properties location="search-ui/search-ui.properties"/>
+      <file-properties location="searchui/searchui.properties"/>
     </environment-properties>    
   </configuration>
     
-  <components>
-    <component name="sample1" class="com.attivio.suit.search-ui.SampleFieldValueCreatingTransformer">
-      <properties>
-      </properties>
-    </component>
-  </components>
-  
 </att:attivio>

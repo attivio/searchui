@@ -1,6 +1,12 @@
 {
-  "name":"search-ui",
-  "moduleVersion":"${project.version}",
-  "description":"Used to host the Search UI from within Attivio nodes",
-  "initClassName":"com.attivio.suit.searchui.ModuleInit"
+  "name": "searchui",
+  "moduleVersion": "${project.version}",
+  "description": "Used to host the Search UI from within Attivio nodes",
+  "initClassName": "com.attivio.suit.searchui.ModuleInit",
+  "newFiles": {
+    "conf/searchui": "searchui",
+    "webapps/searchui": "webapps/searchui",
+    "lib/searchui-module-${project.version}.jar": "lib/searchui-module-${project.version}.jar"
+  },
+  "requiredPlatformVersion": ">=5.5.0"
 }
