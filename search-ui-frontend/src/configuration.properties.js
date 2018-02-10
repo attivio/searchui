@@ -8,7 +8,7 @@ export default {
    */
   ALL: {
     // This is the prefix to use for routes in the application. For example, if it will
-    // running under '/sail', you will want to set this value to '/sail' (note the leading slash
+    // running under '/searchui', you will want to set this value to '/searchui' (note the leading slash
     // and lack of a trailing slash). For running directory at the root of the URL, simply set
     // this to '/'.
     basename: '/',
@@ -173,10 +173,10 @@ export default {
   },
 
   /**
-   * These properties configure only the default values for properties of any SailSearchPage component(s).
-   * The SailSearchPage is the page that displays the results after executing a query.
+   * These properties configure only the default values for properties of any SearchUISearchPage component(s).
+   * The SearchUISearchPage is the page that displays the results after executing a query.
    */
-  SailSearchPage: {
+  SearchUISearchPage: {
     pieChartFacets: [ // The facet field names that should be displayed as pie charts
     ],
     barChartFacets: [ // The facet field names that should be displayed as bar charts
@@ -229,10 +229,10 @@ export default {
   },
 
   /**
-   * These properties configure only the default values for properties of any SailInsightsPage component(s).
-   * The SailInsightsPage is the page providing insight over a full scope of documents and allowing the user to narrow that scope.
+   * These properties configure only the default values for properties of any SearchUIInsightsPage component(s).
+   * The SearchUIInsightsPage is the page providing insight over a full scope of documents and allowing the user to narrow that scope.
    */
-  SailInsightsPage: {
+  SearchUIInsightsPage: {
     pieChartFacets: [ // The facet field names that should be displayed as pie charts
       'table',
     ],
@@ -277,11 +277,11 @@ export default {
       'cc',
       'to',
       // Factbook fields - uncomment lines below if factbook module has been included in your project
-      //'country',
-      //'spokenlanguage',
-      //'resource',
-      //'climate',
-      //'ethnicity',
+      // 'country',
+      // 'spokenlanguage',
+      // 'resource',
+      // 'climate',
+      // 'ethnicity',
     ],
     // The maximum number of linked documents to show per entity in the document 360 insight graph
     maxLinkedDocs: 3,

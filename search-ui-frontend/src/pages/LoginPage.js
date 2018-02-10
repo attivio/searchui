@@ -13,7 +13,7 @@ import {
   MastheadNavTabs,
 } from '@attivio/suit';
 
-import { mastheadTabInfo } from '../SailApp';
+import { mastheadTabInfo } from '../SearchUIApp';
 
 type LoginPageState = {
   loginError: string | null;

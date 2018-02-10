@@ -14,12 +14,12 @@ import {
   NavTabInfo,
 } from '@attivio/suit';
 
-import SailLandingPage from './pages/SailLandingPage';
-import SailFakeLandingPage from './pages/SailFakeLandingPage';
-import SailSearchPage from './pages/SailSearchPage';
-import SailInsightsPage from './pages/SailInsightsPage';
+import SearchUILandingPage from './pages/SearchUILandingPage';
+import SearchUIFakeLandingPage from './pages/SearchUIFakeLandingPage';
+import SearchUISearchPage from './pages/SearchUISearchPage';
+import SearchUIInsightsPage from './pages/SearchUIInsightsPage';
 import Document360Page from './pages/Document360Page';
-import SailErrorPage from './pages/SailErrorPage';
+import SearchUIErrorPage from './pages/SearchUIErrorPage';
 import LoginPage from './pages/LoginPage';
 import LogoutPage from './pages/LogoutPage';
 import config from './configuration.properties';
@@ -46,15 +46,15 @@ export default class App extends React.Component<void, {}, void> {
           <Router basename={config.ALL.basename}>
             <Searcher>
               <Switch>
-                <AuthRoute exact path="/" component={SailLandingPage} />
-                <AuthRoute exact path="/landing" component={SailFakeLandingPage} />
-                <AuthRoute exact path="/results" component={SailSearchPage} />
-                <AuthRoute exact path="/insights" component={SailInsightsPage} />
+                <AuthRoute exact path="/" component={SearchUILandingPage} />
+                <AuthRoute exact path="/landing" component={SearchUIFakeLandingPage} />
+                <AuthRoute exact path="/results" component={SearchUISearchPage} />
+                <AuthRoute exact path="/insights" component={SearchUIInsightsPage} />
                 <AuthRoute exact path="/doc360" component={Document360Page} />
                 <Route exact path="/login" component={LoginPage} />
                 <Route exact path="/loggedout" component={LogoutPage} />
-                <Route exact path="/error" component={SailErrorPage} />
-                <Route path="*" component={SailErrorPage} />
+                <Route exact path="/error" component={SearchUIErrorPage} />
+                <Route path="*" component={SearchUIErrorPage} />
               </Switch>
             </Searcher>
           </Router>

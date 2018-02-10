@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 
 import { Searcher } from '@attivio/suit';
 
-class SailFakeLandingPage extends React.Component<void, {}, void> {
+class SearchUIFakeLandingPage extends React.Component<void, {}, void> {
   static contextTypes = {
     searcher: PropTypes.instanceOf(Searcher),
     router: PropTypes.any,
@@ -26,4 +26,4 @@ class SailFakeLandingPage extends React.Component<void, {}, void> {
   }
 }
 
-export default withRouter(SailFakeLandingPage);
+export default withRouter(SearchUIFakeLandingPage);

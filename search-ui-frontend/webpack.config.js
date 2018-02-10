@@ -13,7 +13,7 @@ const prefix = '/'; // The base of the URL for the webapp. Must match the value 
 module.exports = {
   // An array of files to run at startup...
   entry: [
-    './src/main.jsx',
+    './src/main.js',
     'webpack-dev-server/client?' + protocol + '://' + require('ip').address() + ':' + port,
   ],
 

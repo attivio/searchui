@@ -28,7 +28,7 @@ import {
   KnowledgeGraphPanel,
 } from '@attivio/suit';
 
-import { mastheadTabInfo } from '../SailApp';
+import { mastheadTabInfo } from '../SearchUIApp';
 
 type Document360PageProps = {
   location: PropTypes.object.isRequired;

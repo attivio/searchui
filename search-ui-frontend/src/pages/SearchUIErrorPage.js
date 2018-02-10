@@ -10,14 +10,14 @@ import {
   MastheadNavTabs,
 } from '@attivio/suit';
 
-import { mastheadTabInfo } from '../SailApp';
+import { mastheadTabInfo } from '../SearchUIApp';
 
-type SailErrorPageState = {
+type SearchUIErrorPageState = {
   numDocuments: number;
   numTables: number;
 };
 
-export default class SailErrorPage extends React.Component<void, {}, SailErrorPageState> {
+export default class SearchUIErrorPage extends React.Component<void, {}, SearchUIErrorPageState> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -26,7 +26,7 @@ export default class SailErrorPage extends React.Component<void, {}, SailErrorPa
     };
   }
 
-  state: SailErrorPageState;
+  state: SearchUIErrorPageState;
 
   render() {
     return (

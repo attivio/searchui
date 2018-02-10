@@ -14,16 +14,16 @@ import {
   Masthead,
 } from '@attivio/suit';
 
-import { mastheadTabInfo } from '../SailApp';
+import { mastheadTabInfo } from '../SearchUIApp';
 
-type SailLandingPageState = {
+type SearchUILandingPageState = {
   numDocuments: number;
   numTables: number;
   loading: boolean;
   error: string | null;
 };
 
-export default class SailLandingPage extends React.Component<void, {}, SailLandingPageState> {
+export default class SearchUILandingPage extends React.Component<void, {}, SearchUILandingPageState> {
   static contextTypes = {
     searcher: PropTypes.any,
   };
@@ -38,7 +38,7 @@ export default class SailLandingPage extends React.Component<void, {}, SailLandi
     };
   }
 
-  state: SailLandingPageState;
+  state: SearchUILandingPageState;
 
   componentDidMount() {
     const searcher = this.context.searcher;

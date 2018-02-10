@@ -12,7 +12,7 @@ import {
   MastheadNavTabs,
 } from '@attivio/suit';
 
-import { mastheadTabInfo } from '../SailApp';
+import { mastheadTabInfo } from '../SearchUIApp';
 
 type LogoutPageState = {
   logoutError: string | null;

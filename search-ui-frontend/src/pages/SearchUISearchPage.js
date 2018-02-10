@@ -25,9 +25,9 @@ import {
   Masthead,
 } from '@attivio/suit';
 
-import { mastheadTabInfo } from '../SailApp';
+import { mastheadTabInfo } from '../SearchUIApp';
 
-type SailSearchPageProps = {
+type SearchUISearchPageProps = {
   /**
    * Optional. The location of the node through which to interact with Attivio.
    * Defaults to the value in the configuration.
@@ -86,7 +86,7 @@ type SailSearchPageProps = {
 /**
  * Page for doing a simple search using a <Searcher> component.
  */
-class SailSearchPage extends React.Component<SailSearchPageProps, SailSearchPageProps, void> {
+class SearchUISearchPage extends React.Component<SearchUISearchPageProps, SearchUISearchPageProps, void> {
   static defaultProps = {
     baseUri: '',
     showScores: false,
@@ -205,4 +205,4 @@ class SailSearchPage extends React.Component<SailSearchPageProps, SailSearchPage
   }
 }
 
-export default Configurable(SailSearchPage);
+export default Configurable(SearchUISearchPage);

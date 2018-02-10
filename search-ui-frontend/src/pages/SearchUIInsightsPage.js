@@ -13,9 +13,9 @@ import {
   FacetInsights,
 } from '@attivio/suit';
 
-import { mastheadTabInfo } from '../SailApp';
+import { mastheadTabInfo } from '../SearchUIApp';
 
-type SailInsightsPageProps = {
+type SearchUIInsightsPageProps = {
   /** The facet field names that should be displayed as pie charts */
   pieChartFacets: Array<string> | string | null;
   /** The facet field names that should be displayed as bar charts */
@@ -42,7 +42,7 @@ type SailInsightsPageProps = {
   entityColors: Map<string, string>;
 };
 
-class SailInsightsPage extends React.Component<SailInsightsPageProps, SailInsightsPageProps, void> {
+class SearchUIInsightsPage extends React.Component<SearchUIInsightsPageProps, SearchUIInsightsPageProps, void> {
   static defaultProps = {
     pieChartFacets: null,
     barChartFacets: null,
@@ -81,4 +81,4 @@ class SailInsightsPage extends React.Component<SailInsightsPageProps, SailInsigh
   }
 }
 
-export default Configurable(SailInsightsPage);
+export default Configurable(SearchUIInsightsPage);
