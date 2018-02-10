@@ -48,7 +48,7 @@
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>searchanalytics</servlet-name>
+    <servlet-name>searchui</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
   
