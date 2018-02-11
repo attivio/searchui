@@ -114,11 +114,11 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
       'cc',
       'to',
       // Factbook fields - uncomment lines below if factbook module has been included in your project
-      //'country',
-      //'spokenlanguage',
-      //'resource',
-      //'climate',
-      //'ethnicity',
+      // 'country',
+      // 'spokenlanguage',
+      // 'resource',
+      // 'climate',
+      // 'ethnicity',
     ],
   };
 

@@ -20,6 +20,13 @@ export default {
 
     // The location of the node through which to interact with Attivio
     baseUri,
+
+    // The default user to use when searching and no principal is specified.
+    defaultUser: 'aieadmin',
+
+    // The default principal realm to use when searching and no principal is specified
+    defaultRealm: 'aie',
+
     // A map of document fields to display labels to use as entity mappings
     // Note this should be obsolete once the display names are in the schema
     // for FactBook and we start querying the schema to get this map.
@@ -230,7 +237,8 @@ export default {
 
   /**
    * These properties configure only the default values for properties of any SearchUIInsightsPage component(s).
-   * The SearchUIInsightsPage is the page providing insight over a full scope of documents and allowing the user to narrow that scope.
+   * The SearchUIInsightsPage is the page providing insight over a full scope of documents and allowing the user
+   * to narrow that scope.
    */
   SearchUIInsightsPage: {
     pieChartFacets: [ // The facet field names that should be displayed as pie charts
