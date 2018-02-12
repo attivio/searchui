@@ -6,9 +6,14 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 
+// The protocol and port values define how the development server will be started.
 const protocol = 'http'; // http or https
 const port = 8080; // The port to use (e.g., 8080 for http and 8443 for https...)
-const prefix = '/'; // The base of the URL for the webapp. Must match the value in src/configuration.properties.js
+
+// This is the base URI for the webapp and is used when links get created for resources
+// such as images and font files. It MUST match the value in the configuration.properties
+// file, but with a trailing slash.
+const prefix = '/searchui/';
 
 module.exports = {
   // An array of files to run at startup...
@@ -47,7 +52,7 @@ module.exports = {
         test: /\.(less|css)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'less-loader'],
+          use: [`css-loader?publicPath=${prefix}`, `less-loader?publicPath=${prefix}`],
         }),
         //loader: 'style-loader!css-loader!autoprefixer-loader!less-loader',
       },
@@ -119,6 +124,9 @@ module.exports = {
     new HtmlWebpackIncludeAssetsPlugin({
       assets: ['style.css'],
       append: true,
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production'),
     }),
   ],
 };

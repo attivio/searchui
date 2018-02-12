@@ -26,6 +26,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -48,16 +50,20 @@ import com.google.gson.Gson;
 @CrossOrigin
 @Controller
 public class RestProxy {
-  @Value("${suit.attivio.protocol}")
+  static final Logger LOG = LoggerFactory.getLogger(RestProxy.class);
+  
+  @Value("${suit.attivio.protocol:http}")
   String attivioProtocol;
-  @Value("${suit.attivio.hostname}")
+  @Value("${suit.attivio.hostname:localhost}")
   String attivioHostname;
-  @Value("${suit.attivio.port}")
+  @Value("${suit.attivio.port:17000}")
   int attivioPort;
-  @Value("${suit.attivio.username}")
+  @Value("${suit.attivio.username:aieadmin}")
   String attivioUsername;
-  @Value("${suit.attivio.password}")
+  @Value("${suit.attivio.password:attivio}")
   String attivioPassword;
+  @Value("${server.contextPath:/}")
+  String contextPath;
 
   /**
   * Forward query requests through to the real Attivio server only after
@@ -77,8 +83,10 @@ public class RestProxy {
       Map<String, Object> bodyObject = gson.fromJson(body, Map.class);
       bodyObject.put("username", userInfo.getUserId());
       newBody = gson.toJson(bodyObject);
+      LOG.trace("Doing a search REST API request forcing the usewrname to be " + userInfo.getUserId() + ".");
     } else {
       newBody = body;
+      LOG.trace("Doing a search REST API request and no user is set.");
     }
     return this.mirrorRest(newBody, method, request, response);      
   }
@@ -89,9 +97,11 @@ public class RestProxy {
   @RequestMapping("/rest/**")
   @ResponseBody
   public ResponseEntity<String> mirrorRest(@RequestBody(required=false) String body, HttpMethod method, HttpServletRequest request,
-    HttpServletResponse response) throws URISyntaxException {
-    URI uri = new URI(attivioProtocol, null, attivioHostname, attivioPort, request.getRequestURI(), request.getQueryString(), null);
-    
+      HttpServletResponse response) throws URISyntaxException {
+    // Build the URI to use when passing the call on to the Attivio server... note that getServletPath() returns the
+    // part of the path AFTER the context path, which we don't want since the REST APIs are always based at the root
+    URI uri = new URI(attivioProtocol, null, attivioHostname, attivioPort, request.getServletPath(), request.getQueryString(), null);
+
     // Make sure we include the headers from the incoming request when we pass it on.
     HttpHeaders headers = new HttpHeaders();
     Enumeration<String> headerNames = request.getHeaderNames();
@@ -153,12 +163,12 @@ public class RestProxy {
         realBody = responseEntity.getBody();
       responseEntity = new ResponseEntity<String>(realBody, updatedResponseHeaders, responseEntity.getStatusCode());
     } catch (RestClientException e) {
-      e.printStackTrace();
+      LOG.debug("Error contacting the Attivio server", e);
       if (e instanceof HttpServerErrorException) {
         // Got an error from the back end.. make sure we pass it on...
         String responseBody = ((HttpServerErrorException)e).getResponseBodyAsString();
         HttpStatus statusCode = ((HttpServerErrorException)e).getStatusCode();
-        System.out.println(responseBody);
+        LOG.trace("The response body from the request was: " + responseBody);
         
         responseEntity = new ResponseEntity<>(responseBody, statusCode);
       }

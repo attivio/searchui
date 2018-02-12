@@ -1,30 +1,41 @@
 import { ObjectUtils } from '@attivio/suit';
 
-const baseUri = 'http://localhost:8080';
-
 export default {
   /**
    * These properties are not specific to any page/component but may apply to any/all of them.
    */
   ALL: {
+    // This is the base URI that will be used for making REST API calls to the
+    // Attivo server. In general, the UI is hosted on the same machine that
+    // serves the REST API, so this should not include the protocol, hostname, or port.
+    // (The case where you're using the development server to communicate with an
+    // Attivio server on  different machine is the only time you should include this
+    // information.)
+    baseUri: '/searchui',
+
     // This is the prefix to use for routes in the application. For example, if it will
-    // running under '/searchui', you will want to set this value to '/searchui' (note the leading slash
-    // and lack of a trailing slash). For running directory at the root of the URL, simply set
-    // this to '/'.
-    basename: '/',
-    // Set this to 'SAML' to enable SAML authentication from the front end (it must also be
-    // enabled on the back end). Set to 'XML' to use the users.xml file to define users and use
-    // the local login page to enter credentials. For demo or development purposes, you can set
-    // this to 'NONE' to disable authentication altogether.
+    // running under '/search', you will want to set this value to '/search' (note the leading slash
+    // and lack of a trailing slash). For running the application at the root of the baseUri,
+    // simply set this to '/'. This may be the same as the baseUri.
+    // The value here MUST match the server.contextPath in the application.properties file
+    // used when running the servlet and/or the servlet name and mapping in the web.xml
+    // file in the Attivio module. Finally, it must match the value of the prefix variable in
+    // the webpack.config.js file.
+    basename: '/searchui',
+
+    // This specifies the type of authentication that the front-end application will use.
+    // Set this to 'SAML' to enable SAML authentication when hosting the UI in a servlet
+    // (SAML authentication must also be enabled on the back end, using the values in the
+    // application.properties file).
+    // Set this to 'XML' to use the contents of the users.xml file to define users. In this
+    // case, the front-end application's login page will be used to log users in.
+    // Set this to 'NONE' if you will be hosting the UI in an Attivio module; in this case
+    // the Deploy Webapp feature in the module will define the type of authentication that
+    // will secure the UI. Note that you can also use 'NONE' during the course of developing
+    // an application.
     authType: 'XML',
 
-    // The location of the node through which to interact with Attivio
-    baseUri,
-
-    // The default user to use when searching and no principal is specified.
-    defaultUser: 'aieadmin',
-
-    // The default principal realm to use when searching and no principal is specified
+    // This is the default principal realm to use when searching.
     defaultRealm: 'aie',
 
     // A map of document fields to display labels to use as entity mappings
@@ -35,16 +46,19 @@ export default {
       company: 'Companies',
       location: 'Locations',
       languages: 'Languages',
-      // Factbook fields - uncomment lines below if factbook module has been included in your project
+      date: 'Date',
+      keyphrases: 'Key Phrases',
+      // Factbook fields: uncomment the following lines if the Factbook module has been included in your project
       // spokenLanguage: 'Spoken Languages',
       // resource: 'Resources',
       // climate: 'Climate',
       // ethnicity: 'Ethnicities',
       // country: 'Country',
-      date: 'Date',
-      keyphrases: 'Key Phrases',
     }),
-    // Controls the colors used to show various entity types (the value can be any valid CSS color)
+
+    // This map controls the colors used to show various entity types. The keys are the fields
+    // used to contain entities and the values are the colors to use, in any valid CSS format (e.g.,
+    // '#0074A3' or 'rgba(255, 42, 153, 0.5)').
     entityColors: ObjectUtils.toMap({
       location: '#007dbc',
       company: '#ed7a23',
@@ -67,10 +81,12 @@ export default {
       distance: '#075484',
       coordinate: '#caeefa',
     }),
+
     // The default comprehensive list of fields to include in search results
     fields: [
       '*',
     ],
+
     // The field containing the document's title
     title: 'title',
     // The field containing the document's URI
