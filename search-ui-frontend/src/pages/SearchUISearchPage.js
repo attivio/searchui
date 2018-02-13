@@ -33,6 +33,17 @@ type SearchUISearchPageProps = {
    * Defaults to the value in the configuration.
    */
   baseUri: string;
+
+  /**
+   * The list of relevancy models to show that will be availale for the user
+   * to choose from. If this is set to a single-element array, then that one
+   * relevancy model will be used for all queries and the user will not see
+   * a menu for choosing the model. If this is not set (and the value is the
+   * default, empty array, then the back-end will be queried to obtain the list
+   * of known model names.
+   */
+  relevancyModels: Array<string>;
+
   /**
    * Whether or not the documents’ relevancy scores should be displayed.
    * Defaults to false.
@@ -89,6 +100,7 @@ type SearchUISearchPageProps = {
 class SearchUISearchPage extends React.Component<SearchUISearchPageProps, SearchUISearchPageProps, void> {
   static defaultProps = {
     baseUri: '',
+    relevancyModels: [],
     showScores: false,
     entityFields: new Map([['people', 'People'], ['locations', 'Locations'], ['companies', 'Companies']]),
     debugViewToggle: false,
@@ -131,7 +143,11 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
           <SearchResultsCount />
           <SearchResultsFacetFilters />
           <SearchResultsPager right />
-          <SearchRelevancyModel right baseUri={this.props.baseUri} />
+          <SearchRelevancyModel
+            right
+            baseUri={this.props.baseUri}
+            models={this.props.relevancyModels}
+          />
           <NavbarSort
             fieldNames={this.props.sortableFields}
             includeRelevancy

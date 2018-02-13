@@ -200,6 +200,9 @@ export default {
    * The SearchUISearchPage is the page that displays the results after executing a query.
    */
   SearchUISearchPage: {
+    relevancyModels: [
+      'default',
+    ],
     pieChartFacets: [ // The facet field names that should be displayed as pie charts
     ],
     barChartFacets: [ // The facet field names that should be displayed as bar charts
