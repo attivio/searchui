@@ -33,12 +33,28 @@ export const mastheadTabInfo = [
   new NavTabInfo('Insights', '/insights'),
 ];
 
-export default class App extends React.Component<void, {}, void> {
+export default class SearchUIApp extends React.Component<void, {}, void> {
   componentWillMount() {
-    AuthUtils.configure(users, config);
+    try {
+      AuthUtils.configure(users, config);
+    } catch (exception) {
+      this.configurationError = exception;
+    }
   }
 
+  configurationError: any;
+
   render() {
+    if (this.configurationError) {
+      return (
+        <div>
+          <h2>Configuration Error</h2>
+          <p>
+            {this.configurationError.toString()}
+          </p>
+        </div>
+      );
+    }
     return (
       <Configuration config={config}>
         <Logger />
