@@ -44,7 +44,7 @@
               <goal>webpack</goal>
             </goals>
             <configuration>
-              <arguments><![CDATA[-p --output-path=${project.build.directory}/dist]]></arguments>
+              <arguments><![CDATA[--output-path=${project.build.directory}/dist]]></arguments>
             </configuration>
           </execution>
         </executions>

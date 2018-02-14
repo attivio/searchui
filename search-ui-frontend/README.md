@@ -92,9 +92,8 @@ Notes on the Included Libraries
 
 The project includes React components from several libraries which you can use as-is in your projects, in addition to the custom Attivio components. You don't have to do anything to use them other than importing them into your component files. These components are documented on their projects' respective websites, as follows:
 * React-Bootstrap: [main page](https://react-bootstrap.github.io/) | [components page](https://react-bootstrap.github.io/components.html)
-* React-Bootstrap-Table: [main page](https://allenfang.github.io/react-bootstrap-table/)
 * React-Highcharts: [main page](https://github.com/kirjs/react-highcharts) | [Highcharts documentation](https://www.highcharts.com/)
-* React-Routr: [main page](https://reacttraining.com/react-router/)
+* React-Router: [main page](https://reacttraining.com/react-router/)
 
 Notes on Building
 -----------------
