@@ -1,4 +1,19 @@
 {
-  "presets": ["stage-0", "react", "flow"],
+  "presets":[
+    "react",
+    "flow",
+    "stage-0",
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": [
+            "last 2 versions",
+            "ie >= 11"
+          ]
+        }
+      }
+    ]
+  ],
   "plugins": ["transform-decorators-legacy", "transform-class-properties"]
 }
