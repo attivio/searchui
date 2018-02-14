@@ -4,7 +4,7 @@
   "description": "Framework for building search user-interface applications on top of the Attivio platform.",
   "main": "index.js",
   "dependencies": {
-    "@attivio/suit": "file:///Users/lvaldez/dev/suit",
+    "@attivio/suit": "^0.0.5",
     "@mapbox/mapbox-gl-draw": "^1.0.4",
     "babel-polyfill": "^6.26.0",
     "babel-preset-react": "^6.24.1",
