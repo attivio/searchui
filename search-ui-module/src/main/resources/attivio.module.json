@@ -6,7 +6,7 @@
   "newFiles": {
     "conf/searchui": "searchui",
     "webapps/searchui": "webapps/searchui",
-    "lib/searchui-module-${project.version}.jar": "lib/searchui-module-${project.version}.jar"
+    "lib/search-ui-module-${project.version}.jar": "lib/search-ui-module-${project.version}.jar"
   },
   "requiredPlatformVersion": ">=5.5.0"
 }
