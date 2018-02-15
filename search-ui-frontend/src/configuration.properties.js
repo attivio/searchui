@@ -178,10 +178,6 @@ export default {
     queryFilter: '',
     // The locale for queries; all linguistic processing is performed using this locale
     locale: '',
-    // The name of the relevancy models to be able to switch between
-    relevancyModels: [
-      'default',
-    ],
     // Highlight mode for the results of your query: 'on' enables highlighting
     // using your schema preferences and field expressions, 'off' disables
     // highlighting on the request, only highlighting field expressions specified, and
@@ -200,6 +196,10 @@ export default {
    * The SearchUISearchPage is the page that displays the results after executing a query.
    */
   SearchUISearchPage: {
+    // The names of the relevancy models to be able to switch between. If this is an empty array,
+    // the server will be queried for the list of available relevancy models and they will be used.
+    // To force the UI to always use a single model when making queries, set this to an array with
+    // that single name as its sole element.
     relevancyModels: [
       'default',
     ],

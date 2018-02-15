@@ -137,32 +137,16 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
   }
 
   renderSecondaryNavBar() {
-    if (this.props.debugViewToggle) {
-      return (
-        <SecondaryNavBar>
-          <SearchResultsCount />
-          <SearchResultsFacetFilters />
-          <SearchResultsPager right />
-          <SearchRelevancyModel
-            right
-            baseUri={this.props.baseUri}
-            models={this.props.relevancyModels}
-          />
-          <NavbarSort
-            fieldNames={this.props.sortableFields}
-            includeRelevancy
-            right
-          />
-          <SearchDebugToggle right />
-        </SecondaryNavBar>
-      );
-    }
     return (
       <SecondaryNavBar>
         <SearchResultsCount />
         <SearchResultsFacetFilters />
         <SearchResultsPager right />
-        <SearchRelevancyModel right baseUri={this.props.baseUri} />
+        <SearchRelevancyModel
+          right
+          baseUri={this.props.baseUri}
+          models={this.props.relevancyModels}
+        />
         <NavbarSort
           fieldNames={this.props.sortableFields}
           includeRelevancy
