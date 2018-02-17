@@ -59,6 +59,9 @@ export default {
     // This map controls the colors used to show various entity types. The keys are the fields
     // used to contain entities and the values are the colors to use, in any valid CSS format (e.g.,
     // '#0074A3' or 'rgba(255, 42, 153, 0.5)').
+    // This map is also used to control colors in various charts, such as pie chart facets. In this
+    // case, the entity names are ignored and the colors are used in the order listed here, starting
+    // with the first entry for the first data set in the chart.
     entityColors: ObjectUtils.toMap({
       location: '#007dbc',
       company: '#ed7a23',

@@ -252,7 +252,7 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
   }
 
   /**
-   * Navigate to the 360⁰ page for the document with the passed-in ID.
+   * Navigate to the 360° page for the document with the passed-in ID.
    */
   navigateToDoc(docId: string) {
     this.setState({
@@ -359,7 +359,7 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
     }
 
     return (
-      <DocumentTitle title="Document 360⁰: Attivio Cognitive Search">
+      <DocumentTitle title="Document 360°: Attivio Cognitive Search">
         <div>
           <Masthead multiline>
             <MastheadNavTabs tabInfo={mastheadTabInfo} />
