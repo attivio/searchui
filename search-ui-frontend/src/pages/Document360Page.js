@@ -70,6 +70,11 @@ type Document360PageProps = {
   moreLikeThisQuery: string;
   /** The list of fields to use to do the join */
   insightGraphLinkingFields: Array<string>;
+  /**
+   * If true, then the 360° page will show links to documents from any table. Set this to false to
+   * only show links to documnents that come from tables other than the one the main document is in.
+   */
+  includeAllTables: boolean;
 };
 
 type Document360PageDefaultProps = {
@@ -84,6 +89,7 @@ type Document360PageDefaultProps = {
   thumbnailImageUri: string;
   moreLikeThisQuery: string;
   insightGraphLinkingFields: Array<string>;
+  includeAllTables: boolean;
 };
 
 type Document360PageState = {
@@ -120,6 +126,7 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
       // 'climate',
       // 'ethnicity',
     ],
+    includeAllTables: false,
   };
 
   static contextTypes = {
@@ -341,7 +348,8 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
                 entityName={this.state.entityName}
                 entityValue={this.state.entityValue}
                 linkingFields={this.props.insightGraphLinkingFields}
-              />
+                includeAllTables={this.props.includeAllTables}
+            />
             </Col>
             <Col xs={4} sm={4}>
               <Subheader360 label="Similar Results" />
