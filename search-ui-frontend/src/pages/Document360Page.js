@@ -26,6 +26,7 @@ import {
   Doc360Breadcrumbs,
   DocumentThumbnail,
   KnowledgeGraphPanel,
+  SearchResultTitle,
 } from '@attivio/suit';
 
 import { mastheadTabInfo } from '../SearchUIApp';
@@ -148,7 +149,6 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
     };
     (this: any).navigateToDoc = this.navigateToDoc.bind(this);
     (this: any).navigateToEntity = this.navigateToEntity.bind(this);
-    (this: any).handleDocumentClick = this.handleDocumentClick.bind(this);
   }
 
   state: Document360PageState;
@@ -226,7 +226,7 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
           FieldNames.ID,
           `${this.props.thumbnailImageUri} as thumbnailImageUri`,
           `${this.props.title} as title`,
-          `${this.props.uri} as url`,
+          `${this.props.uri} as uri`,
           `${this.props.table} as table`,
           `${this.props.teaser} as teaser`,
           `${this.props.text} as text`,
@@ -280,26 +280,11 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
     });
   }
 
-  titleLink: ?HTMLAnchorElement;
-
-  handleDocumentClick() {
-    if (this.state.doc) {
-      const uri = this.state.doc.getFirstValue(FieldNames.URI);
-      if (uri && uri.length > 0) {
-        window.open(uri, '_blank');
-      }
-    }
-    if (this.titleLink) {
-      this.titleLink.blur();
-    }
-  }
-
   render() {
     let pageContents;
 
     if (this.state.doc) {
       const doc = this.state.doc;
-      const title = doc.getFirstValue('title');
       const text = doc.getFirstValue('teaser');
       const thumbnailUri = doc.getFirstValue('thumbnailImageUri');
 
@@ -308,13 +293,7 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
           <Row>
             <Col xs={10} sm={10}>
               <h1 className="attivio-360-hed" >
-                <a
-                  onClick={this.handleDocumentClick}
-                  role="button"
-                  tabIndex={0}
-                  dangerouslySetInnerHTML={{ __html: title }} // eslint-disable-line react/no-danger
-                  ref={(i) => { this.titleLink = i; }}
-                />
+                <SearchResultTitle doc={doc} />
               </h1>
               <Row>
                 <Col xs={8} sm={8}>
@@ -343,10 +322,10 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
                 entityValue={this.state.entityValue}
                 linkingFields={this.props.insightGraphLinkingFields}
                 includeAllTables={this.props.includeAllTables}
-            />
+              />
             </Col>
             <Col xs={4} sm={4}>
-              <Subheader360 label="Similar Results" />
+              <Subheader360 label="Similar Resulitles" />
               <SimilarDocuments baseDoc={this.state.doc} baseUri={this.props.baseUri} />
             </Col>
           </Row>
