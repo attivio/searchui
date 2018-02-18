@@ -6,6 +6,7 @@ package com.attivio.suitback.controllers;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -35,6 +36,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -143,6 +145,9 @@ public class RestProxy {
     }
     
     RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
+    // Make sure the forwarded call is made with UTF-8 encoding
+    restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+
     ResponseEntity<String> responseEntity = null;
     try {
       responseEntity = restTemplate.exchange(uri, method, new HttpEntity<String>(body, headers), String.class);
