@@ -150,7 +150,7 @@ export default {
     allowVoice: true,
     // Whether to show a toggle for simple/advanced language in the search bar
     allowLanguageSelect: true,
-    autoCompleteUri: 'rest/autocompleteApi/richCgi/dictionaryProvider',
+    autoCompleteUri: '/rest/autocompleteApi/richCgi/dictionaryProvider',
   },
 
   /**
