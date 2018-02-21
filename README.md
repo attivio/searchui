@@ -16,3 +16,5 @@ Search UI can be configured to require users to log in. The options vary dependi
 
 Depending on the security option, users will either be presented with Attivio login form or one presented by the Identity Provider.
 
+<img src="https://github.com/attivio/search-ui/blob/master/images/login-attivio.png?raw=true" alt="Attivio Login Form" width="45%" /> <img src="https://github.com/attivio/search-ui/blob/master/images/login-okta.png?raw=true" alt="Okta Login Form" width="45%" />
+
