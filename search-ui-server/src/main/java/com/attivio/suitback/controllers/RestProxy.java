@@ -64,7 +64,7 @@ public class RestProxy {
   String attivioUsername;
   @Value("${suit.attivio.password:attivio}")
   String attivioPassword;
-  @Value("${server.contextPath:/}")
+  @Value("${server.contextPath:/searchui}")
   String contextPath;
 
   /**
