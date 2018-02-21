@@ -51,7 +51,7 @@ Following are some features of the results page:
 | Show 360&deg; View | You can choose to see a  360&deg; view of a document to better understand the document and how it relates to other documents using our Insights Graph. |
 
 ## 360&deg; View
-<img src="https://github.com/attivio/search-ui/blob/master/images/360-Italy.png?raw=true" alt="Italy 360 View" width="100%" />
+<img src="https://github.com/attivio/search-ui/blob/master/images/360-Italy.PNG?raw=true" alt="Italy 360 View" width="100%" />
 
 The 360&deg; View page allows you to take a closer look at a single document and understand how it relates to other documents in the index.
 
@@ -59,4 +59,4 @@ In the 360&deg; View you can see the document text, extracted entities and the I
 
 If we look at "Italy" we can see it relates to two News documents based on mentions of the extracted locations of Italy and Germany.
 
-<img src="https://github.com/attivio/search-ui/blob/master/images/graph.png?raw=true" alt="Knowledge Graph" width="100%" />
+<img src="https://github.com/attivio/search-ui/blob/master/images/graph.PNG?raw=true" alt="Knowledge Graph" width="100%" />
