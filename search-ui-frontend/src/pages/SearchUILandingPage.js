@@ -47,7 +47,7 @@ export default class SearchUILandingPage extends React.Component<void, {}, Searc
       const qr = new SimpleQueryRequest();
       qr.rows = 0;
       qr.facets = ['table'];
-      searcher.doCustomSearch(qr, (response: ?QueryResponse, error: ?string) => {
+      searcher.doCustomSearch(qr, (response: QueryResponse | null, error: string | null) => {
         if (response) {
           const numDocuments = response.totalHits;
           let numTables = 0;

@@ -237,7 +237,7 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
         const entityFields = Array.from(this.props.entityFields.keys());
         req.fields = fields.concat(entityFields);
 
-        this.context.searcher.doCustomSearch(req, (response: ?QueryResponse, error: ?string) => {
+        this.context.searcher.doCustomSearch(req, (response: QueryResponse | null, error: string | null) => {
           if (response && response.documents && response.documents.length >= 1) {
             const doc = response.documents[0];
             this.setState({ doc });
