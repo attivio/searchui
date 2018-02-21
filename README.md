@@ -77,5 +77,9 @@ Using our [Text Analytics](https://answers.attivio.com/display/extranet55/Attivi
 ## Configuring Search UI
 Many Search UI features are configurable.  These settings support rapid prototyping for demos and proof-of-concept projects.  
 
+> Setting these preferences will affect all users who may be accessing this application.
+> If any values are not specified, the application uses system-application defaults.
+> If Search UI is deployed to multiple web servers or Attivio nodes, the preferences must be manually synchronized across all nodes.
+
 The full list of properties and the description of each can be found in the [configuration.properties.js](search-ui-frontend/src/configuration.properties.js) file.
 
