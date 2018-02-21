@@ -50,6 +50,8 @@ Following are some features of the results page:
 | User Rating <br/> <img src="https://github.com/attivio/search-ui/blob/master/images/stars.png?raw=true" alt="Rating" align="center" /> | A user can provide a rating for a document that can be used as a signal when using Machine Learning to create a relevancy model. See [Machine Learning Relevancy](https://answers.attivio.com/display/extranet55/Machine+Learning+Relevancy) for more information. |
 | Show 360&deg; View | You can choose to see a  360&deg; view of a document to better understand the document and how it relates to other documents using our Insights Graph. |
 
+---
+
 ## 360&deg; View
 <img src="https://github.com/attivio/search-ui/blob/master/images/360-Italy.PNG?raw=true" alt="Italy 360 View" width="100%" />
 
@@ -60,3 +62,20 @@ In the 360&deg; View you can see the document text, extracted entities and the I
 If we look at "Italy" we can see it relates to two News documents based on mentions of the extracted locations of Italy and Germany.
 
 <img src="https://github.com/attivio/search-ui/blob/master/images/graph.PNG?raw=true" alt="Knowledge Graph" width="100%" />
+
+---
+
+## Insights
+The Insights page provides a dashboard that allows you to quickly understand your data without knowing what data was ingested.
+
+Using our [Text Analytics](https://answers.attivio.com/display/extranet55/Attivio+Text+Analytics) capabilities and [facets](https://answers.attivio.com/display/extranet55/Facets) we build knowledge on top of your data so that you can better understand your data.
+
+<img src="https://github.com/attivio/search-ui/blob/master/images/insights.png?raw=true" alt="Insights" width="100%" />
+
+---
+
+## Configuring Search UI
+Many Search UI features are configurable.  These settings support rapid prototyping for demos and proof-of-concept projects.  
+
+The full list of properties and the description of each can be found in the [configuration.properties.js](search-ui-frontend/src/configuration.properties.js) file.
+
