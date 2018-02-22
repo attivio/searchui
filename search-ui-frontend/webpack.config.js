@@ -6,11 +6,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 
-// The protocol and port values define how the development server will be started.
-const protocol = 'http'; // http or https
-const hostname = require('ip').address();
-const port = 8080; // The port to use (e.g., 8080 for http and 8443 for https...)
-
 // This is the base URI for the webapp and is used when links get created for resources
 // such as images and font files. It MUST match the value in the configuration.properties
 // file.
@@ -21,7 +16,6 @@ module.exports = {
   // An array of files to run at startup...
   entry: [
     './src/main.js',
-    `webpack-dev-server/client?${protocol}://${hostname}:${port}`,
   ],
 
   // Tell the server where to serve files from
@@ -97,17 +91,6 @@ module.exports = {
     ],
   },
   devtool: 'eval-source-map', // Stuff to do for dev... in this case, generate source maps
-  devServer: {
-    historyApiFallback: {
-      index: prefix,
-    },
-    contentBase: './src',
-    host: hostname,
-    port: port,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
-  },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
