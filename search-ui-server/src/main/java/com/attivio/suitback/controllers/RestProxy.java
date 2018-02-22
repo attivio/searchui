@@ -85,7 +85,7 @@ public class RestProxy {
       Map<String, Object> bodyObject = gson.fromJson(body, Map.class);
       bodyObject.put("username", userInfo.getUserId());
       newBody = gson.toJson(bodyObject);
-      LOG.trace("Doing a search REST API request forcing the usewrname to be " + userInfo.getUserId() + ".");
+      LOG.trace("Doing a search REST API request forcing the username to be " + userInfo.getUserId() + ".");
     } else {
       newBody = body;
       LOG.trace("Doing a search REST API request and no user is set.");
@@ -168,7 +168,7 @@ public class RestProxy {
         realBody = responseEntity.getBody();
       responseEntity = new ResponseEntity<String>(realBody, updatedResponseHeaders, responseEntity.getStatusCode());
     } catch (RestClientException e) {
-      LOG.debug("Error contacting the Attivio server", e);
+      LOG.info("Error contacting the Attivio server", e);
       if (e instanceof HttpServerErrorException) {
         // Got an error from the back end.. make sure we pass it on...
         String responseBody = ((HttpServerErrorException)e).getResponseBodyAsString();
