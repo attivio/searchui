@@ -80,3 +80,22 @@ The entire Search UI project is set up to be built using Apache Maven. After you
 * **search-ui-frontend** - Builds the actual JavaScript code for the web application. You'll likely spend the 
 * **search-ui-server** - builds the servlet that can be used to host the Search UI application in a servlet container such as Apache Tomcat
 * **search-ui-module** - builds an Attivio module that can be installed into your Attivio Platform to host the Search UI from the Attivio node servers.
+```
+mvn clean install
+```
+
+### Configuration
+There are a few important configurations you'll need to set for development and/or deployment. See [How Do I Configure the Search UI?](README.md#how-do-i-configure-search-ui) for information on how to configure the various properties.
+
+### Development Mode
+While developing your application, you'll want to see the effects of your changes immediately rather than relying on Maven builds producing artifacts that you can deploy. Fortunately, Node.js provides a convenient way to do this.
+
+After executing your initial Maven build...
+
+### Deployment Mode
+When you are ready to deploy your application to a particular environment, such as QA or PROD, run `mvn clean install` once again. The following artifacts will be produced:
+
+| Artifact | Purpose |
+| --- | --- |
+| search-ui/search-ui-server/target/search-ui-server-0.0.1-SNAPSHOT.war | WAR file to be deployed to web server, outside of Attivio, such as Tomcat. See [Search UI - Deploying to Tomcat](https://answers.attivio.com/display/extranet55/Search+UI+-+Deploying+to+Tomcat) for more information. |
+| search-ui/search-ui-module/target/search-ui-module-0.0.1-SNAPSHOT-dist.zip | External module to be deployed within the Attivio Admin UI. See the installation instructions on [Search UI Download](https://answers.attivio.com/display/extranet55/Search+UI+Download) to deploy your application as an alternative to the download available on that page. |
