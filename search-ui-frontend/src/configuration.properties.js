@@ -143,9 +143,9 @@ export default {
    */
   SearchBar: {
     // The placeholder text to display when the input field is empty.
-    placeholder: 'Search…',
+    placeholder: 'Search\u2026',
     // The placeholder text to display when the input field is empty and the language is advanced.
-    placeholderAdvanced: 'Enter an advanced query…',
+    placeholderAdvanced: 'Enter an advanced query\u2026',
     // If true, the "microphone" button is displayed beside the search bar and the user can use speech recognition to input the
     // query
     allowVoice: true,

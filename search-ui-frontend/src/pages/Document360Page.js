@@ -336,7 +336,7 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
     } else if (this.state.error) {
       pageContents = <div>{this.state.error}</div>;
     } else {
-      pageContents = <div>Loading…</div>;
+      pageContents = <div>Loading\u2026</div>;
     }
 
     return (

@@ -102,7 +102,7 @@ export default class SearchUILandingPage extends React.Component<void, {}, Searc
         break;
     }
 
-    const indexStatusLabel = this.state.loading ? 'Analyzing your index…' : `Searching across ${docs} from ${sources}.`;
+    const indexStatusLabel = this.state.loading ? 'Analyzing your index\u2026' : `Searching across ${docs} from ${sources}.`;
 
     return (
       <DocumentTitle title="Attivio Cognitive Search">
