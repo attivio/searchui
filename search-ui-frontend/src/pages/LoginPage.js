@@ -57,7 +57,7 @@ export default class LoginPage extends React.Component<void, any, LoginPageState
     return (
       <DocumentTitle title="Login: Attivio Cognitive Search">
         <div>
-          <Masthead applicationName="Cognitive Search" multiline>
+          <Masthead applicationName="Cognitive Search" multiline homeRoute="/landing">
             <MastheadNavTabs tabInfo={mastheadTabInfo} />
           </Masthead>
           <Grid fluid>

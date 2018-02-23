@@ -60,7 +60,7 @@ class SearchUIInsightsPage extends React.Component<SearchUIInsightsPageProps, Se
     return (
       <DocumentTitle title="Insights: Attivio Cognitive Search">
         <div>
-          <Masthead multiline>
+          <Masthead multiline homeRoute="/landing">
             <MastheadNavTabs currentTab="/insights" tabInfo={mastheadTabInfo} />
             <SearchBar
               inMasthead

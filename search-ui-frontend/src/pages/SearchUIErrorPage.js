@@ -32,7 +32,7 @@ export default class SearchUIErrorPage extends React.Component<void, {}, SearchU
     return (
       <DocumentTitle title="Error: Attivio Cognitive Search">
         <div>
-          <Masthead multiline>
+          <Masthead multiline homeRoute="/landing">
             <MastheadNavTabs tabInfo={mastheadTabInfo} />
           </Masthead>
           <Grid>

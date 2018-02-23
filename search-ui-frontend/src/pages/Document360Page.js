@@ -342,7 +342,7 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
     return (
       <DocumentTitle title="Document 360°: Attivio Cognitive Search">
         <div>
-          <Masthead multiline>
+          <Masthead multiline homeRoute="/landing">
             <MastheadNavTabs tabInfo={mastheadTabInfo} />
             <SearchBar
               inMasthead

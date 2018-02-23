@@ -107,7 +107,7 @@ export default class SearchUILandingPage extends React.Component<void, {}, Searc
     return (
       <DocumentTitle title="Attivio Cognitive Search">
         <div>
-          <Masthead multiline>
+          <Masthead multiline homeRoute="/landing">
             <MastheadNavTabs tabInfo={mastheadTabInfo} />
           </Masthead>
           <Grid>

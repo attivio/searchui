@@ -41,7 +41,7 @@ class LogoutPage extends React.Component<void, any, LogoutPageState> {
     return (
       <DocumentTitle title="Logged Out: Attivio Cognitive Search">
         <div>
-          <Masthead applicationName="Cognitive Search" multiline>
+          <Masthead applicationName="Cognitive Search" multiline homeRoute="/landing">
             <MastheadNavTabs tabInfo={mastheadTabInfo} />
           </Masthead>
           <Grid fluid>

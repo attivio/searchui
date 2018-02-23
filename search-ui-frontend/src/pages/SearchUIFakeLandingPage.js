@@ -16,7 +16,8 @@ class SearchUIFakeLandingPage extends React.Component<void, {}, void> {
     const router = this.context.router;
     if (searcher && router) {
       searcher.reset(() => {
-        router.history.replace('/'); // Navigate to the real landing page after the reset
+        const newQueryString = searcher.generateLocationQueryStringFromState(searcher.state);
+        router.history.replace('/', { query: newQueryString }); // Navigate to the real landing page after the reset
       });
     }
   }

@@ -161,7 +161,7 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
     return (
       <DocumentTitle title="Search: Attivio Cognitive Search">
         <div>
-          <Masthead multiline>
+          <Masthead multiline homeRoute="/landing">
             <MastheadNavTabs currentTab="/results" tabInfo={mastheadTabInfo} />
             <SearchBar
               inMasthead
