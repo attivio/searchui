@@ -20,9 +20,7 @@ Search UI has two deployment options. If you're interested in simply downloading
 * [Embedded](https://answers.attivio.com/display/extranet55/Search+UI+Download) - deploy as a module making it available from the Attivio Admin UI
 * [Stand-alone](https://answers.attivio.com/display/extranet55/Search+UI+-+Deploying+to+Tomcat)  - deploy to an external web server such as Tomcat
 
-If, instead, you wish to customize and build your own application for either deployment option, see the instructions in the appropriate sub-project's documentation:
-* [Embedded](https://github.com/attivio/search-ui/tree/master/search-ui-module) - *build your own external odule* to deploy as a module making it available from the Attivio Admin UI
-* [Stand-alone](https://github.com/attivio/search-ui/tree/master/search-ui-server)  - *build your own WAR file* to deploy to an external web server such as Tomcat
+If, instead, you wish to customize and build your own application for either deployment option, see the [Developer's Guide](DevelopersGuide.md) for instructions on setting up your development environment and building.
 
 ## How Can I Customize the Search UI?
 
