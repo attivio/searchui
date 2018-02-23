@@ -16,13 +16,15 @@ The project also contains two additional components that allow you to host the w
 The SUIT library consists of various React components used by the Search UI to render the UI and to interact with the Attivio Platform. It also includes some API and utility classes, mainly used by the components directly but which the application-level code can also access. See the [GitHub repository](https://github.com/attivio/suit) for the SUIT library for documentation on using its components and other functionality.
 
 ## Installation and Deployment
-Search UI has two deployment options. If you're interested in simply downloading a pre-built application, configuring your preferences and deploying it, choose one of the options below:
+Search UI has two deployment options. If you're interested in simply downloading a pre-built application, configuring your preferences and deploying it, choose one of the following options:
 * [Embedded](https://answers.attivio.com/display/extranet55/Search+UI+Download) - deploy as a module making it available from the Attivio Admin UI
 * [Stand-alone](https://answers.attivio.com/display/extranet55/Search+UI+-+Deploying+to+Tomcat)  - deploy to an external web server such as Tomcat
 
 If, instead, you wish to customize and build your own application for either deployment option, see the instructions in the appropriate sub-project's documentation:
-* [Embedded](https://answers.attivio.com/display/extranet55/Search+UI+Download) - *build your own external odule* to deploy as a module making it available from the Attivio Admin UI
+* [Embedded](https://github.com/attivio/search-ui/tree/master/search-ui-module) - *build your own external odule* to deploy as a module making it available from the Attivio Admin UI
 * [Stand-alone](https://github.com/attivio/search-ui/tree/master/search-ui-server)  - *build your own WAR file* to deploy to an external web server such as Tomcat
+
+---
 
 ## Security
 Search UI can be configured to require users to log in. The options vary depending on your deployment type.
