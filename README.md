@@ -24,6 +24,10 @@ If, instead, you wish to customize and build your own application for either dep
 * [Embedded](https://github.com/attivio/search-ui/tree/master/search-ui-module) - *build your own external odule* to deploy as a module making it available from the Attivio Admin UI
 * [Stand-alone](https://github.com/attivio/search-ui/tree/master/search-ui-server)  - *build your own WAR file* to deploy to an external web server such as Tomcat
 
+## How Can I Customize the Search UI?
+
+To build your own search application using the SUIT library, with any or all of the features Search UI provides, see the [Developer's Guide](DevelopersGuide.md).
+
 ---
 
 ## Security
