@@ -97,7 +97,7 @@ Using our [Text Analytics](https://answers.attivio.com/display/extranet55/Attivi
 <img src="images/insights.png?raw=true" alt="Insights" width="100%" />
 
 ---
-
+<a name="configuration"></a>
 ## How Do I Configure Search UI?
 Many Search UI features are configurable.  These settings support rapid prototyping for demos and proof-of-concept projects.  
 
