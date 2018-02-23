@@ -13,7 +13,7 @@ The project also contains two additional components that allow you to host the w
 
 ## What is SUIT?
 
-The SUIT library consists of various React comnponents used by the Search UI to render the UI and to interact with the Attivio Platform. It also includes some API and utility classes, mainly used by the components directly but which the application-level code can also access. See the [GitHub repository](https://github.com/attivio/suit) for the SUIT library for documentation on using its components and other functionality.
+The SUIT library consists of various React components used by the Search UI to render the UI and to interact with the Attivio Platform. It also includes some API and utility classes, mainly used by the components directly but which the application-level code can also access. See the [GitHub repository](https://github.com/attivio/suit) for the SUIT library for documentation on using its components and other functionality.
 
 ## Installation and Deployment
 Search UI has two deployment options. If you're interested in simply downloading a pre-built application, configuring your preferences and deploying it, choose one of the options below:
