@@ -9,10 +9,10 @@ Search UI has two deployment options:
 ## Security
 Search UI can be configured to require users to log in. The options vary depending on your deployment type.
 
-| Deployment Type | Security Options |
-| --------------- | ---------------- |
-| Embedded (within Attivio) | <ul><li>[Active Directory](https://answers.attivio.com/display/extranet55/Active+Directory+Authentication+Provider)</li><li>[XML](https://answers.attivio.com/display/extranet55/XML+Authentication+Provider)</li></ul> |
-| Stand-alone (i.e. Tomcat)	 | <ul><li>[SSO](https://answers.attivio.com/display/extranet55/Search+UI+-+Configuring+SSO)</li><li>XML</li></ul> |
+| Deployment Type | Security Options | Recommendations |
+| --------------- | ---------------- | --------------- |
+| Embedded (within Attivio) | <ul><li>[Active Directory](https://answers.attivio.com/display/extranet55/Active+Directory+Authentication+Provider)</li><li>[XML](https://answers.attivio.com/display/extranet55/XML+Authentication+Provider)</li></ul> | Deploying Search UI within the Attivio Admin UI is recommended for exploration of your data. It is not recommended that this method of deployment be used to serve Search UI to a large number of users in a production environment. Attivio recommends a Stand-alone deployment for production environments where Search UI is serving as the primary user interface. |
+| Stand-alone (i.e. Tomcat)	 | <ul><li>[SSO](https://answers.attivio.com/display/extranet55/Search+UI+-+Configuring+SSO)</li><li>XML</li></ul> | Stand-alone deployments are recommended when Search UI (or a customized version of it) is used as the primary user interface in your production environment. Deploying Search UI within the Attivio Admin UI could lead to resource contention since each Attivio node has other responsibilities, such as ingesting content or responding to queries. Stand-alone deployments can be done on the same host as Attivio nodes provided there are sufficient resources, though in many situations, dedicated hosts are recommended. |
 
 Depending on the security option, users will either be presented with Attivio login form or one presented by the Identity Provider.
 
