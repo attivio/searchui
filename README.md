@@ -5,10 +5,24 @@ The Attivio **Search UI** is an application built on top of Attivio’s Search U
 
 The Attivio Search UI allows you to search across and view the data in the index of your Attivio Platform installation. You can customize it to suit your needs and can also use it as the basis for creating your own, brand-new search application.
 
+## Project Organization
+The Attivio Search UI is a web application written in JavaScript and based on the React project. It runs in the user’s browser. This component is in the [**search-ui-frontend**](https://github.com/attivio/search-ui/tree/master/search-ui-frontend) directory of this repository and consists of application-level code for searching the Attivio index, including the definitions of the pages in the application and the logic of how they're
+connected.
+
+The project also contains two additional components that allow you to host the web application, either on the Attivio node servers ([**search-ui-module**](https://github.com/attivio/search-ui/tree/master/search-ui-module)) or from a servlet container such as Apache Tomcat ([**search-ui-server**](https://github.com/attivio/search-ui/tree/master/search-ui-server)). The availability of certain functionality will vary depending on how you host and configure the Search UI application, as described below.
+
+## What is SUIT?
+
+The SUIT library consists of various React comnponents used by the Search UI to render the UI and to interact with the Attivio Platform. It also includes some API and utility classes, mainly used by the components directly but which the application-level code can also access. See the [GitHub repository](https://github.com/attivio/suit) for the SUIT library for documentation on using its components and other functionality.
+
 ## Installation and Deployment
-Search UI has two deployment options:
+Search UI has two deployment options. If you're interested in simply downloading a pre-built application, configuring your preferences and deploying it, choose one of the options below:
 * [Embedded](https://answers.attivio.com/display/extranet55/Search+UI+Download) - deploy as a module making it available from the Attivio Admin UI
 * [Stand-alone](https://answers.attivio.com/display/extranet55/Search+UI+-+Deploying+to+Tomcat)  - deploy to an external web server such as Tomcat
+
+If, instead, you wish to customize and build your own application for either deployment option, see the instructions in the appropriate sub-project's documentation:
+* [Embedded](https://answers.attivio.com/display/extranet55/Search+UI+Download) - *build your own external odule* to deploy as a module making it available from the Attivio Admin UI
+* [Stand-alone](https://github.com/attivio/search-ui/tree/master/search-ui-server)  - *build your own WAR file* to deploy to an external web server such as Tomcat
 
 ## Security
 Search UI can be configured to require users to log in. The options vary depending on your deployment type.
@@ -78,7 +92,7 @@ Using our [Text Analytics](https://answers.attivio.com/display/extranet55/Attivi
 
 ---
 
-## Configuring Search UI
+## How Do I Configure Search UI?
 Many Search UI features are configurable.  These settings support rapid prototyping for demos and proof-of-concept projects.  
 
 > Setting these preferences will affect all users who may be accessing this application.
