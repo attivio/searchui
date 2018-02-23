@@ -1,0 +1,2 @@
+## Overview
+To build your own search application using the SUIT library, with any or all of the features Search UI provides, we strongly recommend that you fork the search-ui repository, from Attivio's public GitHub. You can modify and extend your application starting from the baseline functionality that Search UI provides. We encourage you to submit your extensions back to the GitHub repository when finished. See [below](#contribute) for details.
