@@ -13,8 +13,8 @@ export default {
     // information.)
     baseUri: '/searchui',
 
-    // This is the prefix to use for routes in the application. For example, if it will
-    // running under '/search', you will want to set this value to '/search' (note the leading slash
+    // This is the prefix to use for routes in the application. For example, if it will be
+    // running under '/searchui', you will want to set this value to '/searchui' (note the leading slash
     // and lack of a trailing slash). For running the application at the root of the baseUri,
     // simply set this to '/'. This may be the same as the baseUri.
     // The value here MUST match the server.contextPath in the application.properties file
