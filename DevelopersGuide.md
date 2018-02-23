@@ -90,7 +90,7 @@ There are a few important configurations you'll need to set for development and/
 ### Development Mode
 While developing your application, you'll want to see the effects of your changes immediately rather than relying on Maven builds producing artifacts that you can deploy. Fortunately, Node.js provides a convenient way to do this.
 
-After executing your initial Maven build...
+See the **search-ui-frontend**'s [Developer's Guide](search-ui-frontend/Developing.MD) for instructions.
 
 ### Deployment Mode
 When you are ready to deploy your application to a particular environment, such as QA or PROD, run `mvn clean install` once again. The following artifacts will be produced:
