@@ -47,8 +47,8 @@ export default class LoginPage extends React.Component<void, any, LoginPageState
   render() {
     if (this.state.redirectToReferrer) {
       let from;
-      if (this.props.location.state && this.props.location.state.from) {
-        from = this.props.location.state.from;
+      if (this.props.location.state && this.props.location.state.referrer) {
+        from = this.props.location.state.referrer;
       } else {
         from = { pathname: '/' };
       }
