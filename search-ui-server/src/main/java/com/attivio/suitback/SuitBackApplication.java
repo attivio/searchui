@@ -4,8 +4,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.Ordered;
 import org.springframework.web.WebApplicationInitializer;
 
+import com.attivio.suitback.controllers.HomeController;
+import com.attivio.suitback.controllers.HomeControllerHandlerMapper;
 import com.github.ulisesbocchio.spring.boot.security.saml.annotation.EnableSAMLSSO;
 
 @SpringBootApplication
@@ -28,4 +32,10 @@ public class SuitBackApplication extends SpringBootServletInitializer implements
 		SpringApplication.run(SuitBackApplication.class, args);
 	}
 
+  @Bean
+  public HomeControllerHandlerMapper myHomeControllerHandlerMapper(HomeController myHomeController) {
+    HomeControllerHandlerMapper myCustomHandlerMapper = new HomeControllerHandlerMapper(myHomeController);
+    myCustomHandlerMapper.setOrder(Ordered.HIGHEST_PRECEDENCE);
+    return myCustomHandlerMapper;
+  }
 }

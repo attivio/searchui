@@ -3,26 +3,20 @@
 */
 package com.attivio.suitback.controllers;
 
-import org.springframework.boot.autoconfigure.web.ErrorController;
-import org.springframework.stereotype.Controller;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
 
 @CrossOrigin
-@Controller
-public class HomeController implements ErrorController {
-  @RequestMapping("/")
-  public String home() {
-    return "index.html";
-  }
-  
-  @RequestMapping("/error")
-  public String error() {
-    return "Error Handling!";
-  }
-  
+@Component
+public class HomeController extends AbstractController {
+
   @Override
-  public String getErrorPath() {
-    return "/error";
+  protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    return new ModelAndView("index.html");
   }
 }
