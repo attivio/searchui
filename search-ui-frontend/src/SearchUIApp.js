@@ -33,6 +33,15 @@ export const mastheadTabInfo = [
   new NavTabInfo('Insights', '/insights'),
 ];
 
+/**
+ * This is the outermost component for the application.
+ * IMPORTANT—when adding additional routes to
+ * the application, be sure to add them to the application.properties file
+ * and/or the searchui-servlet.xml file in the searchui-servlet and
+ * searchui-module projects. If this isn’t done, the user will see
+ * 404 errors when trying to directly access these routes from their
+ * browser’s address bar.
+ */
 export default class SearchUIApp extends React.Component<void, {}, void> {
   componentWillMount() {
     try {
