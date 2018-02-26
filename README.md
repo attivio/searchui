@@ -30,7 +30,7 @@ The SUIT library consists of various React components used by the Search UI to r
 ## Installation and Deployment
 Search UI has two deployment options. If you're interested in simply downloading a pre-built application, configuring your preferences and deploying it, choose one of the following options:
 * **Embedded** - deploy as a module making it available from the Attivio Admin UI
-* **Stand-alone**  - deploy to an external web server such as Tomcat
+* **[Stand-alone](DeploymentTomcat.md)**  - deploy to an external web server such as Tomcat
 
 For instructions on building the application for one of the above deployment options, or if, instead, you wish to customize and build your own application for either deployment option, see the [Developer's Guide](DevelopersGuide.md) for instructions on setting up your development environment and building.
 
