@@ -1,4 +1,16 @@
 <a href="http://www.attivio.com" target="_blank"><img src="images/attivio-logo.png" alt="Attivio" width="240" border="0" /></a>
+## Table of Contents
+* [Overview](#overview)
+* [Project Organization](#project-organization)
+* [What is SUIT?](#what-is-suit)
+* [Installation and Deployment](#installation-and-deployment)
+* [How Can I Customize the Search UI?](#how-can-i-customize-the-search-ui)
+* [Security](#security)
+* [Cognitive Search](#cognitive-search)
+* [Ask a Question](#ask-a-question)
+* [360&deg; View](#360-view)
+* [Insights](#insights)
+* [How Do I Configure Search UI?](#how-do-i-configure-search-ui)
 
 ## Overview
 The Attivio **Search UI** is an application built on top of Attivio’s Search UI Toolkit, or **SUIT**. The SUIT library is available in a [separate repository](https://github.com/attivio/suit) and via NPM (see below for details).
@@ -17,10 +29,10 @@ The SUIT library consists of various React components used by the Search UI to r
 
 ## Installation and Deployment
 Search UI has two deployment options. If you're interested in simply downloading a pre-built application, configuring your preferences and deploying it, choose one of the following options:
-* [Embedded](https://answers.attivio.com/display/extranet55/Search+UI+Download) - deploy as a module making it available from the Attivio Admin UI
-* [Stand-alone](https://answers.attivio.com/display/extranet55/Search+UI+-+Deploying+to+Tomcat)  - deploy to an external web server such as Tomcat
+* **Embedded** - deploy as a module making it available from the Attivio Admin UI
+* **Stand-alone**  - deploy to an external web server such as Tomcat
 
-If, instead, you wish to customize and build your own application for either deployment option, see the [Developer's Guide](DevelopersGuide.md) for instructions on setting up your development environment and building.
+For instructions on building the application for one of the above deployment options, or if, instead, you wish to customize and build your own application for either deployment option, see the [Developer's Guide](DevelopersGuide.md) for instructions on setting up your development environment and building.
 
 ## How Can I Customize the Search UI?
 
@@ -34,7 +46,7 @@ Search UI can be configured to require users to log in. The options vary dependi
 | Deployment Type | Security Options | Recommendations |
 | --------------- | ---------------- | --------------- |
 | Embedded (within Attivio) | <ul><li>[Active Directory](https://answers.attivio.com/display/extranet55/Active+Directory+Authentication+Provider)</li><li>[XML](https://answers.attivio.com/display/extranet55/XML+Authentication+Provider)</li></ul> | Deploying Search UI within the Attivio Admin UI is recommended for exploration of your data. It is not recommended that this method of deployment be used to serve Search UI to a large number of users in a production environment. Attivio recommends a Stand-alone deployment for production environments where Search UI is serving as the primary user interface. |
-| Stand-alone (i.e. Tomcat)	 | <ul><li>[SSO](https://answers.attivio.com/display/extranet55/Search+UI+-+Configuring+SSO)</li><li>XML</li></ul> | Stand-alone deployments are recommended when Search UI (or a customized version of it) is used as the primary user interface in your production environment. Deploying Search UI within the Attivio Admin UI could lead to resource contention since each Attivio node has other responsibilities, such as ingesting content or responding to queries. Stand-alone deployments can be done on the same host as Attivio nodes provided there are sufficient resources, though in many situations, dedicated hosts are recommended. |
+| Stand-alone (i.e. Tomcat)	 | <ul><li>SSO</li><li>XML</li></ul> | Stand-alone deployments are recommended when Search UI (or a customized version of it) is used as the primary user interface in your production environment. Deploying Search UI within the Attivio Admin UI could lead to resource contention since each Attivio node has other responsibilities, such as ingesting content or responding to queries. Stand-alone deployments can be done on the same host as Attivio nodes provided there are sufficient resources, though in many situations, dedicated hosts are recommended. |
 
 Depending on the security option, users will either be presented with Attivio login form or one presented by the Identity Provider.
 
