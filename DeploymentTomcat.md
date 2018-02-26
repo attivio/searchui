@@ -1,4 +1,4 @@
-## Overview
+# Search UI - Deploying to Tomcat
 As described in the Search UI's [documentation](README.md), Search UI has two deployment options:
 * **Embedded** - deploy as a module making it available from the Attivio Admin UI (Not recommended for a production user interface)
 * **Stand-alone**  - deploy to an external web server such as Tomcat
