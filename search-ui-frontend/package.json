@@ -31,11 +31,12 @@
     "styleguide:serve": "styleguidist server"
   },
   "dependencies": {
-    "@attivio/suit": "^0.0.14",
+    "@attivio/suit": "^0.0.15",
     "@mapbox/mapbox-gl-draw": "^1.0.4",
     "babel-polyfill": "^6.26.0",
     "es6-object-assign": "^1.1.0",
     "es6-promise": "^4.1.1",
+    "loose-json": "^1.1.2",
     "mapbox-gl": "^0.40.1",
     "moment": "^2.20.1",
     "prop-types": "^15.5.10",
@@ -50,7 +51,8 @@
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "vis": "^4.20.1",
-    "whatwg-fetch": "^2.0.3"
+    "whatwg-fetch": "^2.0.3",
+    "xml-js": "^1.6.2"
   },
   "devDependencies": {
     "ajv": "^5.2.2",

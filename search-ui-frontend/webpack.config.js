@@ -119,9 +119,6 @@ module.exports = {
       assets: ['style.css'],
       append: true,
     }),
-    // new webpack.DefinePlugin({
-    //   'process.env.NODE_ENV': JSON.stringify('production'),
-    // }),
     new EncodingPlugin({
       encoding: 'utf-8',
     }),
