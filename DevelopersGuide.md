@@ -99,3 +99,6 @@ When you are ready to deploy your application to a particular environment, such 
 | --- | --- |
 | search-ui/search-ui-server/target/search-ui-server-0.0.1-SNAPSHOT.war | WAR file to be deployed to web server, outside of Attivio, such as Tomcat. See [Search UI - Deploying to Tomcat](https://answers.attivio.com/display/extranet55/Search+UI+-+Deploying+to+Tomcat) for more information. |
 | search-ui/search-ui-module/target/search-ui-module-0.0.1-SNAPSHOT-dist.zip | External module to be deployed within the Attivio Admin UI. See the installation instructions on [Search UI Download](https://answers.attivio.com/display/extranet55/Search+UI+Download) to deploy your application as an alternative to the download available on that page. |
+
+## Contribute
+If you extend Search UI with a new feature or improve it in any way, we'd love to know about and possibly pull your changes into the original project for other to enjoy. If you are hoping to contribute back to the original repository, you can send a request to us to pull your fork into our repository by submitting a [pull request](https://help.github.com/articles/about-pull-requests).
