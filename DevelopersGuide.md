@@ -12,10 +12,10 @@ To build your own search application using the SUIT library, with any or all of 
 A *fork* is a copy of a repository. Forking a repository allows you to freely experiment with changes without affecting the original project.
 
 Forking the search-ui repo is a simple two-step process:
-1. On GitHub, navigate to the attivio/search-ui repository.
-2. In the top-right corner of the page, click Fork. Select the destination for the forked project.
+1. On GitHub, navigate to the [attivio/search-ui](https://github.com/attivio/search-ui) repository.
+2. In the top-right corner of the page, click **Fork**. Select the destination for the forked project.
 
-That's it! Now, you have a fork of the original attivio/search-ui repository.
+That's it! Now, you have a fork of the original **attivio/search-ui** repository.
 
 See https://help.github.com/articles/fork-a-repo/ for more information about forking projects and keeping in sync with changes made to the original project.
 
@@ -24,7 +24,7 @@ Right now, you have a fork of the Search UI repository, but you don't have the f
 
 1. On GitHub, navigate to your fork of the search-ui repository.
 2. Under the repository name, click **Clone** or download**.
-3. In the Clone with HTTPs section, click to copy the clone URL for the repository.
+3. In the **Clone with HTTPs section**, click to copy the clone URL for the repository.
 4. Open a terminal (or Git Bash on Windows)
 5. Type `git clone`, and then paste the URL you copied in Step 2. It will look like this, with your GitHub username instead of YOUR-USERNAME:
 ```
@@ -49,7 +49,7 @@ When you fork a project and wish to propose changes to the original repository, 
 
 1. On GitHub, navigate to your fork of the search-ui repository.
 2. Under the repository name, click **Clone or download**.
-3. In the Clone with HTTPs section, click to copy the clone URL for the repository.
+3. In the **Clone with HTTPs section**, click to copy the clone URL for the repository.
 4. Open a terminal (or Git Bash on Windows)
 5. Change directories to the location of the fork you cloned in the above section.
 6. Type `git remote -v` and press **Enter**. You'll see the current configured remote repository for your fork.
@@ -97,8 +97,8 @@ When you are ready to deploy your application to a particular environment, such 
 
 | Artifact | Purpose |
 | --- | --- |
-| search-ui/search-ui-server/target/search-ui-server-0.0.1-SNAPSHOT.war | WAR file to be deployed to web server, outside of Attivio, such as Tomcat. See [Search UI - Deploying to Tomcat](https://answers.attivio.com/display/extranet55/Search+UI+-+Deploying+to+Tomcat) for more information. |
-| search-ui/search-ui-module/target/search-ui-module-0.0.1-SNAPSHOT-dist.zip | External module to be deployed within the Attivio Admin UI. See the installation instructions on [Search UI Download](https://answers.attivio.com/display/extranet55/Search+UI+Download) to deploy your application as an alternative to the download available on that page. |
+| search-ui/search-ui-server/target/search-ui-server-0.0.1-SNAPSHOT.war | WAR file to be deployed to web server, outside of Attivio, such as Tomcat. See [Search UI - Deploying to Tomcat](DeploymentTomcat.md) for more information. |
+| search-ui/search-ui-module/target/search-ui-module-0.0.1-SNAPSHOT-dist.zip | External module to be deployed within the Attivio Admin UI. <!-- See the installation instructions on [Search UI Download](https://answers.attivio.com/display/extranet55/Search+UI+Download) to deploy your application as an alternative to the download available on that page. --> |
 
 ## Contribute
 If you extend Search UI with a new feature or improve it in any way, we'd love to know about and possibly pull your changes into the original project for other to enjoy. If you are hoping to contribute back to the original repository, you can send a request to us to pull your fork into our repository by submitting a [pull request](https://help.github.com/articles/about-pull-requests).
