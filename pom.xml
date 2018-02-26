@@ -5,11 +5,11 @@
   <artifactId>parent</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>search-ui/parent</name>
+  <name>searchui/parent</name>
   <description>Framework for building search user-interface applications on top of the Attivio platform</description>
   <issueManagement>
     <system>GitHub</system>
-    <url>https://github.com/attivio/search-ui/issues</url>
+    <url>https://github.com/attivio/searchui/issues</url>
   </issueManagement>
   <distributionManagement>
     <repository>
@@ -23,9 +23,9 @@
     </snapshotRepository>
   </distributionManagement>
   <scm>
-    <connection>scm:git:https://github.com/attivio/search-ui.git</connection>
-    <developerConnection>scm:git:https://github.com/attivio/search-ui.git</developerConnection>
-    <url>https://github.com/attivio/search-ui.git</url>
+    <connection>scm:git:https://github.com/attivio/searchui.git</connection>
+    <developerConnection>scm:git:https://github.com/attivio/searchui.git</developerConnection>
+    <url>https://github.com/attivio/searchui.git</url>
   </scm>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -83,9 +83,9 @@
     </plugins>
   </build>
   <modules>
-    <module>search-ui-frontend</module>
-    <module>search-ui-server</module>
-    <module>search-ui-module</module>
+    <module>searchui-frontend</module>
+    <module>searchui-server</module>
+    <module>searchui-module</module>
   </modules>
   <profiles>
     <profile>
