@@ -14,9 +14,9 @@ Once you have built the application following the steps outlined in the [Develop
 
 ## Deploying to Tomcat
 1. Stop Tomcat
-2. Copy the WAR file to <tomcat home>/webapps
+2. Copy the WAR file to `<tomcat home>/webapps`
 3. **Add step(s) for setting external properties and/or users.xml contents**
-4. Rename war file to `searchui.war`. The name of the WAR file should match the value set for `baseUri` in the `configuration.properties.js` file
+4. Rename WAR file to `searchui.war`. The name of the WAR file should match the value set for `baseUri` in the `configuration.properties.js` file
 5. create a file named `searchui.xml` in `<tomcat home>/conf/Catalina/localhost/` with the following contents, updating the value of "value" with the path where you intend to put the `application.properties` file:
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -70,7 +70,7 @@ Enter keystore password:
 <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
           maxThreads="150" SSLEnabled="true">
    <SSLHostConfig>
-       <Certificate certificateKeyAlias="tomcat" certificateKeystoreFile="/opt/tomcat/ssl/keystore.p12" certificateKeystorePassword="attivio"
+       <Certificate certificateKeyAlias="tomcat" certificateKeystoreFile="/opt/tomcat/ssl/keystore.p12" certificateKeystorePassword="password"
                     type="RSA" />
    </SSLHostConfig>
 </Connector>
