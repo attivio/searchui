@@ -1,6 +1,4 @@
-import { ObjectUtils } from '@attivio/suit';
-
-export default {
+{
   /**
    * These properties are not specific to any page/component but may apply to any/all of them.
    */
@@ -41,7 +39,7 @@ export default {
     // A map of document fields to display labels to use as entity mappings
     // Note this should be obsolete once the display names are in the schema
     // for FactBook and we start querying the schema to get this map.
-    entityFields: ObjectUtils.toMap({
+    entityFields: {
       people: 'People',
       company: 'Companies',
       location: 'Locations',
@@ -54,7 +52,7 @@ export default {
       // climate: 'Climate',
       // ethnicity: 'Ethnicities',
       // country: 'Country',
-    }),
+    },
 
     // This map controls the colors used to show various entity types. The keys are the fields
     // used to contain entities and the values are the colors to use, in any valid CSS format (e.g.,
@@ -62,7 +60,7 @@ export default {
     // This map is also used to control colors in various charts, such as pie chart facets. In this
     // case, the entity names are ignored and the colors are used in the order listed here, starting
     // with the first entry for the first data set in the chart.
-    entityColors: ObjectUtils.toMap({
+    entityColors: {
       location: '#007dbc',
       company: '#ed7a23',
       people: '#fedd0e',
@@ -83,7 +81,7 @@ export default {
       nationality: '#77d5f3',
       distance: '#075484',
       coordinate: '#caeefa',
-    }),
+    },
 
     // The default comprehensive list of fields to include in search results
     fields: [
@@ -320,4 +318,4 @@ export default {
     // only show links to documents that come from tables other than the one the main document is in.
     includeAllTables: false,
   },
-};
+}
