@@ -1,5 +1,5 @@
 {
-  "name": "@attivio/search-ui",
+  "name": "@attivio/searchui",
   "version": "0.0.1",
   "description": "Framework for building search user-interface applications on top of the Attivio platform.",
   "keywords": [
@@ -13,13 +13,13 @@
   ],
   "homepage": "http://www.attivio.com",
   "bugs": {
-    "url": "https://github.com/attivio/search-ui/issues",
+    "url": "https://github.com/attivio/searchui/issues",
     "email": "suitbugs@attivio.com"
   },
   "license": "GPL-3.0",
   "author": "Attivio, Inc.",
   "main": "index.js",
-  "repository": "https://github.com/attivio/search-ui",
+  "repository": "https://github.com/attivio/searchui",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "flow": "flow --show-all-errors",

@@ -6,13 +6,13 @@
     <artifactId>parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>search-ui-module</artifactId>
-  <name>search-ui/module</name>
+  <artifactId>searchui-module</artifactId>
+  <name>searchui/module</name>
   <description>Attivio Search UI Framework, external module component</description>
   <dependencies>
     <dependency>
       <groupId>com.attivio.suit</groupId>
-      <artifactId>search-ui-frontend</artifactId>
+      <artifactId>searchui-frontend</artifactId>
       <version>${project.parent.version}</version>
       <type>zip</type>
       <classifier>dist</classifier>

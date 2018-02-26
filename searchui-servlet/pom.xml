@@ -6,9 +6,9 @@
     <artifactId>parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>search-ui-server</artifactId>
+  <artifactId>searchui-servlet</artifactId>
   <packaging>war</packaging>
-  <name>search-ui/server</name>
+  <name>searchui/servlet</name>
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
@@ -31,7 +31,7 @@
   <dependencies>
     <dependency>
       <groupId>com.attivio.suit</groupId>
-      <artifactId>search-ui-frontend</artifactId>
+      <artifactId>searchui-frontend</artifactId>
       <version>${project.parent.version}</version>
       <type>zip</type>
       <classifier>dist</classifier>
@@ -97,7 +97,7 @@
               <artifactItems>
                 <artifactItem>
                   <groupId>com.attivio.suit</groupId>
-                  <artifactId>search-ui-frontend</artifactId>
+                  <artifactId>searchui-frontend</artifactId>
                   <classifier>dist</classifier>
                   <type>zip</type>
 	                <outputDirectory>${project.build.directory}/classes/static</outputDirectory>
@@ -120,7 +120,7 @@
               <excludes>
                 <exclude>
                   <groupId>com.attivio.suit</groupId>
-                  <artifactId>search-ui-frontend</artifactId>
+                  <artifactId>searchui-frontend</artifactId>
                 </exclude>
               </excludes>
             </configuration>

@@ -6,9 +6,9 @@
     <artifactId>parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>search-ui-frontend</artifactId>
+  <artifactId>searchui-frontend</artifactId>
   <packaging>pom</packaging>
-  <name>search-ui/frontend</name>
+  <name>searchui/frontend</name>
   <description>Attivio Search UI Framework, UI component</description>
   <properties>
     <frontend.node.version>v8.9.4</frontend.node.version>

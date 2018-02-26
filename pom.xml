@@ -84,7 +84,7 @@
   </build>
   <modules>
     <module>searchui-frontend</module>
-    <module>searchui-server</module>
+    <module>searchui-servlet</module>
     <module>searchui-module</module>
   </modules>
   <profiles>
