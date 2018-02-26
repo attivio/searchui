@@ -81,7 +81,7 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
   state: SearchUIAppState;
 
   componentWillMount() {
-    fetch('img/configuration.properties.js', { credentials: 'include' }).then((response) => {
+    fetch(`${document.location.pathname}/configuration`, { credentials: 'include' }).then((response) => {
       response.text().then((data) => {
         console.log('Got the JSON data back for the configuration');
         console.log(data);
@@ -112,8 +112,10 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
         configurationError: `Failed to load configuration.properties.json file: ${error}`,
       });
     });
-    fetch('img/users.xml', { credentials: 'include' }).then((response) => {
+    fetch(`${document.location.pathname}/users`, { credentials: 'include' }).then((response) => {
       response.text().then((data) => {
+        console.log('XML Data for users');
+        console.log(data);
         const users = xmlJs.xml2js(data, {
           compact: true,
           nativeType: true,
