@@ -3,28 +3,29 @@
 */
 package com.attivio.suitback.controllers;
 
-import java.util.Arrays;
-import java.util.logging.Logger;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.handler.AbstractHandlerMapping;
 
 public class HomeControllerHandlerMapper extends AbstractHandlerMapping {
-  
-  @Value("${suit.attivio.routes:/,/login,loggededout,/error,/landing,/results,/insights,/doc360}")
-  String[] routes;
 
+  static final String[] DEFAULT_ROUTES = new String[] {"/", "/login", "/loggededout", "/error", "/landing", "/results", "/insights", "/doc360"};
+
+  @Value("${suit.attivio.routes:}")
+  String[] routes;
+  
   HomeController homeController;
   
   public HomeControllerHandlerMapper(HomeController homeController) {
     this.homeController = homeController;
-    Logger.getLogger(HomeControllerHandlerMapper.class.getName()).info("Serving the applicaton on these routes: " + Arrays.toString(routes));
   }
 
   @Override
   protected Object getHandlerInternal(HttpServletRequest request) throws Exception {
+    if (this.routes == null) {
+      this.routes = DEFAULT_ROUTES;
+    }
     String path = request.getServletPath();
     for (String route : routes) {
       if (route.equals(path)) {
