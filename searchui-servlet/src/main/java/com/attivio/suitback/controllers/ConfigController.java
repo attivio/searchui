@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class ConfigController {
   
-  @Value("${suit.attivio.users}")
+  @Value("${suit.attivio.users:}")
   private String usersFileLocation;
 
-  @Value("${suit.attivio.configuration}")
+  @Value("${suit.attivio.configuration:}")
   private String configurationFileLocation;
 
   @ResponseBody
