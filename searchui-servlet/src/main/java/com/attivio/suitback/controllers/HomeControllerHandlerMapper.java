@@ -13,8 +13,8 @@ import org.springframework.web.servlet.handler.AbstractHandlerMapping;
 
 public class HomeControllerHandlerMapper extends AbstractHandlerMapping {
   
-  @Value("${suit.attivio.routes}")
-  String[] routes = {"/", "/login", "loggededout", "/error", "/landing", "/results", "/insights" ,"/doc360"};
+  @Value("${suit.attivio.routes:/,/login,loggededout,/error,/landing,/results,/insights,/doc360}")
+  String[] routes;
 
   HomeController homeController;
   
