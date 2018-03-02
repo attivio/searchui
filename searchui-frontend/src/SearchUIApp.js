@@ -83,7 +83,7 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
   componentWillMount() {
     fetch(`${document.location.pathname}/configuration`, { credentials: 'include' }).then((response) => {
       response.text().then((data) => {
-        console.log('Got the JSON data back for the configuration');
+        console.log('Got the data back for the configuration');
         console.log(data);
         if (data) {
           // const strippedData = stripJsonComments(data);
@@ -103,13 +103,13 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
       }).catch((error) => {
         this.setState({
           loading: false,
-          configurationError: `Failed to load configuration.properties.json file: ${error}`,
+          configurationError: `Failed to load then configuration properties: ${error}`,
         });
       });
     }, (error) => {
       this.setState({
         loading: false,
-        configurationError: `Failed to load configuration.properties.json file: ${error}`,
+        configurationError: `Failed to load the configuration properties: ${error}`,
       });
     });
     fetch(`${document.location.pathname}/users`, { credentials: 'include' }).then((response) => {
@@ -138,13 +138,13 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
       }).catch((error) => {
         this.setState({
           loading: false,
-          configurationError: `Failed to load users.json file: ${error}`,
+          configurationError: `Failed to load users configuration: ${error}`,
         });
       });
     }, (error) => {
       this.setState({
         loading: false,
-        configurationError: `Failed to load users.json file: ${error}`,
+        configurationError: `Failed to load users configuration: ${error}`,
       });
     });
   }
