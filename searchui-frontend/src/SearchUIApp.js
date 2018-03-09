@@ -60,12 +60,57 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
       modified.ALL.entityFields = ObjectUtils.toMap(original.ALL.entityFields);
       modified.ALL.entityColors = ObjectUtils.toMap(original.ALL.entityColors);
     } catch (exception) {
-      // If we get an exception, it should be in response to a field not existing...
+      // If we get an exception, it will be in response to a field not existing...
       // we'll just return the original object and let the validation
       // code handle telling the user about it.
-      console.log('Got an error converting the JSON configuration', exception);
     }
     return modified;
+  }
+
+  // These are the routes we know about. This is used to help determine
+  // the base path to use when loading the configuration files. If you
+  // add or remove routes, you need to update this list.
+  static knownRoutes = [
+    '/',
+    '/landing',
+    '/results',
+    '/insights',
+    '/doc360',
+    '/login',
+    '/loggedout',
+    '/error',
+  ];
+
+  /**
+   * Convert the URL of the current page to be a base
+   * path so we can get the configuration files before
+   * we officially know what the server is. Will return
+   * the first segment of the URL if there is one, or,
+   * if not, then will return just the slash.
+   * NOTE: This will not work properly if the servlet's
+   * context path is more than one level deep.
+   */
+  static getBasePath(): string {
+    let path = window.location.pathname;
+    // Make sure it starts with a slash
+    if (!path.startsWith('/')) {
+      path = `/${path}`;
+    }
+    // Find the next slash, if any
+    const slashIndex = path.indexOf('/', 1);
+    if (slashIndex >= 0) {
+      // Remove anything after (and including) the second slash
+      path = path.substring(0, slashIndex);
+    }
+    // Check to see if the first segment we found is one of
+    // the known routes we expect. In this case, we assume
+    // It's not part of the base path and return / instead.
+    if (SearchUIApp.knownRoutes.find((route) => {
+      return route === path;
+    })) {
+      path = '/';
+    }
+    return path;
   }
 
   constructor(props: {}) {
@@ -81,18 +126,12 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
   state: SearchUIAppState;
 
   componentWillMount() {
-    fetch(`${document.location.pathname}/configuration`, { credentials: 'include' }).then((response) => {
+    fetch(`${SearchUIApp.getBasePath()}/configuration`, { credentials: 'include' }).then((response) => {
       response.text().then((data) => {
-        console.log('Got the data back for the configuration');
-        console.log(data);
         if (data) {
           // const strippedData = stripJsonComments(data);
           const jsonData = looseParseJson(data);
-          console.log('Parsed the configuration');
-          console.log(jsonData);
           const config = SearchUIApp.updateData(jsonData);
-          console.log('Updated the configuration');
-          console.log(config);
           this.setState({
             loading: false,
             config,
@@ -103,7 +142,7 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
       }).catch((error) => {
         this.setState({
           loading: false,
-          configurationError: `Failed to load then configuration properties: ${error}`,
+          configurationError: `Failed to load the configuration properties: ${error}`,
         });
       });
     }, (error) => {
@@ -112,10 +151,8 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
         configurationError: `Failed to load the configuration properties: ${error}`,
       });
     });
-    fetch(`${document.location.pathname}/users`, { credentials: 'include' }).then((response) => {
+    fetch(`${SearchUIApp.getBasePath()}/users`, { credentials: 'include' }).then((response) => {
       response.text().then((data) => {
-        console.log('XML Data for users');
-        console.log(data);
         const users = xmlJs.xml2js(data, {
           compact: true,
           nativeType: true,
