@@ -194,6 +194,7 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
                     showScores={this.props.showScores}
                     entityFields={this.props.entityFields}
                     baseUri={this.props.baseUri}
+                    searchEngineType={this.props.searchEngineType}
                   />
                 </Col>
               </Row>

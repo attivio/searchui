@@ -115,7 +115,7 @@
     // (the default SCOPETEASER expression enables scope highlighting on results)
     text: 'SCOPETEASER(text, fragment=true, numFragments=1, fragmentSize=2147483647)',
     // The public key with which to connect to the mapbox public apis
-    // See https://www.mapbox.com/help/how-access-tokens-work/ for more information on how to acquire a public key 
+    // See https://www.mapbox.com/help/how-access-tokens-work/ for more information on how to acquire a public key
     mapboxKey: '',
   },
 
