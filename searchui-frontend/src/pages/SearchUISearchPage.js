@@ -100,6 +100,7 @@ type SearchUISearchPageProps = {
 class SearchUISearchPage extends React.Component<SearchUISearchPageProps, SearchUISearchPageProps, void> {
   static defaultProps = {
     baseUri: '',
+    searchEngineType: 'attivio',
     relevancyModels: [],
     showScores: false,
     entityFields: new Map([['people', 'People'], ['locations', 'Locations'], ['companies', 'Companies']]),
@@ -158,11 +159,12 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
   }
 
   render() {
+    const mhTabInfo = this.props.searchEngineType === 'attivio' ? mastheadTabInfo : [];
     return (
       <DocumentTitle title="Search: Attivio Cognitive Search">
         <div>
           <Masthead multiline homeRoute="/landing">
-            <MastheadNavTabs currentTab="/results" tabInfo={mastheadTabInfo} />
+            <MastheadNavTabs currentTab="/results" tabInfo={mhTabInfo} />
             <SearchBar
               inMasthead
             />

@@ -111,11 +111,13 @@ export default class SearchUILandingPage extends React.Component<void, {}, Searc
 
     const indexStatusLabel = this.state.loading ? 'Analyzing your index\u2026' : `Searching across ${docs} from ${sources}.`;
 
+    const mhTabInfo = this.context.searcher.search.searchEngineType === 'attivio' ? mastheadTabInfo : [];
+
     return (
       <DocumentTitle title="Attivio Cognitive Search">
         <div>
           <Masthead multiline homeRoute="/landing">
-            <MastheadNavTabs tabInfo={mastheadTabInfo} />
+            <MastheadNavTabs tabInfo={mhTabInfo} />
           </Masthead>
           <Grid>
             <Row>

@@ -3,13 +3,88 @@
    * These properties are not specific to any page/component but may apply to any/all of them.
    */
   ALL: {
+
+    // Here we define the search engine type, defaults to 'attivio',
+    // but 'elastic' and 'solr' are also supported with limited functionality.
+
+    // For 'elastic' or 'solr' these fields need to be configured:
+    //   - ALL.searchEngineType
+    //   - ALL.baseUri
+    //   - ALL.customOptions
+    //   - SearchUISearchPage.sortableFields
+
+
+    searchEngineType: 'attivio',
+
     // This is the base URI that will be used for making REST API calls to the
     // Attivo server. In general, the UI is hosted on the same machine that
     // serves the REST API, so this should not include the protocol, hostname, or port.
     // (The case where you're using the development server to communicate with an
     // Attivio server on  different machine is the only time you should include this
     // information.)
+
+    // NOTE: if you are using 'elastic' or 'solr', the URI needs to point directly
+    // to the collection/handler, for example:
+    //   elastic:
+    //   ** using the _search handler **
+    //   baseUri: 'http://example.com:9200/mycollection/_search'
+    //
+    //   solr:
+    //   **  using 'myHandler' handler **
+    //   baseUri: 'http://example.com:8983/solr/mycollection/myHandler'
+
+    // in the case of 'attivio', only the Attivio instance URI is needed.
+
     baseUri: '/searchui',
+
+
+    // If searchEngineType is 'elastic' or 'solr', the property customOptions
+    // needs to be added.
+
+    // customOptions: {
+    //
+    //   customId: "id", // field to be used as id, in the case of elastic defaults to _id, in solr is mandatory.
+    //   /**
+    //    * The valid fields for mappings are:
+    //    *  - title
+    //    *  - uri
+    //    *  - teaser
+    //    *  - text
+    //    *  - previewImageUri
+    //    *  - thumbnailImageUri
+    //    * The key is the field in the UI and the value is the name of the
+    //    * field in the search engine (elastic or solr).
+    //    * NOTE: Remember not to use fields containing object other than a array (1 dimension).
+    //    */
+    //   mappings: {
+    //     title: "title_field",
+    //     uri: "uri_field",
+    //     teaser: "teaser_field",
+    //     text: "text_field",
+    //     previewImageUri: "previewImageUri_field",
+    //     thumbnailImageUri: "thumbnailImageUri_field"
+    //   },
+    //   /**
+    //    *  Facets contains a array of objects needed to render the Facets menu
+    //    *  on the left side of the search screen.
+    //    *  displayName: a name to display for those facets (for example 'People').
+    //    *  field: the field used to build the facets on the search engine,
+    //    *         NOTE: This field needs to be non-tokenized to work in solr
+    //    *               So for example, if the collection contains a field of type textField (tokenized),
+    //    *               this field needs to be copied to a strField (non-tokenized) to be displayed as Facet.
+    //    */
+    //   facets: [
+    //     {
+    //       displayName: "People",
+    //       field: "people_str_field"
+    //     },
+    //     {
+    //       displayName: "Places",
+    //       field: "places_str_field"
+    //     }
+    //   ]
+    // },
+
 
     // This is the prefix to use for routes in the application. For example, if it will be
     // running under '/searchui', you will want to set this value to '/searchui' (note the leading slash
@@ -243,7 +318,16 @@
     showScores: false,
     // Whether or not to display a toggle for switching the search results to debug format.
     debugViewToggle: true,
-    sortableFields: [ // The names of the fields to include in the sort menu.
+    // The names of the fields to include in the sort menu.
+    // NOTE: if 'elastic' or 'solr' is being used, this fields need to be ones used in
+    // customOptions.mappings, for example:
+    // sortableFields: [
+    //   'title',
+    //   'teaser',
+    //   'text'
+    // ],
+    // Sorting in 'elastic' or 'solr' doesn't support multi value fields.
+    sortableFields: [
       'title',
       'table',
       'size',
