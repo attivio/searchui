@@ -184,6 +184,7 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
         </div>
       );
     }
+
     return (
       <Configuration config={this.state.config}>
         <Logger />
@@ -239,4 +240,9 @@ other pages like the PerspectivePage below:
       </Switch>
     </div>
   </Router>
+
+  ALTERNATIVELY:
+  You can use the <Configurable> component to allow your page to access
+  properties present in the configuration.properties.js file. See the
+  <Configurable> component's documentation for more details.
 */

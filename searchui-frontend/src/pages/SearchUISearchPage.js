@@ -92,6 +92,11 @@ type SearchUISearchPageProps = {
   orderHint: Array<string>;
   /** Controls the colors used to show various entity types (the value can be any valid CSS color) */
   entityColors: Map<string, string>;
+  /**
+   * The type of engine being used to do the searching. This will affect the way the
+   * search results are rendered.
+   */
+  searchEngineType: 'attivio' | 'solr' | 'elastic';
 };
 
 /**
@@ -160,6 +165,8 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
 
   render() {
     const mhTabInfo = this.props.searchEngineType === 'attivio' ? mastheadTabInfo : [];
+    const showScores = this.props.showScores && this.props.searchEngineType === 'attivio';
+    const showTags = this.props.searchEngineType === 'attivio';
     return (
       <DocumentTitle title="Search: Attivio Cognitive Search">
         <div>
@@ -193,10 +200,10 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
                   <SpellCheckMessage />
                   <SearchResults
                     format={this.context.searcher.state.format}
-                    showScores={this.props.showScores}
                     entityFields={this.props.entityFields}
                     baseUri={this.props.baseUri}
-                    searchEngineType={this.props.searchEngineType}
+                    showScores={showScores}
+                    showTags={showTags}
                   />
                 </Col>
               </Row>

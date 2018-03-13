@@ -102,11 +102,11 @@ export default class SearchUILandingPage extends React.Component<void, {}, Searc
         break;
     }
 
-    if(this.context.searcher.search
+    if (this.context.searcher.search
       && this.context.searcher.search.searchEngineType
       && this.context.searcher.search.searchEngineType !== 'attivio'
     ) {
-      sources = "1 source";
+      sources = '1 source';
     }
 
     const indexStatusLabel = this.state.loading ? 'Analyzing your index\u2026' : `Searching across ${docs} from ${sources}.`;
