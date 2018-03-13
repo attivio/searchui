@@ -24,14 +24,7 @@ Once you have built the application following the steps outlined in the [Develop
     <Environment name="spring.config.location" value="file:/opt/tomcat/searchui/application.properties" type="java.lang.String"/>
 </Context>
 ```
-6. Create a file named `application.properties` in the location specified above with the following content, updating the values as needed:
-```
-suit.attivio.protocol=http
-suit.attivio.hostname=someserver03.attivio.com
-suit.attivio.port=17000
-suit.attivio.username=username
-suit.attivio.password=password
-```
+6. Copy the file found at `searchui/searchui-servlet/application.properties` to the location specified above with the following content, updating the values that are set as needed.
 7. Start Tomcat
 
 ## Configuring SSL
