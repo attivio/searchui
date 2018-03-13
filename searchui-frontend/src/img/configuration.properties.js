@@ -278,7 +278,6 @@
     // To force the UI to always use a single model when making queries, set this to an array with
     // that single name as its sole element.
     relevancyModels: [
-      'default',
     ],
     pieChartFacets: [ // The facet field names that should be displayed as pie charts
     ],
