@@ -54,6 +54,10 @@ export default class LoginPage extends React.Component<void, any, LoginPageState
       }
       return <Redirect to={from} />;
     }
+
+
+    // masheadTabInfo should not be visible during login
+    // const mhTabInfo = this.props.searchEngineType === 'attivio' ? mastheadTabInfo : [];
     return (
       <DocumentTitle title="Login: Attivio Cognitive Search">
         <div>
