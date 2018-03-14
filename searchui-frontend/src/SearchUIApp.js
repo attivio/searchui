@@ -127,8 +127,12 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
 
   componentWillMount() {
     fetch(`${SearchUIApp.getBasePath()}/configuration`, { credentials: 'include' }).then((response) => {
-      response.text().then((data) => {
-        if (data) {
+      response.text().then((rawData) => {
+        if (rawData) {
+          let data = rawData;
+          if (rawData.startsWith('"') && rawData.endsWith('"')) {
+            data = JSON.parse(rawData);
+          }
           // const strippedData = stripJsonComments(data);
           const jsonData = looseParseJson(data);
           const config = SearchUIApp.updateData(jsonData);
@@ -152,25 +156,31 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
       });
     });
     fetch(`${SearchUIApp.getBasePath()}/users`, { credentials: 'include' }).then((response) => {
-      response.text().then((data) => {
-        const users = xmlJs.xml2js(data, {
-          compact: true,
-          nativeType: true,
-          trim: true,
-          attributesKey: '$',
-          ignoreDeclaration: true,
-          ignoreInstruction: true,
-          ignoreComment: true,
-          ignoreDoctype: true,
-        });
-
-        if (users) {
-          this.setState({
-            loading: false,
-            users,
-          }, () => {
-            this.configureSuit();
+      response.text().then((rawData) => {
+        if (rawData) {
+          let data = rawData;
+          if (rawData.startsWith('"') && rawData.endsWith('"')) {
+            data = JSON.parse(rawData);
+          }
+          const users = xmlJs.xml2js(data, {
+            compact: true,
+            nativeType: true,
+            trim: true,
+            attributesKey: '$',
+            ignoreDeclaration: true,
+            ignoreInstruction: true,
+            ignoreComment: true,
+            ignoreDoctype: true,
           });
+
+          if (users) {
+            this.setState({
+              loading: false,
+              users,
+            }, () => {
+              this.configureSuit();
+            });
+          }
         }
       }).catch((error) => {
         this.setState({

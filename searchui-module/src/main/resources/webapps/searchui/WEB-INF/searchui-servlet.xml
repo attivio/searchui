@@ -16,7 +16,7 @@
     </mvc:message-converters>
   </mvc:annotation-driven>
 
-  <context:component-scan base-package="com.attivio.module.rest.spring" />
+  <context:component-scan base-package="com.attivio.suit.searchui" />
 
   <!--
     All the paths in your application (e.g., in SearchUIApp.js) need to be mapped to

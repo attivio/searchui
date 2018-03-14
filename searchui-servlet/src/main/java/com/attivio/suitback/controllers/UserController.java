@@ -49,7 +49,7 @@ public class UserController {
   }
   
   @ResponseBody
-  @RequestMapping("/user")
+  @RequestMapping("/rest/serverDetailsApi/user")
   public UserDetails user() {
     return UserController.getUserDetails();
   }
