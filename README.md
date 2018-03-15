@@ -115,5 +115,5 @@ Many Search UI features are configurable.  These settings support rapid prototyp
 > If any values are not specified, the application uses system-application defaults.
 > If Search UI is deployed to multiple web servers or Attivio nodes, the preferences must be manually synchronized across all nodes.
 
-The full list of properties and the description of each can be found in the [configuration.properties.js](searchui-frontend/src/configuration.properties.js) file.
+The full list of properties and the description of each can be found in the [configuration.properties.js](searchui-frontend/configuration.properties.js) file.
 
