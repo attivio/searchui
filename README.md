@@ -4,13 +4,13 @@
 * [Project Organization](#project-organization)
 * [What is SUIT?](#what-is-suit)
 * [Installation and Deployment](#installation-and-deployment)
-* [How Can I Customize the Search UI?](#how-can-i-customize-the-searchui)
+* [How Can I Customize the Search UI?](#how-can-i-customize-the-search-ui)
 * [Security](#security)
 * [Cognitive Search](#cognitive-search)
 * [Ask a Question](#ask-a-question)
 * [360&deg; View](#360-view)
 * [Insights](#insights)
-* [How Do I Configure Search UI?](#how-do-i-configure-searchui)
+* [How Do I Configure Search UI?](#how-do-i-configure-search-ui)
 
 ## Overview
 The Attivio **Search UI** is an application built on top of Attivio’s Search UI Toolkit, or **SUIT**. The SUIT library is available in a [separate repository](https://github.com/attivio/suit) and via NPM (see below for details).
