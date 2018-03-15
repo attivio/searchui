@@ -27,6 +27,9 @@ Once you have built the application following the steps outlined in the [Develop
 6. Copy the file found at `searchui/searchui-servlet/application.properties` to the location specified above with the following content, updating the values that are set as needed.
 7. Start Tomcat
 
+## Compression
+It is recommended that you enable compression when deploying to Tomcat. The various JavaScript libraries that are loaded on the first page accessed in Search UI are sizeable. Enabling compression can save server bandwidth and will improve load time and user experience. See the documentation for version [8](https://tomcat.apache.org/tomcat-8.5-doc/config/http.html) or [9](https://tomcat.apache.org/tomcat-9.0-doc/config/http.html) for details.
+
 ## Configuring SSL
 When requiring users to login, whether using the built-in XML Authentication or integrating with an SSO provider, it is recommended to enable SSL.
 1. Acquire an SSL certificate. A self-signed will suffice for development but will display a warning that it is untrusted. You can generate a keystore with a self-signed certificate by executing the following command. This will produce a file named `keystore.p12` in the directory where you run the command. You can move this file to a directory such as `/opt/tomcat/ssl`.
