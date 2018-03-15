@@ -3,7 +3,8 @@
   "moduleVersion": "${project.version}",
   "description": "Used to host the Search UI application from within Attivio nodes",
   "newFiles": {
-    "conf/searchui": "searchui",
+    "conf/searchui": "conf/searchui",
+    "resources/searchui": "resources/searchui",
     "webapps/searchui": "webapps/searchui",
     "lib/searchui-module-${project.version}.jar": "lib/searchui-module-${project.version}.jar"
   },
