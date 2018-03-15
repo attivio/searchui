@@ -26,7 +26,7 @@ type SearchUILandingPageState = {
 export default class SearchUILandingPage extends React.Component<void, {}, SearchUILandingPageState> {
   static contextTypes = {
     searcher: PropTypes.any,
-    app: PropTypes.instanceOf(SearchUIApp),
+    app: PropTypes.shape({ type: PropTypes.oneOf([SearchUIApp]) }),
   };
 
   constructor(props: any, context: any) {

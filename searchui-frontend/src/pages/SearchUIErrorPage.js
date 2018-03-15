@@ -20,7 +20,7 @@ type SearchUIErrorPageState = {
 
 export default class SearchUIErrorPage extends React.Component<void, {}, SearchUIErrorPageState> {
   static contextTypes = {
-    app: PropTypes.instanceOf(SearchUIApp),
+    app: PropTypes.shape({ type: PropTypes.oneOf([SearchUIApp]) }),
   };
 
   constructor(props: any) {

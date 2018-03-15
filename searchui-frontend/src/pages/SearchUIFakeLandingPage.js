@@ -3,11 +3,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
-import { Searcher } from '@attivio/suit';
-
 class SearchUIFakeLandingPage extends React.Component<void, {}, void> {
   static contextTypes = {
-    searcher: PropTypes.instanceOf(Searcher),
+    searcher: PropTypes.any,
     router: PropTypes.any,
   };
 

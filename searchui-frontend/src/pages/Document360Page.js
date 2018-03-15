@@ -126,7 +126,7 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
 
   static contextTypes = {
     searcher: PropTypes.any,
-    app: PropTypes.instanceOf(SearchUIApp),
+    app: PropTypes.shape({ type: PropTypes.oneOf([SearchUIApp]) }),
   };
 
   static quoteValue(original: string): string {

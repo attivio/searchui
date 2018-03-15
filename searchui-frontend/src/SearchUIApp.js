@@ -110,7 +110,7 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
   }
 
   static childContextTypes = {
-    app: PropTypes.instanceOf(SearchUIApp),
+    app: PropTypes.shape({ type: PropTypes.oneOf([SearchUIApp]) }),
   };
 
   constructor(props: {}) {

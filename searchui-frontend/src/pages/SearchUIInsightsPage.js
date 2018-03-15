@@ -45,7 +45,7 @@ type SearchUIInsightsPageProps = {
 
 class SearchUIInsightsPage extends React.Component<SearchUIInsightsPageProps, SearchUIInsightsPageProps, void> {
   static contextTypes = {
-    app: PropTypes.instanceOf(SearchUIApp),
+    app: PropTypes.shape({ type: PropTypes.oneOf([SearchUIApp]) }),
   };
 
   static defaultProps = {

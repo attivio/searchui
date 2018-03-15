@@ -136,7 +136,7 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
 
   static contextTypes = {
     searcher: PropTypes.any,
-    app: PropTypes.instanceOf(SearchUIApp),
+    app: PropTypes.shape({ type: PropTypes.oneOf([SearchUIApp]) }),
   };
 
   componentWillMount() {
