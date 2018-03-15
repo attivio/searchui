@@ -9,7 +9,7 @@
     "lib/searchui-module-${project.version}.jar": "lib/searchui-module-${project.version}.jar"
   },
   "requiredPlatformVersion": ">=5.5.0",
-  "minimumPatchLevel": 305,
+  "minimumPatchLevel": 303,
   "dependencies": [
     "rest",
     "keyphrases"
