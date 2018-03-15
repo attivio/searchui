@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import PropTypes from 'prop-types';
 import DocumentTitle from 'react-document-title';
 
 import {
@@ -13,7 +14,7 @@ import {
   FacetInsights,
 } from '@attivio/suit';
 
-import { mastheadTabInfo } from '../SearchUIApp';
+import SearchUIApp from '../SearchUIApp';
 
 type SearchUIInsightsPageProps = {
   /** The facet field names that should be displayed as pie charts */
@@ -43,6 +44,10 @@ type SearchUIInsightsPageProps = {
 };
 
 class SearchUIInsightsPage extends React.Component<SearchUIInsightsPageProps, SearchUIInsightsPageProps, void> {
+  static contextTypes = {
+    app: PropTypes.instanceOf(SearchUIApp),
+  };
+
   static defaultProps = {
     pieChartFacets: null,
     barChartFacets: null,
@@ -61,7 +66,7 @@ class SearchUIInsightsPage extends React.Component<SearchUIInsightsPageProps, Se
       <DocumentTitle title="Insights: Attivio Cognitive Search">
         <div>
           <Masthead multiline homeRoute="/landing">
-            <MastheadNavTabs currentTab="/insights" tabInfo={mastheadTabInfo} />
+            <MastheadNavTabs currentTab="/insights" tabInfo={this.context.app.getMastheadNavTabs()} />
             <SearchBar
               inMasthead
             />

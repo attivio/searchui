@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import PropTypes from 'prop-types';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
@@ -10,7 +11,7 @@ import {
   MastheadNavTabs,
 } from '@attivio/suit';
 
-import { mastheadTabInfo } from '../SearchUIApp';
+import SearchUIApp from '../SearchUIApp';
 
 type SearchUIErrorPageState = {
   numDocuments: number;
@@ -18,6 +19,10 @@ type SearchUIErrorPageState = {
 };
 
 export default class SearchUIErrorPage extends React.Component<void, {}, SearchUIErrorPageState> {
+  static contextTypes = {
+    app: PropTypes.instanceOf(SearchUIApp),
+  };
+
   constructor(props: any) {
     super(props);
     this.state = {
@@ -33,7 +38,7 @@ export default class SearchUIErrorPage extends React.Component<void, {}, SearchU
       <DocumentTitle title="Error: Attivio Cognitive Search">
         <div>
           <Masthead multiline homeRoute="/landing">
-            <MastheadNavTabs tabInfo={mastheadTabInfo} />
+            <MastheadNavTabs tabInfo={this.context.app.getMastheadNavTabs()} />
           </Masthead>
           <Grid>
             <Row>

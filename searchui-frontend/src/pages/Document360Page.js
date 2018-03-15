@@ -29,7 +29,7 @@ import {
   SearchResultTitle,
 } from '@attivio/suit';
 
-import { mastheadTabInfo } from '../SearchUIApp';
+import SearchUIApp from '../SearchUIApp';
 
 type Document360PageProps = {
   location: PropTypes.object.isRequired;
@@ -126,6 +126,7 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
 
   static contextTypes = {
     searcher: PropTypes.any,
+    app: PropTypes.instanceOf(SearchUIApp),
   };
 
   static quoteValue(original: string): string {
@@ -343,7 +344,7 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
       <DocumentTitle title="Document 360°: Attivio Cognitive Search">
         <div>
           <Masthead multiline homeRoute="/landing">
-            <MastheadNavTabs tabInfo={mastheadTabInfo} />
+            <MastheadNavTabs tabInfo={this.context.app.getMastheadNavTabs()} />
             <SearchBar
               inMasthead
               route="/results"

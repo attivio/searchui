@@ -25,7 +25,7 @@ import {
   Masthead,
 } from '@attivio/suit';
 
-import { mastheadTabInfo } from '../SearchUIApp';
+import SearchUIApp from '../SearchUIApp';
 
 type SearchUISearchPageProps = {
   /**
@@ -136,6 +136,7 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
 
   static contextTypes = {
     searcher: PropTypes.any,
+    app: PropTypes.instanceOf(SearchUIApp),
   };
 
   componentWillMount() {
@@ -164,14 +165,13 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
   }
 
   render() {
-    const mhTabInfo = this.props.searchEngineType === 'attivio' ? mastheadTabInfo : [];
     const showScores = this.props.showScores && this.props.searchEngineType === 'attivio';
     const showTags = this.props.searchEngineType === 'attivio';
     return (
       <DocumentTitle title="Search: Attivio Cognitive Search">
         <div>
           <Masthead multiline homeRoute="/landing">
-            <MastheadNavTabs currentTab="/results" tabInfo={mhTabInfo} />
+            <MastheadNavTabs currentTab="/results" tabInfo={this.context.app.getMastheadNavTabs()} />
             <SearchBar
               inMasthead
             />

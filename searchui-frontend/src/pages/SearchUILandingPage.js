@@ -14,7 +14,7 @@ import {
   Masthead,
 } from '@attivio/suit';
 
-import { mastheadTabInfo } from '../SearchUIApp';
+import SearchUIApp from '../SearchUIApp';
 
 type SearchUILandingPageState = {
   numDocuments: number;
@@ -26,6 +26,7 @@ type SearchUILandingPageState = {
 export default class SearchUILandingPage extends React.Component<void, {}, SearchUILandingPageState> {
   static contextTypes = {
     searcher: PropTypes.any,
+    app: PropTypes.instanceOf(SearchUIApp),
   };
 
   constructor(props: any, context: any) {
@@ -111,13 +112,11 @@ export default class SearchUILandingPage extends React.Component<void, {}, Searc
 
     const indexStatusLabel = this.state.loading ? 'Analyzing your index\u2026' : `Searching across ${docs} from ${sources}.`;
 
-    const mhTabInfo = this.context.searcher.search.searchEngineType === 'attivio' ? mastheadTabInfo : [];
-
     return (
       <DocumentTitle title="Attivio Cognitive Search">
         <div>
           <Masthead multiline homeRoute="/landing">
-            <MastheadNavTabs tabInfo={mhTabInfo} />
+            <MastheadNavTabs tabInfo={this.context.app.getMastheadNavTabs()} />
           </Masthead>
           <Grid>
             <Row>

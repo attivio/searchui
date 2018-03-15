@@ -10,10 +10,7 @@ import {
   AuthUtils,
   LoginForm,
   Masthead,
-  MastheadNavTabs,
 } from '@attivio/suit';
-
-import { mastheadTabInfo } from '../SearchUIApp';
 
 type LoginPageState = {
   loginError: string | null;
@@ -61,9 +58,7 @@ export default class LoginPage extends React.Component<void, any, LoginPageState
     return (
       <DocumentTitle title="Login: Attivio Cognitive Search">
         <div>
-          <Masthead applicationName="Cognitive Search" multiline homeRoute="/landing">
-            <MastheadNavTabs tabInfo={mastheadTabInfo} />
-          </Masthead>
+          <Masthead applicationName="Cognitive Search" multiline homeRoute="/landing" />
           <Grid fluid>
             <Row>
               <Col xs={12} sm={12} md={8} lg={6} mdOffset={2} lgOffset={3}>

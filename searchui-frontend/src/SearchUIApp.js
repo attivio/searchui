@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
 import xmlJs from 'xml-js';
@@ -28,11 +29,6 @@ import LogoutPage from './pages/LogoutPage';
 
 require('es6-object-assign').polyfill();
 require('es6-promise').polyfill();
-
-export const mastheadTabInfo = [
-  new NavTabInfo('Results', '/results'),
-  new NavTabInfo('Insights', '/insights'),
-];
 
 type SearchUIAppState = {
   config: any;
@@ -113,6 +109,10 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
     return path;
   }
 
+  static childContextTypes = {
+    app: PropTypes.instanceOf(SearchUIApp),
+  };
+
   constructor(props: {}) {
     super(props);
     this.state = {
@@ -124,6 +124,12 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
   }
 
   state: SearchUIAppState;
+
+  getChildContext() {
+    return {
+      app: this,
+    };
+  }
 
   componentWillMount() {
     fetch(`${SearchUIApp.getBasePath()}/configuration`, { credentials: 'include' }).then((response) => {
@@ -194,6 +200,16 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
         configurationError: `Failed to load users configuration: ${error}`,
       });
     });
+  }
+
+  getMastheadNavTabs(): Array<NavTabInfo> {
+    if (this.state.config.searchEngineTypen && this.state.config.searchEngineType !== 'attivio') {
+      return [];
+    }
+    return [
+      new NavTabInfo('Results', '/results'),
+      new NavTabInfo('Insights', '/insights'),
+    ];
   }
 
   configureSuit() {
