@@ -10,6 +10,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.saml.context.SAMLContextProviderImpl;
+import org.springframework.security.saml.storage.EmptyStorageFactory;
 
 import com.github.ulisesbocchio.spring.boot.security.saml.bean.SAMLConfigurerBean;
 
@@ -67,6 +69,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     // Only configure SAML authentication if we're 
     if (this.entityId != null && this.entityId.length() > 0) {
+      SAMLContextProviderImpl contextProvider = new SAMLContextProviderImpl();
+      contextProvider.setStorageFactory(new EmptyStorageFactory());
+      
       http
         .httpBasic()
           .disable()
@@ -76,6 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           .disable()
         .apply(saml())
         .serviceProvider()
+          .samlContextProvider(contextProvider)
           .metadataGenerator()
           .entityId(this.entityId)
         .and()
