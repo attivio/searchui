@@ -149,16 +149,16 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
             this.configureSuit();
           });
         }
-      }).catch((error) => {
+      }).catch((/* error */) => {
         this.setState({
           loading: false,
-          configurationError: `Failed to load the configuration properties: ${error}`,
+          configurationError: 'Failed to load the configuration properties. Make sure you have the application.properties.js file in the configured location.', // eslint-disable-line max-len
         });
       });
-    }, (error) => {
+    }, (/* error */) => {
       this.setState({
         loading: false,
-        configurationError: `Failed to load the configuration properties: ${error}`,
+        configurationError: 'Failed to load the configuration properties. Make sure you have the application.properties.js file in the configured location.', // eslint-disable-line max-len
       });
     });
     fetch(`${SearchUIApp.getBasePath()}/users`, { credentials: 'include' }).then((response) => {
