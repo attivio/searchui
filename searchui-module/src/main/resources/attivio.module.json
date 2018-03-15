@@ -12,6 +12,6 @@
   "minimumPatchLevel": 305,
   "dependencies": [
     "rest",
-    "keywords"
+    "keyphrases"
   ]
 }

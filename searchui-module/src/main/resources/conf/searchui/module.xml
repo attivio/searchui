@@ -8,10 +8,4 @@
     <import resource="searchui/beans.xml" type="spring"/>
   </imports>
   
-  <configuration>
-    <environment-properties>
-      <file-properties location="searchui/searchui.properties"/>
-    </environment-properties>    
-  </configuration>
-    
 </att:attivio>
