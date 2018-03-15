@@ -325,7 +325,7 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
               />
             </Col>
             <Col xs={4} sm={4}>
-              <Subheader360 label="Similar Resulitles" />
+              <Subheader360 label="Similar Results" />
               <SimilarDocuments baseDoc={this.state.doc} baseUri={this.props.baseUri} />
             </Col>
           </Row>
