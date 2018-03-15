@@ -25,13 +25,16 @@ public class ConfigController {
 
   @ResponseBody
   @RequestMapping("/users")
-  public String users() { 
-    try {
-      return new String(Files.readAllBytes(Paths.get(usersFileLocation)));
-    } catch (IOException e) {
-      e.printStackTrace();
-      return "";
+  public String users() {
+    if (usersFileLocation != null && usersFileLocation.length() > 0) {
+      try {
+        return new String(Files.readAllBytes(Paths.get(usersFileLocation)));
+      } catch (IOException e) {
+        e.printStackTrace();
+        return "";
+      }
     }
+    return "";
   }
   
   @ResponseBody

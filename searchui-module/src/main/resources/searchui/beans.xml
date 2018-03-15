@@ -7,6 +7,5 @@
 
   <bean name="searchuiConfig" class="com.attivio.suit.searchui.SearchUIConfigBean">
     <property name="configurationPath" value="resources/configuration.properties.js" />
-    <property name="usersPath" value="resources/users.xml" />
   </bean>
 </beans>

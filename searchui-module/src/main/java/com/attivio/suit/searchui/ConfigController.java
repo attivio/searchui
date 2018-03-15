@@ -20,13 +20,7 @@ public class ConfigController {
   @ResponseBody
   @RequestMapping("/users")
   public String users() {
-    String path = System.getProperty("attivio.project") + "/" + searchuiConfig.getUsersPath();
-    try {
-      return new String(Files.readAllBytes(Paths.get(path)));
-    } catch (IOException e) {
-      e.printStackTrace();
-      return "";
-    }
+    return "";
   }
   
   @ResponseBody

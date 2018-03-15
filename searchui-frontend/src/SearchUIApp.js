@@ -168,16 +168,20 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
           if (rawData.startsWith('"') && rawData.endsWith('"')) {
             data = JSON.parse(rawData);
           }
-          const users = xmlJs.xml2js(data, {
-            compact: true,
-            nativeType: true,
-            trim: true,
-            attributesKey: '$',
-            ignoreDeclaration: true,
-            ignoreInstruction: true,
-            ignoreComment: true,
-            ignoreDoctype: true,
-          });
+          let users = {};
+
+          if (data && data.length > 0) {
+            users = xmlJs.xml2js(data, {
+              compact: true,
+              nativeType: true,
+              trim: true,
+              attributesKey: '$',
+              ignoreDeclaration: true,
+              ignoreInstruction: true,
+              ignoreComment: true,
+              ignoreDoctype: true,
+            });
+          }
 
           if (users) {
             this.setState({
