@@ -52,6 +52,8 @@ import com.google.gson.Gson;
 @CrossOrigin
 @Controller
 public class RestProxy {
+  static final String API_KEY_PARAM = "apikey";
+  
   static final Logger LOG = LoggerFactory.getLogger(RestProxy.class);
   
   @Value("${suit.attivio.protocol:http}")
@@ -64,6 +66,8 @@ public class RestProxy {
   String attivioUsername;
   @Value("${suit.attivio.password:attivio}")
   String attivioPassword;
+  @Value("${suit.attivio.authToken:}")
+  String attivioAuthToken;
   @Value("${server.contextPath:/searchui}")
   String contextPath;
 
@@ -100,9 +104,6 @@ public class RestProxy {
   @ResponseBody
   public ResponseEntity<String> mirrorRest(@RequestBody(required=false) String body, HttpMethod method, HttpServletRequest request,
       HttpServletResponse response) throws URISyntaxException {
-    // Build the URI to use when passing the call on to the Attivio server... note that getServletPath() returns the
-    // part of the path AFTER the context path, which we don't want since the REST APIs are always based at the root
-    URI uri = new URI(attivioProtocol, null, attivioHostname, attivioPort, request.getServletPath(), request.getQueryString(), null);
 
     // Make sure we include the headers from the incoming request when we pass it on.
     HttpHeaders headers = new HttpHeaders();
@@ -118,15 +119,33 @@ public class RestProxy {
     // And add our special origin header too.
     headers.add("origin", "suit-app");
     
-    // Add the basic authorization header for the username/password used to talk to to the Attivio back-end 
-    try {
-      String authValue;
-      authValue = new String(Base64.encodeBase64((this.attivioUsername + ":" + this.attivioPassword).getBytes("UTF-8")), "UTF-8");
-      headers.add("Authorization", "Basic " + authValue);
-    } catch (UnsupportedEncodingException e1) {
-      e1.printStackTrace();
+    // Get this to use when constructing the URI to forward to.
+    // We'll need to tweak it if we're using token-based authentication 
+    String queryString = request.getQueryString();
+
+    if (attivioAuthToken != null && attivioAuthToken.length() > 0) {
+      if (queryString != null && queryString.length() > 0) {
+        // Add to the existing list of query parameters
+        queryString = queryString + "&" + API_KEY_PARAM + "=" + attivioAuthToken;
+      } else {
+        // It's the only query parameter... no need for the ampersand
+        queryString = API_KEY_PARAM + "=" + attivioAuthToken; 
+      }      
+    } else {
+      // Add the basic authorization header for the username/password used to talk to to the Attivio back-end 
+      try {
+        String authValue;
+        authValue = new String(Base64.encodeBase64((this.attivioUsername + ":" + this.attivioPassword).getBytes("UTF-8")), "UTF-8");
+        headers.add("Authorization", "Basic " + authValue);
+      } catch (UnsupportedEncodingException e1) {
+        e1.printStackTrace();
+      }
     }
-    
+        
+    // Build the URI to use when passing the call on to the Attivio server... note that getServletPath() returns the
+    // part of the path AFTER the context path, which we don't want since the REST APIs are always based at the root
+    URI uri = new URI(attivioProtocol, null, attivioHostname, attivioPort, request.getServletPath(), queryString, null);
+
     // We need to use the Apache HTTP code to allow the GZIPped contents to work right.
     HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory(
         HttpClientBuilder.create().build());
