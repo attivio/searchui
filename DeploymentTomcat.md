@@ -23,9 +23,9 @@ Once you have built the application following the steps outlined in the [Develop
     <Environment name="spring.config.location" value="file:/opt/tomcat/searchui/application.properties" type="java.lang.String"/>
 </Context>
 ```
-6. Copy the file found at `searchui/searchui-servlet/application.properties` to the location specified above with the following content, updating the values that are set as needed.
+6. Copy the file found at `searchui/searchui-servlet/application.properties` to the location specified above, updating the values that are set as needed (see below).
 7. Copy the file at `searchui/searchui-frontend/configuration.properties.js` to a location on your Tomcat server outside the `$CATALINA_HOME/webapps` directory and set the `suit.attivio.configuration` property in the `application.properties` file to that location. 
-8. Modify any properties in `configuration.properties.js` to customize your deployment of Search UI. See [How Do I Configure Search UI?](searchui#how-do-i-configure-search-ui) for details.
+8. Modify any other properties in `configuration.properties.js` to customize your deployment of Search UI. See [How Do I Configure Search UI?](searchui#how-do-i-configure-search-ui) for details.
 9. Start Tomcat.
 
 ## Compression
