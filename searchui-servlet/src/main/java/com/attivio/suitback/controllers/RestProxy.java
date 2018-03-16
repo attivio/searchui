@@ -68,8 +68,6 @@ public class RestProxy {
   String attivioPassword;
   @Value("${suit.attivio.authToken:}")
   String attivioAuthToken;
-  @Value("${server.contextPath:/searchui}")
-  String contextPath;
 
   /**
   * Forward query requests through to the real Attivio server only after
