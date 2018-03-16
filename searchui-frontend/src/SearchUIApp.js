@@ -143,7 +143,6 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
           const jsonData = looseParseJson(data);
           const config = SearchUIApp.updateData(jsonData);
           this.setState({
-            loading: false,
             config,
           }, () => {
             this.configureSuit();
@@ -185,7 +184,6 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
 
           if (users) {
             this.setState({
-              loading: false,
               users,
             }, () => {
               this.configureSuit();
@@ -222,10 +220,12 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
         AuthUtils.configure(this.state.users, this.state.config);
         this.setState({
           configurationError: null,
+          loading: false,
         });
       } catch (exception) {
         this.setState({
           configurationError: exception,
+          loading: false,
         });
       }
     }
