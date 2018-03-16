@@ -1,0 +1,32 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+  <id>dist</id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <files>
+    <file>
+      <source>${project.build.directory}/${project.artifactId}-${project.version}.${project.packaging}</source>
+      <destName>searchui.${project.packaging}</destName>
+      <outputDirectory>${file.separator}</outputDirectory>
+    </file>
+  </files>
+  <fileSets>
+    <fileSet>
+      <directory>${project.basedir}</directory>
+      <includes>
+        <include>application.properties</include>
+      </includes>
+      <outputDirectory>${file.separator}</outputDirectory>
+    </fileSet>
+    <fileSet>
+      <directory>${project.basedir}/../searchui-frontend</directory>
+      <includes>
+        <include>users.xml</include>
+      </includes>
+      <outputDirectory>${file.separator}</outputDirectory>
+    </fileSet>
+  </fileSets>
+</assembly>
