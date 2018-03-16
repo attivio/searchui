@@ -14,7 +14,8 @@ Once you have built the application following the steps outlined in the [Develop
 
 ## Deploying to Tomcat
 1. Stop Tomcat
-2. Copy the WAR file produced by the Maven build in the searchui-servlet project's target directory or the pre-built WAR file available <span style="color: red;">here</span> to `<tomcat home>/webapps`
+2. Copy the WAR file produced by the Maven build in the searchui-servlet project's target directory or the [latest](https://github.com/attivio/searchui/releases/latest) pre-built release to `<tomcat home>/webapps`
+3. Unzip the ZIP if necessary.
 4. Rename WAR file to `searchui.war`. The name of the WAR file should match the value set for `baseUri` in the `configuration.properties.js` file
 5. create a file named `searchui.xml` in `<tomcat home>/conf/Catalina/localhost/` with the following contents, updating the value of "value" with the path where you intend to put the `application.properties` file:
 ```
