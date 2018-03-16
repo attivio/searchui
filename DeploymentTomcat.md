@@ -14,8 +14,7 @@ Once you have built the application following the steps outlined in the [Develop
 
 ## Deploying to Tomcat
 1. Stop Tomcat
-2. Copy the WAR file to `<tomcat home>/webapps`
-3. **Add step(s) for setting external properties and/or users.xml contents**
+2. Copy the WAR file produced by the Maven build in the searchui-servlet project's target directory or the pre-built WAR file available <span style="color: red;">here</span> to `<tomcat home>/webapps`
 4. Rename WAR file to `searchui.war`. The name of the WAR file should match the value set for `baseUri` in the `configuration.properties.js` file
 5. create a file named `searchui.xml` in `<tomcat home>/conf/Catalina/localhost/` with the following contents, updating the value of "value" with the path where you intend to put the `application.properties` file:
 ```
@@ -25,7 +24,9 @@ Once you have built the application following the steps outlined in the [Develop
 </Context>
 ```
 6. Copy the file found at `searchui/searchui-servlet/application.properties` to the location specified above with the following content, updating the values that are set as needed.
-7. Start Tomcat
+7. Copy the file at `searchui/searchui-frontend/configuration.properties.js` to a location on your Tomcat server outside the `$CATALINA_HOME/webapps` directory and set the `suit.attivio.configuration` property in the `application.properties` file to that location. 
+8. Modify any properties in `configuration.properties.js` to customize your deployment of Search UI. See [How Do I Configure Search UI?](searchui#how-do-i-configure-search-ui) for details.
+9. Start Tomcat.
 
 ## Compression
 It is recommended that you enable compression when deploying to Tomcat. The various JavaScript libraries that are loaded on the first page accessed in Search UI are sizeable. Enabling compression can save server bandwidth and will improve load time and user experience. See the documentation for version [8](https://tomcat.apache.org/tomcat-8.5-doc/config/http.html) or [9](https://tomcat.apache.org/tomcat-9.0-doc/config/http.html) for details.
