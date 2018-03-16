@@ -3,7 +3,7 @@ Search UI supports authentication of users managed via an XML file.
 
 Configuring Search UI to work this way involves a few simple steps outlined below.
 
-## Step 1 - Copy the `[users.xml]`(searchui-frontend/users.xml) file to a location on your Tomcat server outside the `$CATALINA_HOME/webapps/directory` 
+## Step 1 - Copy the [`users.xml`](searchui-frontend/users.xml) file to a location on your Tomcat server outside the `$CATALINA_HOME/webapps/directory` 
 This allows you to edit the application's users without having to redeploy a WAR file. For example, you could copy the file to `/opt/tomcat/searchui/users.xml`.
 
 ## Step 2  - Populate the 'users.xml' file with your usernames and passwords
