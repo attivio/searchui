@@ -51,6 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(
             "/error",
             "/loggedout",
+            "/users",
+            "/configuration",
             "/sockjs-node/**",
             "/log",
             "/**/*.css",
