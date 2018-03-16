@@ -16,7 +16,7 @@ Once you have built the application following the steps outlined in the [Develop
 1. Stop Tomcat
 2. Copy the WAR file produced by the Maven build in the searchui-servlet project's target directory or the [latest](https://github.com/attivio/searchui/releases/latest) pre-built release to `<tomcat home>/webapps`
 3. Unzip the ZIP if necessary.
-4. Rename WAR file to `searchui.war`. The name of the WAR file should match the value set for `baseUri` in the `configuration.properties.js` file
+4. Rename WAR file to `searchui.war` (if deploying a custom-built application). The name of the WAR file should match the value set for `baseUri` in the `configuration.properties.js` file
 5. create a file named `searchui.xml` in `<tomcat home>/conf/Catalina/localhost/` with the following contents, updating the value of "value" with the path where you intend to put the `application.properties` file:
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -24,8 +24,8 @@ Once you have built the application following the steps outlined in the [Develop
     <Environment name="spring.config.location" value="file:/opt/tomcat/searchui/application.properties" type="java.lang.String"/>
 </Context>
 ```
-6. Copy the file found at `searchui/searchui-servlet/application.properties` to the location specified above, updating the values that are set as needed (see below).
-7. Copy the file at `searchui/searchui-frontend/configuration.properties.js` to a location on your Tomcat server outside the `$CATALINA_HOME/webapps` directory and set the `suit.attivio.configuration` property in the `application.properties` file to that location. 
+6. Copy the file found at `searchui/searchui-servlet/application.properties`, or the one in the latest release ZIP file, to the location specified above, updating the values that are set as needed (see below).
+7. Copy the file at `searchui/searchui-frontend/configuration.properties.js`, or the one in the latest release ZIP file, to a location on your Tomcat server outside the `$CATALINA_HOME/webapps` directory and set the `suit.attivio.configuration` property in the `application.properties` file to that location. 
 8. Modify any other properties in `configuration.properties.js` to customize your deployment of Search UI. See [How Do I Configure Search UI?](searchui#how-do-i-configure-search-ui) for details.
 9. Start Tomcat.
 
