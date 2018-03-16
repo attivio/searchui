@@ -29,8 +29,10 @@ The SUIT library consists of various React components used by Search UI to rende
 ## Installation and Deployment
 Search UI has two deployment options. If you're interested in simply downloading a pre-built application, configuring your preferences and deploying it, choose one of the following options:
 * **[Embedded](https://answers.attivio.com/display/extranet55/Search+UI+Download)** - *deploy as a module making it available from the Attivio Admin UI*
+
 Deploying Search UI within the Attivio Admin UI is recommended for exploration of your data. It is not recommended that this method of deployment be used to serve Search UI to a large number of users in a production environment. Attivio recommends a Stand-alone deployment for production environments where Search UI is serving as the primary user interface.
 * **[Stand-alone](DeploymentTomcat.md)**  - *deploy to an external web server such as Tomcat*
+
 Stand-alone deployments are recommended when Search UI (or a customized version of it) is used as the primary user interface in your production environment. Deploying Search UI within the Attivio Admin UI could lead to resource contention since each Attivio node has other responsibilities, such as ingesting content or responding to queries. Stand-alone deployments can be done on the same host as Attivio nodes provided there are sufficient resources, though in many situations, dedicated hosts are recommended.
 
 For instructions on building the application for one of the above deployment options, or if, instead, you wish to customize and build your own application for either deployment option, see the [Developer's Guide](DevelopersGuide.md) for instructions on setting up your development environment and building.
@@ -110,7 +112,7 @@ Using our [Text Analytics](https://answers.attivio.com/display/extranet55/Attivi
 ---
 <a name="configuration"></a>
 ## How Do I Configure Search UI?
-Many Search UI features are configurable.  These settings support rapid prototyping for demos and proof-of-concept projects.  
+Many Search UI features are configurable, including pointing it to an Elasticsearch or SOLR installation.  These settings support rapid prototyping for demos and proof-of-concept projects.  
 
 > Setting these preferences will affect all users who may be accessing this application.
 > If any values are not specified, the application uses system-application defaults.
