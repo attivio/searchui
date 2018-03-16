@@ -16,7 +16,7 @@
     "url": "https://github.com/attivio/searchui/issues",
     "email": "suitbugs@attivio.com"
   },
-  "license": "GPL-3.0",
+  "license": "SEE LICENSE IN ../LICENSE.txt",
   "author": "Attivio, Inc.",
   "main": "index.js",
   "repository": "https://github.com/attivio/searchui",

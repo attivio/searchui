@@ -7,6 +7,12 @@
   <packaging>pom</packaging>
   <name>searchui/parent</name>
   <description>Framework for building search user-interface applications on top of the Attivio platform</description>
+  <licenses>
+    <license>
+      <name>GNU General Public License (GPL), Version 3.0</name>
+      <url>https://www.gnu.org/licenses/gpl-3.0.txt</url>
+    </license>
+  </licenses>
   <issueManagement>
     <system>GitHub</system>
     <url>https://github.com/attivio/searchui/issues</url>
