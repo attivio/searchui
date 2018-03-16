@@ -15,22 +15,23 @@
 ## Overview
 The Attivio **Search UI** is an application built on top of Attivio’s Search UI Toolkit, or **SUIT**. The SUIT library is available in a [separate repository](https://github.com/attivio/suit) and via NPM (see below for details).
 
-The Attivio Search UI allows you to search across and view the data in the index of your Attivio Platform installation. You can customize it to suit your needs and can also use it as the basis for creating your own, brand-new search application.
+The Attivio Search UI allows you to search across and view the data in the index of your Attivio, Elasticsearch or SOLR installation. You can customize it to suit your needs and can also use it as the basis for creating your own, brand-new search application.
 
 ## Project Organization
-The Attivio Search UI is a web application written in JavaScript and based on the React project. It runs in the user’s browser. This component is in the [**searchui-frontend**](https://github.com/attivio/searchui/tree/master/searchui-frontend) directory of this repository and consists of application-level code for searching the Attivio index, including the definitions of the pages in the application and the logic of how they're
-connected.
+The Attivio Search UI is a web application written in JavaScript and based on the React project. It runs in the user’s browser. This component is in the [**searchui-frontend**](https://github.com/attivio/searchui/tree/master/searchui-frontend) directory of this repository and consists of application-level code for searching the index, including the definitions of the pages in the application and the logic of how they're connected.
 
-The project also contains two additional components that allow you to host the web application, either on the Attivio node servers ([**searchui-module**](https://github.com/attivio/searchui/tree/master/searchui-module)) or from a servlet container such as Apache Tomcat ([**searchui-server**](https://github.com/attivio/searchui/tree/master/searchui-server)). The availability of certain functionality will vary depending on how you host and configure the Search UI application, as described below.
+The project also contains two additional components that allow you to host the web application, either on one or more Attivio node servers ([**searchui-module**](https://github.com/attivio/searchui/tree/master/searchui-module)) or from a servlet container such as Apache Tomcat ([**searchui-server**](https://github.com/attivio/searchui/tree/master/searchui-server)). The availability of certain functionality will vary depending on how you host and configure the Search UI application and which search engine you use, as described below.
 
 ## What is SUIT?
 
-The SUIT library consists of various React components used by the Search UI to render the UI and to interact with the Attivio Platform. It also includes some API and utility classes, mainly used by the components directly but which the application-level code can also access. See the [GitHub repository](https://github.com/attivio/suit) for the SUIT library for documentation on using its components and other functionality.
+The SUIT library consists of various React components used by Search UI to render the UI and to interact with the index and other features. It also includes some API and utility classes, mainly used by the components directly but which the application-level code can also access. See the [GitHub repository](https://github.com/attivio/suit) for the SUIT library for documentation on using its components and other functionality.
 
 ## Installation and Deployment
 Search UI has two deployment options. If you're interested in simply downloading a pre-built application, configuring your preferences and deploying it, choose one of the following options:
-* **Embedded** - deploy as a module making it available from the Attivio Admin UI
-* **[Stand-alone](DeploymentTomcat.md)**  - deploy to an external web server such as Tomcat
+* **[Embedded](https://answers.attivio.com/display/extranet55/Search+UI+Download)** - *deploy as a module making it available from the Attivio Admin UI*
+Deploying Search UI within the Attivio Admin UI is recommended for exploration of your data. It is not recommended that this method of deployment be used to serve Search UI to a large number of users in a production environment. Attivio recommends a Stand-alone deployment for production environments where Search UI is serving as the primary user interface.
+* **[Stand-alone](DeploymentTomcat.md)**  - *deploy to an external web server such as Tomcat*
+Stand-alone deployments are recommended when Search UI (or a customized version of it) is used as the primary user interface in your production environment. Deploying Search UI within the Attivio Admin UI could lead to resource contention since each Attivio node has other responsibilities, such as ingesting content or responding to queries. Stand-alone deployments can be done on the same host as Attivio nodes provided there are sufficient resources, though in many situations, dedicated hosts are recommended.
 
 For instructions on building the application for one of the above deployment options, or if, instead, you wish to customize and build your own application for either deployment option, see the [Developer's Guide](DevelopersGuide.md) for instructions on setting up your development environment and building.
 
@@ -43,10 +44,10 @@ To build your own search application using the SUIT library, with any or all of 
 ## Security
 Search UI can be configured to require users to log in. The options vary depending on your deployment type.
 
-| Deployment Type | Security Options | Recommendations |
-| --------------- | ---------------- | --------------- |
-| Embedded (within Attivio) | <ul><li>[Active Directory](https://answers.attivio.com/display/extranet55/Active+Directory+Authentication+Provider)</li><li>[XML](https://answers.attivio.com/display/extranet55/XML+Authentication+Provider)</li></ul> | Deploying Search UI within the Attivio Admin UI is recommended for exploration of your data. It is not recommended that this method of deployment be used to serve Search UI to a large number of users in a production environment. Attivio recommends a Stand-alone deployment for production environments where Search UI is serving as the primary user interface. |
-| Stand-alone (i.e. Tomcat)	 | <ul><li>[SSO](ConfiguringSSO.md)</li><li>XML</li></ul> | Stand-alone deployments are recommended when Search UI (or a customized version of it) is used as the primary user interface in your production environment. Deploying Search UI within the Attivio Admin UI could lead to resource contention since each Attivio node has other responsibilities, such as ingesting content or responding to queries. Stand-alone deployments can be done on the same host as Attivio nodes provided there are sufficient resources, though in many situations, dedicated hosts are recommended. |
+| Deployment Type | Security Options | 
+| --------------- | ---------------- | 
+| Embedded (within Attivio) | <ul><li>[Active Directory](https://answers.attivio.com/display/extranet55/Active+Directory+Authentication+Provider)</li><li>[XML](https://answers.attivio.com/display/extranet55/XML+Authentication+Provider)</li></ul> | 
+| Stand-alone (i.e. Tomcat)	 | <ul><li>[SSO](ConfiguringSSO.md)</li><li>[XML](ConfiguringXMLAuthentication.md)</li></ul> | 
 
 Depending on the security option, users will either be presented with Attivio login form or one presented by the Identity Provider.
 
