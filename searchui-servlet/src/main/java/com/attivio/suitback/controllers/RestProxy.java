@@ -6,6 +6,7 @@ package com.attivio.suitback.controllers;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
@@ -76,7 +77,7 @@ public class RestProxy {
   @RequestMapping("/rest/searchApi/**")
   @ResponseBody
   public ResponseEntity<String> mirrorQuery(@RequestBody(required=false) String body, HttpMethod method, HttpServletRequest request,
-    HttpServletResponse response) throws URISyntaxException {
+    HttpServletResponse response) throws URISyntaxException, UnsupportedEncodingException {
     String newBody;
     UserDetails userInfo = UserController.getUserDetails();
     if (userInfo != null) {
@@ -101,7 +102,7 @@ public class RestProxy {
   @RequestMapping("/rest/**")
   @ResponseBody
   public ResponseEntity<String> mirrorRest(@RequestBody(required=false) String body, HttpMethod method, HttpServletRequest request,
-      HttpServletResponse response) throws URISyntaxException {
+      HttpServletResponse response) throws URISyntaxException, UnsupportedEncodingException {
 
     // Make sure we include the headers from the incoming request when we pass it on.
     HttpHeaders headers = new HttpHeaders();
@@ -139,10 +140,15 @@ public class RestProxy {
         e1.printStackTrace();
       }
     }
-        
+
+    // In case the incoming URL's path or query string has had pieces URL-encoded, we need to
+    // decode them before passing them along.
+    String path = URLDecoder.decode(request.getServletPath(), "UTF-8");
+    queryString = URLDecoder.decode(queryString, "UTF-8");
+
     // Build the URI to use when passing the call on to the Attivio server... note that getServletPath() returns the
     // part of the path AFTER the context path, which we don't want since the REST APIs are always based at the root
-    URI uri = new URI(attivioProtocol, null, attivioHostname, attivioPort, request.getServletPath(), queryString, null);
+    URI uri = new URI(attivioProtocol, null, attivioHostname, attivioPort, path, queryString, null);
 
     // We need to use the Apache HTTP code to allow the GZIPped contents to work right.
     HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory(
@@ -166,6 +172,10 @@ public class RestProxy {
     restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
 
     ResponseEntity<String> responseEntity = null;
+    
+    LOG.trace("Proxying REST API call from '" + request.getRequestURL().toString() + 
+        (request.getQueryString() != null ? ("?" + request.getQueryString()) : "") + "' to '" + uri.toString() + "'");
+    
     try {
       responseEntity = restTemplate.exchange(uri, method, new HttpEntity<String>(body, headers), String.class);
       

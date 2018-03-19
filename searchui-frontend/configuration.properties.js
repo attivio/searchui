@@ -3,7 +3,6 @@
    * These properties are not specific to any page/component but may apply to any/all of them.
    */
   ALL: {
-
     // Here we define the search engine type, defaults to 'attivio',
     // but 'elastic' and 'solr' are also supported with limited functionality.
 
@@ -12,7 +11,6 @@
     //   - ALL.baseUri
     //   - ALL.customOptions
     //   - SearchUISearchPage.sortableFields
-
 
     searchEngineType: 'attivio',
 
@@ -32,11 +30,9 @@
     //   solr:
     //   **  using 'myHandler' handler **
     //   baseUri: 'http://example.com:8983/solr/mycollection/myHandler'
-
     // in the case of 'attivio', only the Attivio instance URI is needed.
 
     baseUri: '/searchui',
-
 
     // If searchEngineType is 'elastic' or 'solr', the property customOptions
     // needs to be added.
@@ -84,7 +80,6 @@
     //     }
     //   ]
     // },
-
 
     // This is the prefix to use for routes in the application. For example, if it will be
     // running under '/searchui', you will want to set this value to '/searchui' (note the leading slash
