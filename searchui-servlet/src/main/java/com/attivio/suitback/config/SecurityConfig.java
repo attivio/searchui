@@ -69,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    // Only configure SAML authentication if we're 
+    // Only configure SAML authentication if we're asked to
     if (this.entityId != null && this.entityId.length() > 0) {
       SAMLContextProviderImpl contextProvider = new SAMLContextProviderImpl();
       contextProvider.setStorageFactory(new EmptyStorageFactory());

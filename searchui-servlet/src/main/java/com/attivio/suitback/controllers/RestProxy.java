@@ -43,6 +43,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -57,6 +58,15 @@ public class RestProxy {
   
   static final Logger LOG = LoggerFactory.getLogger(RestProxy.class);
   
+  @ResponseStatus(value=HttpStatus.FORBIDDEN, reason="Not authenticted") // 403
+  static class NotLoggedInException extends Exception {
+    private static final long serialVersionUID = 8277052796269904693L;
+
+    public NotLoggedInException() {
+      super("You must be logged in to access this URL");
+    }
+  }
+  
   @Value("${suit.attivio.protocol:http}")
   String attivioProtocol;
   @Value("${suit.attivio.hostname:localhost}")
@@ -69,29 +79,34 @@ public class RestProxy {
   String attivioPassword;
   @Value("${suit.attivio.authToken:}")
   String attivioAuthToken;
+  @Value("${security.saml.entityId:}")
+  String entityId;
 
   /**
   * Forward query requests through to the real Attivio server only after
   * adding the current user's info
   */
-  @RequestMapping("/rest/searchApi/**")
+  @RequestMapping("/rest/searchApi/search")
   @ResponseBody
   public ResponseEntity<String> mirrorQuery(@RequestBody(required=false) String body, HttpMethod method, HttpServletRequest request,
-    HttpServletResponse response) throws URISyntaxException, UnsupportedEncodingException {
-    String newBody;
+    HttpServletResponse response) throws URISyntaxException, UnsupportedEncodingException, NotLoggedInException {
     UserDetails userInfo = UserController.getUserDetails();
+    String newBody = body;
     if (userInfo != null) {
       // Parse the request object and add the username to it so the
       // search is done on that user's behalf
-      Gson gson = new Gson();
-      @SuppressWarnings("unchecked")
-      Map<String, Object> bodyObject = gson.fromJson(body, Map.class);
-      bodyObject.put("username", userInfo.getUserId());
-      newBody = gson.toJson(bodyObject);
-      LOG.trace("Doing a search REST API request forcing the username to be " + userInfo.getUserId() + ".");
-    } else {
-      newBody = body;
-      LOG.trace("Doing a search REST API request and no user is set.");
+      if (body != null && body.length() > 0) {
+        Gson gson = new Gson();
+        @SuppressWarnings("unchecked")
+        Map<String, Object> bodyObject = gson.fromJson(body, Map.class);
+        bodyObject.put("username", userInfo.getUserId());
+        newBody = gson.toJson(bodyObject);
+        LOG.trace("Doing a search REST API request forcing the username to be " + userInfo.getUserId() + ".");
+      }
+    } else if (entityId != null && entityId.length() > 0) {
+      // If we're configured for SAML authentication and there is no user logged on, throw an exception
+      LOG.trace("No SAML user is logged in for a call to the search REST API.");
+      throw new NotLoggedInException();
     }
     return this.mirrorRest(newBody, method, request, response);      
   }
@@ -121,6 +136,15 @@ public class RestProxy {
     // Get this to use when constructing the URI to forward to.
     // We'll need to tweak it if we're using token-based authentication 
     String queryString = request.getQueryString();
+    // In case the incoming URL's path or query string has had pieces URL-encoded, we need to
+    // decode them before passing them along.
+    if (queryString != null) {
+      queryString = URLDecoder.decode(queryString, "UTF-8");
+    }
+    String path = request.getServletPath();
+    if (path != null) {
+      path = URLDecoder.decode(path, "UTF-8");
+    }
 
     if (attivioAuthToken != null && attivioAuthToken.length() > 0) {
       if (queryString != null && queryString.length() > 0) {
@@ -140,11 +164,6 @@ public class RestProxy {
         e1.printStackTrace();
       }
     }
-
-    // In case the incoming URL's path or query string has had pieces URL-encoded, we need to
-    // decode them before passing them along.
-    String path = URLDecoder.decode(request.getServletPath(), "UTF-8");
-    queryString = URLDecoder.decode(queryString, "UTF-8");
 
     // Build the URI to use when passing the call on to the Attivio server... note that getServletPath() returns the
     // part of the path AFTER the context path, which we don't want since the REST APIs are always based at the root
