@@ -11,6 +11,7 @@
 * [360&deg; View](#360-view)
 * [Insights](#insights)
 * [How Do I Configure Search UI?](#how-do-i-configure-search-ui)
+* [Contributing](#contributing)
 
 ## Overview
 The Attivio **Search UI** is an application built on top of Attivio’s Search UI Toolkit, or **SUIT**. The SUIT library is available in a [separate repository](https://github.com/attivio/suit) and via NPM (see below for details).
@@ -120,3 +121,5 @@ Many Search UI features are configurable, including pointing it to an Elasticsea
 
 The full list of properties and the description of each can be found in the [configuration.properties.js](searchui-frontend/configuration.properties.js) file.
 
+## Contributing
+To report an issue or contribute, see [CONTRIBUTING.md](CONTRIBUTING.md)
