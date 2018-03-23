@@ -7,7 +7,7 @@ For contributions, we prefer pull requests. Please follow these steps to get you
 (the issue will be given a number)
 2. [Fork](https://help.github.com/articles/fork-a-repo) the [searchui repo](https://github.com/attivio/searchui).
 3. Make the changes.
-4. Prior to submitting a pull request, execute 'npm run lint' and 'npm run flow' and resolve any reported issues.
+4. Prior to submitting a pull request, execute `npm run lint` and `npm run flow` and resolve any reported issues.
 4. Send a [pull request](https://help.github.com/articles/using-pull-requests) from your forked repo to the searchui repo.
 4. Please prefix your pull request title with the issue ID; for example, `issue-87: Adding image gallery component`
 5. Please complete the pull request description with additional details as appropriate.
