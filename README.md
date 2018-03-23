@@ -20,7 +20,7 @@ The Attivio Search UI allows you to search across and view the data in the index
 ## Project Organization
 The Attivio Search UI is a web application written in JavaScript and based on the React project. It runs in the user’s browser. This component is in the [**searchui-frontend**](https://github.com/attivio/searchui/tree/master/searchui-frontend) directory of this repository and consists of application-level code for searching the index, including the definitions of the pages in the application and the logic of how they're connected.
 
-The project also contains two additional components that allow you to host the web application, either on one or more Attivio node servers ([**searchui-module**](https://github.com/attivio/searchui/tree/master/searchui-module)) or from a servlet container such as Apache Tomcat ([**searchui-server**](https://github.com/attivio/searchui/tree/master/searchui-server)). The availability of certain functionality will vary depending on how you host and configure the Search UI application and which search engine you use, as described below.
+The project also contains two additional components that allow you to host the web application, either on one or more Attivio node servers ([**searchui-module**](https://github.com/attivio/searchui/tree/master/searchui-module)) or from a servlet container such as Apache Tomcat ([**searchui-servlet**](https://github.com/attivio/searchui/tree/master/searchui-servlet)). The availability of certain functionality will vary depending on how you host and configure the Search UI application and which search engine you use, as described below.
 
 ## What is SUIT?
 
