@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.saml.context.SAMLContextProviderImpl;
+import org.springframework.security.saml.context.SAMLContextProviderLB;
 import org.springframework.security.saml.storage.EmptyStorageFactory;
 
 import com.github.ulisesbocchio.spring.boot.security.saml.bean.SAMLConfigurerBean;
@@ -32,6 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Value("${security.saml.keyPemLocation:}")
   String keyPemLocation;
   
+  @Value("${saml.sso.context-provider.lb.enabled:false}")
+  boolean loadBalancerEnabled;
+
   @Bean
   SAMLConfigurerBean saml() {
     return new SAMLConfigurerBean();
@@ -71,7 +75,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     // Only configure SAML authentication if we're asked to
     if (this.entityId != null && this.entityId.length() > 0) {
-      SAMLContextProviderImpl contextProvider = new SAMLContextProviderImpl();
+      SAMLContextProviderImpl contextProvider = loadBalancerEnabled ?
+          new SAMLContextProviderLB() : new SAMLContextProviderImpl();
       contextProvider.setStorageFactory(new EmptyStorageFactory());
       
       http
