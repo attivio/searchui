@@ -6,6 +6,8 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
+import org.springframework.security.saml.storage.EmptyStorageFactory;
+import org.springframework.security.saml.storage.SAMLMessageStorageFactory;
 import org.springframework.web.WebApplicationInitializer;
 
 import com.attivio.suitback.controllers.HomeController;
@@ -31,6 +33,11 @@ public class SuitBackApplication extends SpringBootServletInitializer implements
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(SuitBackApplication.class, args);
 	}
+	
+  @Bean
+  SAMLMessageStorageFactory samlMessageStorageFactory() {
+    return new EmptyStorageFactory();
+  }
 
   @Bean
   public HomeControllerHandlerMapper myHomeControllerHandlerMapper(HomeController myHomeController) {
