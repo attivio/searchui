@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.saml.storage.EmptyStorageFactory;
+import org.springframework.security.saml.websso.WebSSOProfileConsumerImpl;
 
 import com.github.ulisesbocchio.spring.boot.security.saml.configurer.ServiceProviderBuilder;
 import com.github.ulisesbocchio.spring.boot.security.saml.configurer.ServiceProviderConfigurerAdapter;
@@ -51,14 +52,31 @@ public class ServiceProviderConfig extends ServiceProviderConfigurerAdapter {
   @Value("${saml.sso.context-provider.lb.include-server-port-in-request-url:false}")
   boolean lbIncludeServerPortInRequestURL;
   
+  @Value("${saml.sso.maxAuthenticationAge:86400}")
+  long maxAuthenticationAge;
+  
+  @Value("${saml.sso.responseSkew:60}")
+  int responseSkew;
+  
+  @Value("${saml.sso.maxAssertionTime:3000}")
+  int maxAssertionTime;
+  
   @Override
   public void configure(ServiceProviderBuilder serviceProvider) throws Exception {
     LOG.trace("The service provider's entity ID is: " + entityId);
     LOG.trace("The default success URL is: /");
     LOG.trace("The default loggout URL is: /loggedout");
+    LOG.trace("Setting the max authentication age to: " + maxAuthenticationAge + " seconds");
+    LOG.trace("Setting the max response skew to: " + responseSkew + " seconds");
+    LOG.trace("Setting the max assertion time to: " + maxAssertionTime + " seconds");
     LOG.trace("SAML IdP metadata is at: " + metadataLocations);
     LOG.trace("Key DER file is at: " + keyDerLocation);
     LOG.trace("Key PEM is at: " + keyPemLocation);
+    
+    WebSSOProfileConsumerImpl ssoProfileConsumer = new WebSSOProfileConsumerImpl();
+    ssoProfileConsumer.setMaxAuthenticationAge(maxAuthenticationAge);
+    ssoProfileConsumer.setResponseSkew(responseSkew);
+    ssoProfileConsumer.setMaxAssertionTime(maxAssertionTime);
 
     // Only configure SAML authentication if we're asked to
     if (entityId != null && entityId.length() > 0) {
@@ -80,6 +98,7 @@ public class ServiceProviderConfig extends ServiceProviderConfigurerAdapter {
           .includeServerPortInRequestURL(lbIncludeServerPortInRequestURL)
           .messageStorage(messageStorage)
         .and()
+          .ssoProfileConsumer(ssoProfileConsumer)
           .keyManager()
             .privateKeyDERLocation(keyDerLocation)
             .publicKeyPEMLocation(keyPemLocation)
@@ -109,6 +128,7 @@ public class ServiceProviderConfig extends ServiceProviderConfigurerAdapter {
           .samlContextProvider()
             .messageStorage(messageStorage)
         .and()
+          .ssoProfileConsumer(ssoProfileConsumer)
           .keyManager()
             .privateKeyDERLocation(keyDerLocation)
             .publicKeyPEMLocation(keyPemLocation)
