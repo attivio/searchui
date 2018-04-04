@@ -1,0 +1,17 @@
+{
+  "name": "searchui",
+  "moduleVersion": "${project.version}",
+  "description": "Used to host the Search UI application from within Attivio nodes",
+  "newFiles": {
+    "conf/searchui": "conf/searchui",
+    "resources/searchui": "resources/searchui",
+    "webapps/searchui": "webapps/searchui",
+    "lib/searchui-module-${project.version}.jar": "lib/searchui-module-${project.version}.jar"
+  },
+  "requiredPlatformVersion": ">=5.5.0",
+  "minimumPatchLevel": 303,
+  "dependencies": [
+    "rest",
+    "keyphrases"
+  ]
+}

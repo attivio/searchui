@@ -90,9 +90,9 @@
     </plugins>
   </build>
   <modules>
-    <module>searchui-frontend</module>
-    <module>searchui-servlet</module>
-    <module>searchui-module</module>
+    <module>frontend</module>
+    <module>servlet</module>
+    <module>module</module>
   </modules>
   <profiles>
     <profile>

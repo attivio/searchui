@@ -1,0 +1,11 @@
+<att:attivio xmlns:att="http://www.attivio.com/configuration" 
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+             xmlns:f="http://www.attivio.com/configuration/features/core"
+             xsi:schemaLocation="http://www.attivio.com/configuration http://www.attivio.com/configuration/attivio-config.xsd
+                                 http://www.attivio.com/configuration/features/core http://www.attivio.com/configuration/features/coreFeatures.xsd">
+
+  <imports>
+    <import resource="searchui/beans.xml" type="spring"/>
+  </imports>
+  
+</att:attivio>

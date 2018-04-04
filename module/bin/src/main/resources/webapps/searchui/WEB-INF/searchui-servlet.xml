@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+  <context:annotation-config />
+
+  <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+  <bean id="jsonApiMapper" class="com.attivio.module.rest.spring.JsonApiModule.Mapper" />
+
+  <mvc:annotation-driven>
+    <mvc:message-converters>
+      <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="objectMapper" ref="jsonApiMapper" />
+      </bean>
+    </mvc:message-converters>
+  </mvc:annotation-driven>
+
+  <context:component-scan base-package="com.attivio.suit.searchui" />
+
+  <!--
+    All the paths in your application (e.g., in SearchUIApp.js) need to be mapped to
+    the default index page or users will see a 404 error when navigating directly to them.
+  -->
+  <mvc:view-controller path="/" view-name="index" />
+  <mvc:view-controller path="landing" view-name="index" />
+  <mvc:view-controller path="/results" view-name="index" />
+  <mvc:view-controller path="/insights" view-name="index" />
+  <mvc:view-controller path="/doc360" view-name="index" />
+  <mvc:view-controller path="login" view-name="index" />
+  <mvc:view-controller path="/loggedout" view-name="index" />
+  <mvc:view-controller path="/error" view-name="index" />
+  
+  <mvc:view-controller path="tests" view-name="/tests/index" />
+  <mvc:view-controller path="tests.html" view-name="/tests/index" />
+  
+  
+  
+  
+
+  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="suffix" value=".html" />
+  </bean>
+
+  <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+    <property name="order" value="-1"></property>
+    <property name="urlPathHelper">
+      <bean class="com.attivio.module.rest.spring.UrlPathHelperAllowEncodedSlash">
+        <property name="urlDecode" value="false"></property>
+      </bean>
+    </property>
+  </bean>
+  
+  <mvc:resources mapping="**" location="/dist/" />
+</beans>
+
