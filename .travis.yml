@@ -21,7 +21,7 @@ deploy:
     - "servlet/target/*.war"
   skip_cleanup: true
   on:
-    repo: attivio-mmasi/searchui
+    repo: mmasi-attivio/searchui
   prerelease: true
 
 after_deploy: "mvn -B deploy -DskipTests -s ./mvnsettings.xml"
