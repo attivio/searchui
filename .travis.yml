@@ -1,0 +1,27 @@
+language: java
+env:
+  global:
+    - secure: "b3iOmfhDggB8oMkgTTDvRlfikbWLSmsV3HtJZvhveW8VHsW/FDC14ez0P1xPHwV5s34NNVI3Qp6YMtkfMfAUeFqkcF1aHgB/iBXAk70zyZiKJFvRRQAQIICdMucQ9AVsFiDwMpZIAHc6LYlKnf5Tb88vLN2BC1B86ZduMcr/CSqUDl4guuIdn8WSgYCDpuJlwVb+WmyC6p4I51gJsXVYQmYyCFi5hRnmU/rOBKZHeEJNuK0Hx7lsmssPiXl8JW6FGwsf+XfxQbO4JVvRSiredCRONAzUhzqjDVStviR4gND0kizFRBu+D5E4aXAFyI/+z6Pv1+/Y1qYAnOq6GqXEkTUT3GE1Tv+PCoIVWCz6/WzC3a9pAY4zyr/PDT//xiGS+L33rPzLuIB/N+8fyYQzrWYKBGX+QZlmaYeD5imtiOXIgEW9NN5i8s0jcf0GPhxMkXAVj/VyLttSEU2iFGsSCBrPQahy2S9tJ8FXqiPQO7cnJORAMv/eX8zEurS725WDKN0D/dfU6310p0/C+u0z/+9huBuJakUQ4YIh8FJPr9NIR05XQ5j/uZIWOz3LtQAysKJaovujYH9FO2QCYj2h7rJNp3IxOtscOUYErWJWRcfFy05jxP0bvNm1OstEYiKzcagv0Ld4DFM4d3UVW/AGiXgOEB/y84i6lSOg624FSBI="
+    - secure: "kldoq1byws+oYrScl/B3Ca+r8UMqGzwC/1bvb9vjXtjCPzm+r8XLTqlIiSm6cM4agBYpUUHyhZuZ8k2gpmUBmo2ghHy/VotoyUJDLdIkGGv93s1a3dXEp0NjbB6anLEDG2EJY/1GngYI0QAldzpbHnoK9cK5jyGT7az3VyidKL8iyGaEVSc+hgFlgkZM8YpsuNfwpOfhDnIH+p8KIPHrV/U9TqxpAbivVOsfs5JhHNdBJ5Rfa+x3HGYvb1e7qdp5UnDSSz7Brk3ldKl9CeaLdfj959+rvtXwdpctsLT4aOIjbHz9y0yOiwmKEmSEPu27DI9ToUWDaJK0dG0B1zQlu42UL9VyCC+Vmnr0j2J2wNm+IUywnck+naVv+XEsnq9cSE5Y2P8gPC0KfAIsfrM3rhh+8MnAukFcdFgqAoJFXpNZmrAaoaShQh4Ni0BfhgYBAO8h2UDr8OwKz/n+xhi+OqmNNRngXdecNGmEHQ2ew7pXAdc4bu8cqfmAkK+q3uOwRbpecNm53HAREHYdqbQOrNrRsGZcZljv+Sm8mvAY9z/SkBVIYgYaKlevWkxdAbZFC0RJu3mMBwWzFOY6WHL5IITzG4uCZn1bCIHU90e/x3KzLbJLMJTUMdljjspz4sn7LtLUdy1nq/jy0Ly3ZrAHEi53kmkzGZCvEZlunFoaf5A="
+
+before_deploy:
+  - git config --local user.name "Attivio Releng"
+  - git config --local user.email "build@attivio.com"
+  - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+  - git push --tags
+
+deploy:
+  provider: releases
+  api_key:
+    secure: egTm6RLoCWH7kv0UAeZB3svOdosWLrBv80dg1apa5Dr8xfpVfkrKyiwA/vE4reow9kdndo6E4izSOgLIggJjMcX34L3RHPBpkEGQG3unSsRIcLGc+uia2pIbMb2fzoXakgceeIxhL63M40HDc/jHvkdF7pZ29CWfTkgefuqN3aXUU7Izdibuu1sU6gdTHRw1frSWJXFf0WcyhVywG8Bb+0iQqaMZ2gI2yYhZ6aMQjXY2NjleZAAA5ctVu26256f5H6VNbXDFlqtyZl+ib0vQbw/3AdojrhtUEygTaoObMShvtMgN+kj5xEokY/yTVg0AMJ8R1Qu259qaY9T7nc1hAeILPpLZFHNxTPJbhsvrbh5Q1R2O2IU0E4hALFTNqLfzW/32/+7D2Hi5PUAQ0n2AaHsn6/vktHvqzavWyHut+ZAqGcTivxd689qditNE8UwYAYkwfuY/hNYJP7aSev93t3RVikcT/aBU/D6+m6HqdkIrsBgB9NESqmyQx+s5I1UR7t8sB97L6UbDZo52Z9bu7Z3YyD2vVwUdAFoHQmEe+0VoVZlEyZLn9srZpgZqBq/dCqpgwgvnNcCo3tRl2dKkUsIqHIqanlzMh913mUR+dn37rwEj16xQ5iLPqEPTM1/OryYM9PQeEOsQLqceBtPVJ+svOjBnvJHERDcLw0L8OO0=
+  file_glob: true
+  file:
+    - "frontend/target/*.zip"
+    - "module/target/*.zip"
+    - "servlet/target/*.war"
+  skip_cleanup: true
+  on:
+    repo: attivio-mmasi/searchui
+  prerelease: true
+
+after_deploy: "mvn -B deploy -DskipTests -s ./mvnsettings.xml"
