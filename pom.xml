@@ -19,13 +19,12 @@
   </issueManagement>
   <distributionManagement>
     <repository>
-      <id>${maven.repo.releases}</id>
-      <url>${maven.repo.url.releases}</url>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
     <snapshotRepository>
-      <id>${maven.repo.snapshots}</id>
-      <url>${maven.repo.url.snapshots}</url>
-      <uniqueVersion>false</uniqueVersion>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
   <scm>
@@ -61,10 +60,6 @@
           <version>3.2.0</version>
         </plugin>
         <plugin>
-          <artifactId>maven-release-plugin</artifactId>
-          <version>2.5.3</version>
-        </plugin>
-        <plugin>
           <groupId>com.github.eirslett</groupId>
           <artifactId>frontend-maven-plugin</artifactId>
           <version>1.6</version>
@@ -74,18 +69,28 @@
           <artifactId>spring-boot-maven-plugin</artifactId>
           <version>1.5.9.RELEASE</version>
         </plugin>
+        <plugin>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>1.6</version>
+        </plugin>
+        <plugin>
+          <groupId>org.sonatype.plugins</groupId>
+          <artifactId>nexus-staging-maven-plugin</artifactId>
+          <version>1.6.7</version>
+          <extensions>true</extensions>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
       <plugin>
-        <artifactId>maven-release-plugin</artifactId>
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.maven.scm</groupId>
-            <artifactId>maven-scm-provider-gitexe</artifactId>
-            <version>1.9.5</version>
-          </dependency>
-        </dependencies>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <serverId>ossrh</serverId>
+          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
+        </configuration>
       </plugin>
     </plugins>
   </build>
@@ -94,15 +99,4 @@
     <module>servlet</module>
     <module>module</module>
   </modules>
-  <profiles>
-    <profile>
-      <id>attivio</id>
-      <properties>
-        <maven.repo.releases>releases</maven.repo.releases>
-        <maven.repo.snapshots>snapshots</maven.repo.snapshots>
-        <maven.repo.url.releases>http://mvn.corp.attivio.com/nexus/content/repositories/releases/</maven.repo.url.releases>
-        <maven.repo.url.snapshots>http://mvn.corp.attivio.com/nexus/content/repositories/snapshots/</maven.repo.url.snapshots>
-      </properties>
-    </profile>
-  </profiles>
 </project>
