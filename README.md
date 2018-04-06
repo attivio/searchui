@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/attivio/searchui.svg)](https://travis-ci.org/attivio/searchui)
+
 <a href="http://www.attivio.com" target="_blank"><img src="images/attivio-logo.png" alt="Attivio" width="240" border="0" /></a>
 ## Table of Contents
 * [Overview](#overview)
