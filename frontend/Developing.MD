@@ -22,9 +22,9 @@ Early in the development of the project we were using Webpack’s development se
 
 When running with Tomcat, we follow these steps for making changes and quickly seeing their effect in the UI.
 
-First, run the normal Maven build (`mvn clean install` from the root directory of the searchui project, for example) to build the UI and the WAR file that wraps it. The WAR will be placed into the searchui/searchui-server/target directory. Copy the WAR file to Tomcat’s webapps directory, renaming it to match your basename (e.g., searchui.war). When Tomcat runs, it will automatically unpack the WAR into a directory (e.g., webapps/searchui).
+First, run the normal Maven build (`mvn clean install` from the root directory of the searchui project, for example) to build the UI and the WAR file that wraps it. The WAR will be placed into the searchui/server/target directory. Copy the WAR file to Tomcat’s webapps directory, renaming it to match your basename (e.g., searchui.war). When Tomcat runs, it will automatically unpack the WAR into a directory (e.g., webapps/searchui).
 
-The output of the Webpack build is in the directory WEB-INF/classes/static inside your webapp directory (e.g., $CATALINA_HOME/webapps/searchui/WEB-INF/classes/static). You can now use the command `npm run watch` from within the searchui/searchui-frontend directory, passing the path to this directory, to have Webpack watch the source tree for changes and continuously compile and update the expanded WAR.
+The output of the Webpack build is in the directory WEB-INF/classes/static inside your webapp directory (e.g., $CATALINA_HOME/webapps/searchui/WEB-INF/classes/static). You can now use the command `npm run watch` from within the searchui/frontend directory, passing the path to this directory, to have Webpack watch the source tree for changes and continuously compile and update the expanded WAR.
 
 Doing this, changes are visible in your browser after refreshing in a second or two after you’ve saved them in the editor.
 
