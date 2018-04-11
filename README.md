@@ -121,7 +121,7 @@ Many Search UI features are configurable, including pointing it to an Elasticsea
 > If any values are not specified, the application uses system-application defaults.
 > If Search UI is deployed to multiple web servers or Attivio nodes, the preferences must be manually synchronized across all nodes.
 
-The full list of properties and the description of each can be found in the [configuration.properties.js](searchui-frontend/configuration.properties.js) file.
+The full list of properties and the description of each can be found in the [configuration.properties.js](frontend/configuration.properties.js) file.
 
 ## Contributing
 To report an issue or contribute, see [CONTRIBUTING.md](CONTRIBUTING.md)
