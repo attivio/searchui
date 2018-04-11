@@ -77,9 +77,9 @@ Now, you can keep your fork synced with the upstream repository with a few Git c
 ### Maven Install
 The entire Search UI project is set up to be built using Apache Maven. After you've cloned your repo, simply run `mvn clean install` from your terminal or command window, in the top-level searchui directory. Maven will build all of the three sub-projects:
 
-* **searchui-frontend** - Builds the actual JavaScript code for the web application. You'll likely spend the 
-* **searchui-server** - builds the servlet that can be used to host the Search UI application in a servlet container such as Apache Tomcat
-* **searchui-module** - builds an Attivio module that can be installed into your Attivio Platform to host the Search UI from the Attivio node servers.
+* **frontend** - Builds the actual JavaScript code for the web application. You'll likely spend the 
+* **server** - builds the servlet that can be used to host the Search UI application in a servlet container such as Apache Tomcat
+* **module** - builds an Attivio module that can be installed into your Attivio Platform to host the Search UI from the Attivio node servers.
 ```
 mvn clean install
 ```
@@ -90,15 +90,15 @@ There are a few important configurations you'll need to set for development and/
 ### Development Mode
 While developing your application, you'll want to see the effects of your changes immediately rather than relying on Maven builds producing artifacts that you can deploy. Fortunately, Node.js provides a convenient way to do this.
 
-See the **searchui-frontend**'s [Developer's Guide](searchui-frontend/Developing.MD) for instructions.
+See the **frontend**'s [Developer's Guide](frontend/Developing.MD) for instructions.
 
 ### Deployment Mode
 When you are ready to deploy your application to a particular environment, such as QA or PROD, run `mvn clean install` once again. The following artifacts will be produced:
 
 | Artifact | Purpose |
 | --- | --- |
-| searchui/searchui-server/target/searchui-server-0.0.1-SNAPSHOT.war | WAR file to be deployed to web server, outside of Attivio, such as Tomcat. See [Search UI - Deploying to Tomcat](DeploymentTomcat.md) for more information. |
-| searchui/searchui-module/target/searchui-module-0.0.1-SNAPSHOT-dist.zip | External module to be deployed within the Attivio Admin UI. <!-- See the installation instructions on [Search UI Download](https://answers.attivio.com/display/extranet55/Search+UI+Download) to deploy your application as an alternative to the download available on that page. --> |
+| searchui/server/target/server-0.0.1-SNAPSHOT.war | WAR file to be deployed to web server, outside of Attivio, such as Tomcat. See [Search UI - Deploying to Tomcat](DeploymentTomcat.md) for more information. |
+| searchui/module/target/module-0.0.1-SNAPSHOT-dist.zip | External module to be deployed within the Attivio Admin UI. <!-- See the installation instructions on [Search UI Download](https://answers.attivio.com/display/extranet55/Search+UI+Download) to deploy your application as an alternative to the download available on that page. --> |
 
 ## Contribute
 If you extend Search UI with a new feature or improve it in any way, we'd love to know about and possibly pull your changes into the original project for others to enjoy. If you are hoping to contribute back to the original repository, you can send a request to us to pull your fork into our repository by submitting a [pull request](https://help.github.com/articles/about-pull-requests).
