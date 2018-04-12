@@ -2,17 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.attivio.suit</groupId>
+    <!-- Update this when renaming the project -->
+    <groupId>com.attivio.searchui</groupId>
     <artifactId>parent</artifactId>
     <version>1.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>searchui-module</artifactId>
-  <name>searchui/module</name>
-  <description>Attivio Search UI Framework, external module component</description>
+  <artifactId>module</artifactId>
+  <name>Module</name>
+  <description>Wraps the front-end application in an Attivio module</description>
   <dependencies>
     <dependency>
-      <groupId>com.attivio.suit</groupId>
-      <artifactId>searchui-frontend</artifactId>
+      <!-- Update this when renaming the project -->
+      <groupId>com.attivio.searchui</groupId>
+      <artifactId>frontend</artifactId>
       <version>${project.parent.version}</version>
       <type>zip</type>
       <classifier>dist</classifier>
