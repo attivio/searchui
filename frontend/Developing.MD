@@ -34,9 +34,9 @@ You also get the advantages of running the application within the servlet, such 
 
 When running as an Attivio module, we follow these steps for making changes and quickly seeing their effect in the UI.
 
-First, run the normal Maven build (`mvn clean install` from the root directory of the searchui project, for example) to build the UI and the module ZIP file that wraps it. The ZIP will be placed into the searchui/searchui-module/target directory. Run the command `aie-exec modulemanager -i` followed by the path to the ZIP file to install the module into the local copy of Attivio on your machine.
+First, run the normal Maven build (`mvn clean install` from the root directory of the searchui project, for example) to build the UI and the module ZIP file that wraps it. The ZIP will be placed into the searchui/module/target directory. Run the command `aie-exec modulemanager -i` followed by the path to the ZIP file to install the module into the local copy of Attivio on your machine.
 
-This will, among other things, add a directory to your Attivio installation under the webapps/searchui/dist directory. You can now use the command `npm run watch` from within the searchui/searchui-frontend directory, passing the path to this directory, to have Webpack watch the source tree for changes and continuously compile and update the expanded WAR.
+This will, among other things, add a directory to your Attivio installation under the webapps/searchui/dist directory. You can now use the command `npm run watch` from within the searchui/frontend directory, passing the path to this directory, to have Webpack watch the source tree for changes and continuously compile and update the expanded WAR.
 
 Doing this, changes are visible in your browser after refreshing in a second or two after you’ve saved them in the editor.
 
