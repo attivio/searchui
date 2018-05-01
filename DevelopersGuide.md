@@ -77,7 +77,7 @@ Now, you can keep your fork synced with the upstream repository with a few Git c
 ### Maven Install
 The entire Search UI project is set up to be built using Apache Maven. After you've cloned your repo, simply run `mvn clean install` from your terminal or command window, in the top-level searchui directory. Maven will build all of the three sub-projects:
 
-* **frontend** - Builds the actual JavaScript code for the web application. You'll likely spend the 
+* **frontend** - Builds the actual JavaScript code for the web application. You'll likely spend the majority of your time here
 * **server** - builds the servlet that can be used to host the Search UI application in a servlet container such as Apache Tomcat
 * **module** - builds an Attivio module that can be installed into your Attivio Platform to host the Search UI from the Attivio node servers.
 ```
