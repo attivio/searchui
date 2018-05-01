@@ -1,6 +1,8 @@
 # Search UI - Configuring XML Authentication
 Search UI supports authentication of users managed via an XML file.
 
+**WARNING: This functionality is intended for use only on demonstration systems as the XML authentication method is NOT secure and therefore NOT suitable for use in production systems. Values in the `users.xml` file described here will be visible to users of your application.**
+
 Configuring Search UI to work this way involves a few simple steps outlined below.
 
 ## Step 1 - Copy the [`users.xml`](frontend/users.xml) file to a location on your Tomcat server outside the `$CATALINA_HOME/webapps/directory` 
