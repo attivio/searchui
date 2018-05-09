@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.Ordered;
 import org.springframework.security.saml.storage.EmptyStorageFactory;
 import org.springframework.security.saml.storage.SAMLMessageStorageFactory;
@@ -17,7 +18,8 @@ import com.github.ulisesbocchio.spring.boot.security.saml.annotation.EnableSAMLS
 @SpringBootApplication
 @EnableSAMLSSO
 public class SuitBackApplication extends SpringBootServletInitializer implements WebApplicationInitializer {
-  // Note, we need to explicitly implement WebApplicationInitializer to allow the WAR to work on WebLogic
+  // NOTE: Even though SpringBootServletInitializer implements WebApplicationInitializer,
+  // we apparently need to explicitly implement it here to allow the WAR to work on WebLogic.
   
   @Override
   protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {

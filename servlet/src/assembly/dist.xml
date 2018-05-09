@@ -9,7 +9,7 @@
   <files>
     <file>
       <source>${project.build.directory}/${project.artifactId}-${project.version}.${project.packaging}</source>
-      <destName>searchui.${project.packaging}</destName>
+      <destName>${project.artifactId}.${project.packaging}</destName>
       <outputDirectory>${file.separator}</outputDirectory>
     </file>
   </files>
@@ -22,7 +22,7 @@
       <outputDirectory>${file.separator}</outputDirectory>
     </fileSet>
     <fileSet>
-      <directory>${project.basedir}/../searchui-frontend</directory>
+      <directory>${project.basedir}/../frontend</directory>
       <includes>
         <include>users.xml</include>
       </includes>
