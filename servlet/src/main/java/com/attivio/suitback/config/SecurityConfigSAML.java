@@ -6,7 +6,6 @@ package com.attivio.suitback.config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,17 +16,12 @@ import com.github.ulisesbocchio.spring.boot.security.saml.bean.SAMLConfigurerBea
 
 @Configuration
 @Profile("saml")
+//@Import({SAMLServiceProviderSecurityConfiguration.class})
 public class SecurityConfigSAML extends WebSecurityConfigurerAdapter {
   // Add the property logging.level.com.attivio.suitback.config.SecurityConfig
   // to the application.properties to get debug logging (e.g., with value of DEBUG).
   static final Logger LOG = LoggerFactory.getLogger(SecurityConfigSAML.class);
 
-  @Value("${security.saml.entityId:}")
-  String entityId;
-    
-  @Value("${saml.sso.context-provider.lb.enabled:false}")
-  boolean lbEnabled;
-  
   @Autowired
   SAMLConfigurerBean samlConfigurer;
   
@@ -57,7 +51,6 @@ public class SecurityConfigSAML extends WebSecurityConfigurerAdapter {
   
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    LOG.trace("Configuring the servlet with SAML authentication for entity name" + entityId);
     http
       .httpBasic()
         .disable()

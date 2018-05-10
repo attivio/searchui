@@ -13,10 +13,8 @@ import org.springframework.web.WebApplicationInitializer;
 
 import com.attivio.suitback.controllers.HomeController;
 import com.attivio.suitback.controllers.HomeControllerHandlerMapper;
-import com.github.ulisesbocchio.spring.boot.security.saml.annotation.EnableSAMLSSO;
 
 @SpringBootApplication
-@EnableSAMLSSO
 public class SuitBackApplication extends SpringBootServletInitializer implements WebApplicationInitializer {
   // NOTE: Even though SpringBootServletInitializer implements WebApplicationInitializer,
   // we apparently need to explicitly implement it here to allow the WAR to work on WebLogic.
@@ -37,6 +35,7 @@ public class SuitBackApplication extends SpringBootServletInitializer implements
 	}
 	
   @Bean
+  @Profile("saml")
   SAMLMessageStorageFactory samlMessageStorageFactory() {
     return new EmptyStorageFactory();
   }
