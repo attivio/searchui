@@ -16,11 +16,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import com.github.ulisesbocchio.spring.boot.security.saml.bean.SAMLConfigurerBean;
 
 @Configuration
-@Profile("basic")
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+@Profile("saml")
+public class SecurityConfigSAML extends WebSecurityConfigurerAdapter {
   // Add the property logging.level.com.attivio.suitback.config.SecurityConfig
   // to the application.properties to get debug logging (e.g., with value of DEBUG).
-  static final Logger LOG = LoggerFactory.getLogger(SecurityConfig.class);
+  static final Logger LOG = LoggerFactory.getLogger(SecurityConfigSAML.class);
 
   @Value("${security.saml.entityId:}")
   String entityId;
@@ -57,40 +57,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    // Only configure SAML authentication if we're asked to
-    if (entityId != null && entityId.length() > 0) {
-      LOG.trace("Configuring the servlet with SAML authentication for entity name" + entityId);
-      http
-        .httpBasic()
-          .disable()
-        .csrf()
-          .disable()
-        .anonymous()
-          .disable()
-        .headers()
-          .frameOptions()
-            .sameOrigin()
-        .and()
-          // Any SAML-related endpoints are NOT to be authenticated
-          .authorizeRequests()
-            .requestMatchers(samlConfigurer.endpointsMatcher())
-            .permitAll()
-        .and()
-          // Finally, everything else IS to be authenticated
-          .authorizeRequests()
-            .anyRequest()
-            .authenticated();
-    } else {
-      // For non-SAML installations, don't do any authentication in the back end
-      LOG.trace("Configuring the servlet with no authentication enalbed");
-      http
-        .httpBasic()
-          .disable()
-        .csrf()
-          .disable()
+    LOG.trace("Configuring the servlet with SAML authentication for entity name" + entityId);
+    http
+      .httpBasic()
+        .disable()
+      .csrf()
+        .disable()
+      .anonymous()
+        .disable()
+      .headers()
+        .frameOptions()
+          .sameOrigin()
+      .and()
+        // Any SAML-related endpoints are NOT to be authenticated
+        .authorizeRequests()
+          .requestMatchers(samlConfigurer.endpointsMatcher())
+          .permitAll()
+      .and()
+        // Finally, everything else IS to be authenticated
         .authorizeRequests()
           .anyRequest()
-          .permitAll();
-    }
+          .authenticated();
   }
 }

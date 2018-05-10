@@ -15,11 +15,11 @@ import com.github.ulisesbocchio.spring.boot.security.saml.configurer.ServiceProv
 import com.github.ulisesbocchio.spring.boot.security.saml.configurer.ServiceProviderConfigurerAdapter;
 
 @Configuration
-@Profile("basic")
-public class ServiceProviderConfig extends ServiceProviderConfigurerAdapter {
+@Profile("saml")
+public class ServiceProviderConfigSAML extends ServiceProviderConfigurerAdapter {
   // Add the property logging.level.com.attivio.suitback.config.ServiceProviderConfig
   // to the application.properties to get debug logging (e.g., with value of DEBUG).
-  static final Logger LOG = LoggerFactory.getLogger(ServiceProviderConfig.class);
+  static final Logger LOG = LoggerFactory.getLogger(ServiceProviderConfigSAML.class);
 
   static final String DEFAULT_KEY = "localhost";
   static final String DEFAULT_PASSWORD = "";
@@ -80,80 +80,77 @@ public class ServiceProviderConfig extends ServiceProviderConfigurerAdapter {
     ssoProfileConsumer.setResponseSkew(responseSkew);
     ssoProfileConsumer.setMaxAssertionTime(maxAssertionTime);
 
-    // Only configure SAML authentication if we're asked to
-    if (entityId != null && entityId.length() > 0) {
-      EmptyStorageFactory messageStorage = new EmptyStorageFactory();
-      
-      if (lbEnabled) {
-        LOG.trace("Using the load-balancer-aware SAML context provider");
-        LOG.trace("The load balancer URL scheme is: " + lbScheme);
-        LOG.trace("The load balancer URL server name is: " + lbServerName);
-        LOG.trace("The load balancer URL server port is: " + lbServerPort);
-        LOG.trace("The load balancer URL context path is: " + lbContextPath);
-        LOG.trace("The load balancer URL will " + (lbIncludeServerPortInRequestURL ? "include" : "hide") + " the port");
+    EmptyStorageFactory messageStorage = new EmptyStorageFactory();
+    
+    if (lbEnabled) {
+      LOG.trace("Using the load-balancer-aware SAML context provider");
+      LOG.trace("The load balancer URL scheme is: " + lbScheme);
+      LOG.trace("The load balancer URL server name is: " + lbServerName);
+      LOG.trace("The load balancer URL server port is: " + lbServerPort);
+      LOG.trace("The load balancer URL context path is: " + lbContextPath);
+      LOG.trace("The load balancer URL will " + (lbIncludeServerPortInRequestURL ? "include" : "hide") + " the port");
 
-        serviceProvider.samlContextProviderLb()
-          .scheme(lbScheme)
-          .serverName(lbServerName)
-          .serverPort(lbServerPort)
-          .contextPath(lbContextPath)
-          .includeServerPortInRequestURL(lbIncludeServerPortInRequestURL)
+      serviceProvider.samlContextProviderLb()
+        .scheme(lbScheme)
+        .serverName(lbServerName)
+        .serverPort(lbServerPort)
+        .contextPath(lbContextPath)
+        .includeServerPortInRequestURL(lbIncludeServerPortInRequestURL)
+        .messageStorage(messageStorage)
+      .and()
+        .ssoProfileConsumer(ssoProfileConsumer)
+        .keyManager()
+          .privateKeyDERLocation(keyDerLocation)
+          .publicKeyPEMLocation(keyPemLocation)
+      .and()
+        .metadataManager()
+          .metadataLocations(metadataLocations)
+          .refreshCheckInterval(-1)
+      .and()
+        .metadataGenerator()
+          .entityId(entityId)
+      .and()
+        .extendedMetadata()
+            .idpDiscoveryEnabled(false)
+            .ecpEnabled(true)
+      .and()
+        .sso()
+          .defaultSuccessURL("/")
+          .idpSelectionPageURL(null)
+      .and()
+        .logout()
+          .defaultTargetURL("/loggedout")
+          .invalidateSession(true);
+    } else {
+      LOG.trace("Using the standard SAML context provider");
+      
+      serviceProvider
+        .samlContextProvider()
           .messageStorage(messageStorage)
-        .and()
-          .ssoProfileConsumer(ssoProfileConsumer)
-          .keyManager()
-            .privateKeyDERLocation(keyDerLocation)
-            .publicKeyPEMLocation(keyPemLocation)
-        .and()
-          .metadataManager()
-            .metadataLocations(metadataLocations)
-            .refreshCheckInterval(-1)
-        .and()
-          .metadataGenerator()
-            .entityId(entityId)
-        .and()
-          .extendedMetadata()
-              .idpDiscoveryEnabled(false)
-              .ecpEnabled(true)
-        .and()
-          .sso()
-            .defaultSuccessURL("/")
-            .idpSelectionPageURL(null)
-        .and()
-          .logout()
-            .defaultTargetURL("/loggedout")
-            .invalidateSession(true);
-      } else {
-        LOG.trace("Using the standard SAML context provider");
-        
-        serviceProvider
-          .samlContextProvider()
-            .messageStorage(messageStorage)
-        .and()
-          .ssoProfileConsumer(ssoProfileConsumer)
-          .keyManager()
-            .privateKeyDERLocation(keyDerLocation)
-            .publicKeyPEMLocation(keyPemLocation)
-        .and()
-          .metadataManager()
-            .metadataLocations(metadataLocations)
-            .refreshCheckInterval(-1)
-        .and()
-          .metadataGenerator()
-            .entityId(entityId)
-        .and()
-          .extendedMetadata()
-              .idpDiscoveryEnabled(false)
-              .ecpEnabled(true)
-        .and()
-          .sso()
-            .defaultSuccessURL("/")
-            .idpSelectionPageURL(null)
-        .and()
-          .logout()
-            .defaultTargetURL("/loggedout")
-            .invalidateSession(true);
-      }
+      .and()
+        .ssoProfileConsumer(ssoProfileConsumer)
+        .keyManager()
+          .privateKeyDERLocation(keyDerLocation)
+          .publicKeyPEMLocation(keyPemLocation)
+      .and()
+        .metadataManager()
+          .metadataLocations(metadataLocations)
+          .refreshCheckInterval(-1)
+      .and()
+        .metadataGenerator()
+          .entityId(entityId)
+      .and()
+        .extendedMetadata()
+            .idpDiscoveryEnabled(false)
+            .ecpEnabled(true)
+      .and()
+        .sso()
+          .defaultSuccessURL("/")
+          .idpSelectionPageURL(null)
+      .and()
+        .logout()
+          .defaultTargetURL("/loggedout")
+          .invalidateSession(true);
     }
   }
 }
