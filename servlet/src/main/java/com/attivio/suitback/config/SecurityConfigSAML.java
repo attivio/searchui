@@ -20,10 +20,10 @@ import com.github.ulisesbocchio.spring.boot.security.saml.configurer.ServiceProv
 
 @Configuration
 @Profile("saml")
-public class ServiceProviderConfigSAML extends ServiceProviderConfigurerAdapter {
+public class SecurityConfigSAML extends ServiceProviderConfigurerAdapter {
   // Add the property logging.level.com.attivio.suitback.config.ServiceProviderConfig
   // to the application.properties to get debug logging (e.g., with value of DEBUG).
-  static final Logger LOG = LoggerFactory.getLogger(ServiceProviderConfigSAML.class);
+  static final Logger LOG = LoggerFactory.getLogger(SecurityConfigSAML.class);
 
   static final String DEFAULT_KEY = "localhost";
   static final String DEFAULT_PASSWORD = "";
