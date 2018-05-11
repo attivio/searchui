@@ -7,7 +7,6 @@
     <artifactId>parent</artifactId>
     <version>1.0.2-SNAPSHOT</version>
   </parent>
-  <groupId>com.attivio.searchui</groupId>
   <artifactId>servlet</artifactId>
   <packaging>war</packaging>
   <name>Servlet</name>

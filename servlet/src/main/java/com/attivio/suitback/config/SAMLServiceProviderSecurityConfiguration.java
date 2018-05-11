@@ -45,22 +45,17 @@ import com.github.ulisesbocchio.spring.boot.security.saml.bean.SAMLConfigurerBea
 import com.github.ulisesbocchio.spring.boot.security.saml.bean.override.LocalExtendedMetadata;
 import com.github.ulisesbocchio.spring.boot.security.saml.configurer.ServiceProviderBuilder;
 import com.github.ulisesbocchio.spring.boot.security.saml.configurer.ServiceProviderConfigurer;
-import com.github.ulisesbocchio.spring.boot.security.saml.configurer.ServiceProviderConfigurerAdapter;
 import com.github.ulisesbocchio.spring.boot.security.saml.configurer.ServiceProviderEndpoints;
 import com.github.ulisesbocchio.spring.boot.security.saml.properties.SAMLSSOProperties;
 
 /**
- * Spring Security configuration entry point for the Service Provider. This configuration class basically collects
- * all relevant beans present in the application context to initialize and configure all {@link
- * ServiceProviderConfigurer}
- * present in the context. Usually one {@link ServiceProviderConfigurer} is enough and preferably one that extends
- * {@link ServiceProviderConfigurerAdapter} which provides empty implementations and subclasses can implement only the
- * relevant method(s) for the purpose of the current application.
- * <p>
- * All {@code required=false} autowired beans can be provided as beans by the user instead of using the
- * {@link ServiceProviderConfigurer} DSL.
- *
- * @author Ulises Bocchio
+ * This is basically the same code as
+ * <code>com.github.ulisesbocchio.spring.boot.security.saml.configuration.SAMLServiceProviderSecurityConfiguration</code>
+ * with the beans all marked as only occurring if we're using the SAML profile.
+ * 
+ * If this isn't done like this, then when the configuration is included but we're
+ * not configured for SAML, the servlet won't start due to a non-existing idp-metadata.xml
+ * file.
  */
 @Configuration
 @EnableConfigurationProperties(SAMLSSOProperties.class)

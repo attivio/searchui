@@ -13,38 +13,40 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 @Profile("basic")
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfigBasic extends WebSecurityConfigurerAdapter {
   // Add the property logging.level.com.attivio.suitback.config.SecurityConfig
   // to the application.properties to get debug logging (e.g., with value of DEBUG).
-  static final Logger LOG = LoggerFactory.getLogger(SecurityConfig.class);
+  static final Logger LOG = LoggerFactory.getLogger(SecurityConfigBasic.class);
+  
+  public static final String[] NOT_AUTHENTICATED_MATCHERS = new String[] {
+      "/error",
+      "/loggedout",
+      "/users",
+      "/configuration",
+      "/sockjs-node/**",
+      "/log",
+      "/**/*.css",
+      "/**/*.ttf",
+      "/**/*.eot",
+      "/**/*.wof",
+      "/**/*.woff2"
+      ,"/**/*.svg",
+      "/**/*.png",
+      "/**/*.gif",
+      "/**/*.ico"
+  };
 
   @Override
   public void configure(WebSecurity web) throws Exception {
     // The REST API, the special sockjs-node URLs, and any static files are NOT to be authenticated
     web
       .ignoring()
-        .antMatchers(
-            "/error",
-            "/loggedout",
-            "/users",
-            "/configuration",
-            "/sockjs-node/**",
-            "/log",
-            "/**/*.css",
-            "/**/*.ttf",
-            "/**/*.eot",
-            "/**/*.wof",
-            "/**/*.woff2"
-            ,"/**/*.svg",
-            "/**/*.png",
-            "/**/*.gif",
-            "/**/*.ico"
-           );
+        .antMatchers(NOT_AUTHENTICATED_MATCHERS);
   }
   
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    LOG.trace("Configuring the servlet with no authentication enalbed");
+    LOG.trace("Configuring the servlet with no authentication enabled");
     http
       .httpBasic()
         .disable()

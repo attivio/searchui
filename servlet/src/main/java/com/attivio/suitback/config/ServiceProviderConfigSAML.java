@@ -5,12 +5,16 @@ package com.attivio.suitback.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.saml.storage.EmptyStorageFactory;
 import org.springframework.security.saml.websso.WebSSOProfileConsumerImpl;
 
+import com.github.ulisesbocchio.spring.boot.security.saml.bean.SAMLConfigurerBean;
 import com.github.ulisesbocchio.spring.boot.security.saml.configurer.ServiceProviderBuilder;
 import com.github.ulisesbocchio.spring.boot.security.saml.configurer.ServiceProviderConfigurerAdapter;
 
@@ -63,6 +67,9 @@ public class ServiceProviderConfigSAML extends ServiceProviderConfigurerAdapter 
   @Value("${saml.sso.maxAssertionTime:3000}")
   int maxAssertionTime;
   
+  @Autowired
+  SAMLConfigurerBean samlConfigurer;
+
   @Override
   public void configure(ServiceProviderBuilder serviceProvider) throws Exception {
     LOG.trace("The service provider's entity ID is: " + entityId);
@@ -152,5 +159,38 @@ public class ServiceProviderConfigSAML extends ServiceProviderConfigurerAdapter 
           .defaultTargetURL("/loggedout")
           .invalidateSession(true);
     }
+  }
+
+  @Override
+  public void configure(WebSecurity web) {
+    // The REST API, the special sockjs-node URLs, and any static files are NOT to be authenticated
+    web
+      .ignoring()
+        .antMatchers(SecurityConfigBasic.NOT_AUTHENTICATED_MATCHERS);
+  }
+  
+  @Override
+  public void configure(HttpSecurity http) throws Exception {
+    LOG.trace("Configuring the servlet with SAML authentication enabled");
+    http
+    .httpBasic()
+      .disable()
+    .csrf()
+      .disable()
+    .anonymous()
+      .disable()
+    .headers()
+      .frameOptions()
+        .sameOrigin()
+    .and()
+      // Any SAML-related endpoints are NOT to be authenticated
+      .authorizeRequests()
+        .requestMatchers(samlConfigurer.endpointsMatcher())
+        .permitAll()
+    .and()
+      // Finally, everything else IS to be authenticated
+      .authorizeRequests()
+        .anyRequest()
+        .authenticated();
   }
 }
