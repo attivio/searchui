@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @Configuration
-@Profile("basic")
+@Profile("!saml")
 public class SecurityConfigBasic extends WebSecurityConfigurerAdapter {
   // Add the property logging.level.com.attivio.suitback.config.SecurityConfig
   // to the application.properties to get debug logging (e.g., with value of DEBUG).
