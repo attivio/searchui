@@ -6,9 +6,11 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.saml.SAMLBootstrap;
 
 @Configuration
+@Profile("saml")
 public class CustomSAMLBootstrap extends SAMLBootstrap {
   @Override
   public void postProcessBeanFactory(ConfigurableListableBeanFactory arg0) throws BeansException {

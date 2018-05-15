@@ -33,7 +33,9 @@ public class ConfigController {
   public String users() {
     if (usersFileLocation != null && usersFileLocation.length() > 0) {
       try {
-        return new String(Files.readAllBytes(Paths.get(usersFileLocation)));
+        String usersFile = new String(Files.readAllBytes(Paths.get(usersFileLocation)), "UTF-8");
+        LOG.trace("Loaded the users file from " + usersFileLocation);
+        return usersFile;
       } catch (IOException e) {
         LOG.info("Failed to load the users file from: " + usersFileLocation, e);
         return "";
@@ -48,7 +50,9 @@ public class ConfigController {
   @RequestMapping("/configuration")
   public String configuration() {
     try {
-      return new String(Files.readAllBytes(Paths.get(configurationFileLocation)));
+      String configFile = new String(Files.readAllBytes(Paths.get(configurationFileLocation)), "UTF-8");
+      LOG.trace("Loaded the configuration file from " + usersFileLocation);
+      return configFile;
     } catch (IOException e) {
       LOG.info("Failed to load the configuration file from: " + configurationFileLocation, e);
       return "";
