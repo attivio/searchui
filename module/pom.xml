@@ -7,7 +7,7 @@
     <artifactId>parent</artifactId>
     <version>1.0.2-SNAPSHOT</version>
   </parent>
-  <artifactId>searchui-module</artifactId>
+  <artifactId>module</artifactId>
   <name>Module</name>
   <description>Wraps the front-end application in an Attivio module</description>
   <dependencies>
@@ -39,6 +39,7 @@
     </dependency>
   </dependencies>
   <build>
+    <finalName>searchui-module-${project.version}</finalName>
     <resources>
       <resource>
         <directory>src/main/resources</directory>
