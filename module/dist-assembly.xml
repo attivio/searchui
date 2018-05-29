@@ -20,6 +20,10 @@
       <filtered>true</filtered>
       <outputDirectory>${file.separator}</outputDirectory>
     </file>
+    <file>
+      <source>${project.build.directory}/${project.build.finalName}.${project.packaging}</source>
+      <outputDirectory>lib</outputDirectory>
+    </file>
   </files>
   <dependencySets>
     <dependencySet>
@@ -27,6 +31,7 @@
       <excludes>
         <exclude>com.attivio.searchui:frontend:zip:dist</exclude>
       </excludes>
+      <useProjectArtifact>false</useProjectArtifact>
     </dependencySet>
     <dependencySet>
       <outputDirectory>webapps/searchui/dist</outputDirectory>
