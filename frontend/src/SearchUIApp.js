@@ -14,7 +14,7 @@ import {
   AuthRoute,
   AuthUtils,
   Logger,
-  NavTabInfo,
+  MastheadNavTabs,
   ObjectUtils,
 } from '@attivio/suit';
 
@@ -198,13 +198,13 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
     });
   }
 
-  getMastheadNavTabs(): Array<NavTabInfo> {
+  getMastheadNavTabs(): Array<MastheadNavTabs.NavTabInfo> {
     if (this.state.config.searchEngineTypen && this.state.config.searchEngineType !== 'attivio') {
       return [];
     }
     return [
-      new NavTabInfo('Results', '/results'),
-      new NavTabInfo('Insights', '/insights'),
+      new MastheadNavTabs.NavTabInfo('Results', '/results'),
+      new MastheadNavTabs.NavTabInfo('Insights', '/insights'),
     ];
   }
 
