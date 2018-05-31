@@ -48,7 +48,7 @@ In the file `application.properties` (Servlet only):
 
 * Change the
 
-**_Updates coming_**
+> **_Updates coming_**
 
 ### How do I change the name displayed for the application (i.e. from “Cognitive Search”)?
 
