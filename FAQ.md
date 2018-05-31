@@ -7,7 +7,7 @@ The questions are divided up into the following sections:
 * [Changing the Way Search Works](#changing-the-way-search-works)
 * [Changing Facets](#changing-facets)
 * [Changes to the Document 360° Page](#changes-to-the-document-360-page)
-* [Branding-Type Configuration](#branding-type-configuration)
+* [Branding-Type Changes](#branding-type-changes)
 * [Configuring Search UI for Use with Non-Attivio Servers](#configuring-search-ui-for-use-with-non-attivio-servers)
 * [Configuring Search UI as a Module](#configuring-search-ui-as-a-module)
 * [Configuring Search UI as a Servlet](#configuring-search-ui-as-a-servlet)
