@@ -4,13 +4,13 @@ This document describes some of the common things that you might want to do with
 
 The questions are divided up into the following sections:
 * [Application-Wide Configuration](#application-wide-configuration)
-* [Changing the Way Search Works](#application-wide-configuration)
-* [Changing Facets](#application-wide-configuration)
-* [Changes to the Document 360° Page](#application-wide-configuration)
-* [Branding-Relssted Configuration](#application-wide-configuration)
-* [Configuring Search UI for Use with Non-Attivio Servers](#application-wide-configuration)
-* [Configuring Search UI as a Module](#application-wide-configuration)
-* [Configuring Search UI as a Servlet](#application-wide-configuration)
+* [Changing the Way Search Works](#changing-the-way-search-works)
+* [Changing Facets](#changing-facets)
+* [Changes to the Document 360° Page](#changes-to-the-document-360-page)
+* [Branding-Type Configuration](#branding-type-configuration)
+* [Configuring Search UI for Use with Non-Attivio Servers](#configuring-search-ui-for-use-with-non-attivio-servers)
+* [Configuring Search UI as a Module](#configuring-search-ui-as-a-module)
+* [Configuring Search UI as a Servlet](#configuring-search-ui-as-a-servlet)
 
 ## Application-Wide Configuration
 
