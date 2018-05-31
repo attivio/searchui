@@ -48,7 +48,7 @@ In the file `application.properties` (Servlet only):
 
 * Change the
 
-> **_Updates coming_**
+> **_Updates for this answer are coming_**
 
 ### How do I change the name displayed for the application (i.e. from “Cognitive Search”)?
 
@@ -60,11 +60,11 @@ This ia a bit more complicated. Please see the tutorial on doing this in the Sea
 
 ### How do I do a one-off query that doesn’t affect the results page?
 
-XXX
+> **_Updates for this answer are coming_**
 
 ### How do I force the results page to show a new query?
 
-XXX
+> **_Updates for this answer are coming_**
 
 ## Changing the Way Search Works
 
@@ -96,7 +96,7 @@ Use the property `SearchUISearchPage.sortableFields`. Note that the fields must 
 
 ### How do I control the results per page/join rollup mode/result highlighitng/locale/query filter/search workflow/business center search profile used when searching?
 
-XXX
+> **_Updates for this answer are coming_**
 
 ## Changing Facets
 
@@ -184,23 +184,23 @@ The questions in this section all require you to rebuild the appication to make 
 
 The colors used by Search UI’s components are configured using the variables in the file /src/style/bootstrap/variables.less. You should be able to limit your changes to...
 
-XXX
+> **_Updates for this answer are coming_**
 
 ### How do I specify which fields (entity types) are used to link documents on the 360⁰ page?
 
-XXX
+> **_Updates for this answer are coming_**
 
 ### How do I limit the number of linked documents for a given entity on the 360⁰ page?
 
-XXX
+> **_Updates for this answer are coming_**
 
 ### What should I change if I want to see the the Factbook module’s fields in my Search UI?
 
-XXX
+> **_Updates for this answer are coming_**
 
 ### How do I add a new item to the Searcher component’s state?
 
-XXX
+> **_Updates for this answer are coming_**
 
 ## Servlet-Related Changes
 
@@ -208,23 +208,23 @@ These configuration steps all involve changes to the file application.properties
 
 ### How do I configure the Search UI servlet to use SSH/SSL?
 
-XXX
+> **_Updates for this answer are coming_**
 
 ### How do I configure the Search UI servlet to point to my Attivio server?
 
-XXX
+> **_Updates for this answer are coming_**
 
 ### How do I configure the Search UI servlet to run behind a reverse proxy or a load balancer?
 
-XXX
+> **_Updates for this answer are coming_**
 
 ### How do I debug the Search UI servlet?
 
-XXX
+> **_Updates for this answer are coming_**
  
 ### How do I debug the Search UI application?
 
-XXX
+> **_Updates for this answer are coming_**
 
 ## Configuring Search UI as a Module
 
@@ -232,15 +232,15 @@ These questions all have to do with running the Search UI as an external module 
 
 ### How do I configure module-based Search UI to use LDAP/AD authentication?
 
-XXX
+> **_Updates for this answer are coming_**
 
 ### How do I configure module-based Search UI to use XML authentication?
 
-XXX
+> **_Updates for this answer are coming_**
 
 ### How do I configure module-based Search UI to use no authentication?
 
-XXX
+> **_Updates for this answer are coming_**
 
 ## Configuring Search UI as a Servlet
 
@@ -248,23 +248,23 @@ These questions all have to do with running the Search UI as a servlet using an 
 
 ### How do I configure servlet-based Search UI to use XML authentication?
 
-XXX
+> **_Updates for this answer are coming_**
 
 ### How do I configure servlet-based Search UI to use SAML-based single sign-on (SSO) authentication?
 
-XXX
+> **_Updates for this answer are coming_**
 
 ### What SAML identity providers does Search UI support?
 
-XXX
+> **_Updates for this answer are coming_**
 
 ### What servlet containers does Search UI support?
 
-XXX
+> **_Updates for this answer are coming_**
 
 ### How do I configure servlet-based Search UI to use XML authentication?
 
-XXX
+> **_Updates for this answer are coming_**
 
 ## GitHub-Related Questions
 
@@ -272,7 +272,7 @@ These questions all have to do with working with the projects in GitHub and with
 
 ### How do I contribute my cool new component to the SUIT library?
 
-XXX
+> **_Updates for this answer are coming_**
 
 ### How do I use my own Git repository with the Search UI (or SUIT) code?
 
@@ -290,7 +290,7 @@ You'll generally want to merge only from the "master" branch, which has the late
 
 ### How  do I update my repository with changes from the Search UI (or SUIT) project’s GitHub repository?
 
-XXX
+> **_Updates for this answer are coming_**
  
 ## Windows-Specific Issues
 
@@ -302,11 +302,11 @@ Forward slashes can be used in the configuration files and is a lot easier than 
 
 ### What type of line endings do I need to use?
 
-XXX
+> **_Updates for this answer are coming_**
 
 ### Warning about Git line endings
 
-XXX
+> **_Updates for this answer are coming_**
 
 ### How do I use modified version of the SUIT library?
 
@@ -318,7 +318,7 @@ These are some common troublesome situations and how to get out of them.
 
 ### Search UI won’t start in Tomcat
 
-XXX
+> **_Updates for this answer are coming_**
 
 ### Search UI shows lots of Flow errors in Visual Studio Code even though I set the flag to use the local instance of Flow in the Visual Studio Code settings.
 
