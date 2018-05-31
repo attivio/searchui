@@ -48,7 +48,7 @@ In the file `application.properties` (Servlet only):
 
 * Change the
 
-XXX
+<span style="color: darkred;">Updates coming</span>
 
 ### How do I change the name displayed for the application (i.e. from “Cognitive Search”)?
 
