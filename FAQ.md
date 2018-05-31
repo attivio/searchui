@@ -3,14 +3,14 @@
 This document describes some of the common things that you might want to do with the Search UI application or with the SUIT library it's based on.
 
 The questions are divided up into the following sections:
-* Application-Wide Configuration
-* Changing the Way Search Works
-* Changing Facets
-* Changes to the Document 360° Page
-* Branding-Relssted Configuration
-* Configuring Search UI for Use with Non-Attivio Servers
-* Configuring Search UI as a Module
-* Configuring Search UI as a Servlet
+* [Application-Wide Configuration](#application-wide-configuration)
+* [Changing the Way Search Works](#application-wide-configuration)
+* [Changing Facets](#application-wide-configuration)
+* [Changes to the Document 360° Page](#application-wide-configuration)
+* [Branding-Relssted Configuration](#application-wide-configuration)
+* [Configuring Search UI for Use with Non-Attivio Servers](#application-wide-configuration)
+* [Configuring Search UI as a Module](#application-wide-configuration)
+* [Configuring Search UI as a Servlet](#application-wide-configuration)
 
 ## Application-Wide Configuration
 
