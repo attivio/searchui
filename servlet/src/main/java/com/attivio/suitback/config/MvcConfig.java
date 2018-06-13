@@ -17,7 +17,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
   @Bean
   public WebContentInterceptor webContentInterceptor() {
     WebContentInterceptor interceptor = new WebContentInterceptor();
-    interceptor.setCacheControl(CacheControl.noCache());
     return interceptor;
   }
   
