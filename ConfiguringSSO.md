@@ -15,7 +15,7 @@ You will need to do the following steps to set up the SAML authentication:
 
 ## Step 1: Configuring the Search UI Servlet
 
-See [Deploying to Tomcat](../DeploymentTomcat.md) for details on how to do this. In particular, you will probably want to follow the steps to configure the servlet to run using TLS (SSL) to secure the connection between it and the user.
+See [Deploying to Tomcat](DeploymentTomcat.md) for details on how to do this. In particular, you will probably want to follow the steps to configure the servlet to run using TLS (SSL) to secure the connection between it and the user.
 
 Note that when deploying Search UI with SAML authentication, there is no need to configure the property `suit.attivio.users` in `application.properties`.
 
