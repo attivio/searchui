@@ -12,8 +12,6 @@
   <name>Servlet</name>
   <description>Wraps the front-end application in a WAR file that can be deployed to a serlvet container like Tomcat</description>
   <properties>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
     <version.spring>1.5.9.RELEASE</version.spring>
     <version.httpclient>4.5.3</version.httpclient>
     <version.spring.boot.securitry.saml>1.13</version.spring.boot.securitry.saml>
