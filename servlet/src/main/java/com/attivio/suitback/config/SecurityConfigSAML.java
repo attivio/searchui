@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.saml.storage.EmptyStorageFactory;
 import org.springframework.security.saml.websso.WebSSOProfileConsumerImpl;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 
 import com.github.ulisesbocchio.spring.boot.security.saml.bean.SAMLConfigurerBean;
 import com.github.ulisesbocchio.spring.boot.security.saml.configurer.ServiceProviderBuilder;
@@ -66,6 +67,12 @@ public class SecurityConfigSAML extends ServiceProviderConfigurerAdapter {
   
   @Value("${saml.sso.maxAssertionTime:3000}")
   int maxAssertionTime;
+  
+  @Value("${suit.attivio.corsOrigins:*}")
+  String corsOrigins;
+
+  @Value("${suit.attivio.corsMethods:*}")
+  String corsMethods;
   
   @Autowired
   SAMLConfigurerBean samlConfigurer;
@@ -175,6 +182,7 @@ public class SecurityConfigSAML extends ServiceProviderConfigurerAdapter {
     http
     .httpBasic()
       .disable()
+    .addFilterBefore(new WebSecurityCorsFilter(corsOrigins, corsMethods), ChannelProcessingFilter.class)
     .csrf()
       .disable()
     .anonymous()

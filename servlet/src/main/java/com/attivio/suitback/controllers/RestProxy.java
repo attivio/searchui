@@ -39,7 +39,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -51,7 +50,6 @@ import org.springframework.web.client.RestTemplate;
 import com.attivio.suitback.controllers.UserController.UserDetails;
 import com.google.gson.Gson;
 
-@CrossOrigin
 @Controller
 public class RestProxy {
   static final String API_KEY_PARAM = "apikey";
