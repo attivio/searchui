@@ -221,6 +221,28 @@
     allowLanguageSelect: true,
     autoCompleteUri: '/rest/autocompleteApi/richCgi/dictionaryProvider',
   },
+  
+  /** 
+   * These properties configure only the default values for properties of any FacetSearchBar component(s).
+   * The FacetSearchBar is the input element that allows searching for values of a specific facet, as well 
+   * as exporting values to a CSV. 
+   */
+  FacetSearchBar: {
+	// SEARCH BAR CONGIGS
+	// Should there be a Facet Search Bar exposed to end users 
+	showSearchBar: true,
+	// The placeholder for the search bar
+        placeholder: 'Search Facet Values',
+	// The label on the 'Search' button
+        buttonLabel: 'Search',
+	// Max number of matching facet values to show
+	maxValues: 5,
+	// EXPORT CONFIGS
+	// Should there be an export button exposed to end users
+	showExportButton: true,
+	// The label for the export button for exporting results to a CSV
+	exportButtonLabel: 'Export',
+  },
 
   /**
    * These properties configure only the default values for properties of any Searcher component(s).
