@@ -3,6 +3,8 @@
 */
 package com.attivio.suitback.controllers;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -104,7 +106,10 @@ public class UserController {
   
   @ResponseBody
   @RequestMapping("/rest/serverDetailsApi/user")
-  public UserDetails user() {
+  public UserDetails user(HttpServletResponse response) {
+    // Don't cache the user information
+    response.addHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    response.addHeader("Pragma", "no-cache");    
     return UserController.getUserDetails();
   }
   
