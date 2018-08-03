@@ -223,24 +223,22 @@
   },
   
   /** 
-   * These properties configure only the default values for properties of any FacetSearchBar component(s).
-   * The FacetSearchBar is the input element that allows searching for values of a specific facet, as well 
-   * as exporting values to a CSV. 
+   * These properties configure the default properties for FacetSearchBar components in the UI. The
+   * FacetSearchBar allows searching among all values of a specific facet, as well as exporting the
+   * list of all values for that facet to a CSV file.
    */
   FacetSearchBar: {
-	// SEARCH BAR CONGIGS
-	// Should there be a Facet Search Bar exposed to end users 
-	showSearchBar: true,
-	// The placeholder for the search bar
-        placeholder: 'Search Facet Values',
+	// Whether the FacetSearchBar should be visible
+	showSearchBar: false,
+	// The placeholder text for the search bar
+        placeholder: 'Search values\u2026',
 	// The label on the 'Search' button
         buttonLabel: 'Search',
 	// Max number of matching facet values to show
 	maxValues: 5,
-	// EXPORT CONFIGS
-	// Should there be an export button exposed to end users
-	showExportButton: true,
-	// The label for the export button for exporting results to a CSV
+	// Whether there should be an export button
+	showExportButton: false,
+	// The label for the export button
 	exportButtonLabel: 'Export',
   },
 
