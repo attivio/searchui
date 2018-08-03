@@ -11,6 +11,7 @@ import java.nio.charset.Charset;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
@@ -210,8 +211,12 @@ public class RestProxy {
           updatedResponseHeaders.put(responseHeaderEntry.getKey(), responseHeaderEntry.getValue());
         }
       }
-      String realBody;
-        realBody = responseEntity.getBody();
+      // Add the caching headers to prevent caching of REST calls
+      updatedResponseHeaders.put("Pragma", Arrays.asList("no-cache"));
+      updatedResponseHeaders.put("Cache-Control", Arrays.asList("no-cache, no-store, must-revalidate"));
+      
+      String realBody = responseEntity.getBody();
+      
       responseEntity = new ResponseEntity<String>(realBody, updatedResponseHeaders, responseEntity.getStatusCode());
     } catch (RestClientException e) {
       LOG.info("Error contacting the Attivio server", e);
