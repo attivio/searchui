@@ -82,7 +82,7 @@
       distance: '#075484',
       coordinate: '#caeefa',
     },
-	
+
     // The default comprehensive list of fields to include in search results
     fields: [
       '*',
