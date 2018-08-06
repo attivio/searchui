@@ -82,6 +82,16 @@
       distance: '#075484',
       coordinate: '#caeefa',
     },
+	
+	// This map is used for pie charts to assign specific colors to different buckets, the keys are
+	// the field names and the values are a map of buckets as keys and corresponding colors as 
+	// pairs. Users can specify color maps for any fields being used by a pie chart.
+	fieldValueColors: {
+		sentiment: {
+			pos: 'lightgreen',
+			neg: '#ff6666',
+		},
+	},
 
     // The default comprehensive list of fields to include in search results
     fields: [
