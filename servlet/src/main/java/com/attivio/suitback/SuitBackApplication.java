@@ -10,6 +10,7 @@ import org.springframework.core.Ordered;
 import org.springframework.security.saml.storage.EmptyStorageFactory;
 import org.springframework.security.saml.storage.SAMLMessageStorageFactory;
 import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.attivio.suitback.controllers.HomeController;
 import com.attivio.suitback.controllers.HomeControllerHandlerMapper;
@@ -40,6 +41,14 @@ public class SuitBackApplication extends SpringBootServletInitializer implements
     return new EmptyStorageFactory();
   }
 
+  @Bean
+  CharacterEncodingFilter characterEncodingFilter() {
+	  CharacterEncodingFilter filter = new CharacterEncodingFilter();
+	  filter.setEncoding("UTF-8");
+	  filter.setForceEncoding(true);
+	  return filter;
+  }
+ 
   @Bean
   public HomeControllerHandlerMapper myHomeControllerHandlerMapper(HomeController myHomeController) {
     HomeControllerHandlerMapper myCustomHandlerMapper = new HomeControllerHandlerMapper(myHomeController);

@@ -15,7 +15,9 @@ public class HomeController extends AbstractController {
 
   @Override
   protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    response.setHeader("Cache-Control", "no-transform, public, max-age=86400");
+    // Don't cache the HTML file because it is used to force the SAML log in
+    response.addHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    response.addHeader("Pragma", "no-cache");
     return new ModelAndView("index.html");
   }
 }

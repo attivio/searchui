@@ -188,6 +188,8 @@ public class SecurityConfigSAML extends ServiceProviderConfigurerAdapter {
     .anonymous()
       .disable()
     .headers()
+      .cacheControl() 
+        .disable()
       .frameOptions()
         .sameOrigin()
     .and()

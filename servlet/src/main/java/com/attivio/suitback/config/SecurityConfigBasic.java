@@ -57,6 +57,10 @@ public class SecurityConfigBasic extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     LOG.trace("Configuring the servlet with no authentication enabled");
     http
+      .headers()
+        .cacheControl()
+          .disable()
+          .and()
       .httpBasic()
         .disable()
       .addFilterBefore(new WebSecurityCorsFilter(corsOrigins, corsMethods), ChannelProcessingFilter.class)

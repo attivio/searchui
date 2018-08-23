@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +30,10 @@ public class ConfigController {
 
   @ResponseBody
   @RequestMapping("/users")
-  public String users() {
+  public String users(HttpServletResponse response) {
+    // Don't cache the users file
+    response.addHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    response.addHeader("Pragma", "no-cache");
     if (usersFileLocation != null && usersFileLocation.length() > 0) {
       try {
         String usersFile = new String(Files.readAllBytes(Paths.get(usersFileLocation)), "UTF-8");
@@ -46,7 +51,10 @@ public class ConfigController {
   
   @ResponseBody
   @RequestMapping("/configuration")
-  public String configuration() {
+  public String configuration(HttpServletResponse response) {
+    // Don't cache the config file
+    response.addHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    response.addHeader("Pragma", "no-cache");
     try {
       String configFile = new String(Files.readAllBytes(Paths.get(configurationFileLocation)), "UTF-8");
       LOG.trace("Loaded the configuration file from " + usersFileLocation);
