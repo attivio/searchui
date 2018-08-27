@@ -11,6 +11,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -30,12 +31,48 @@ public class WebSecurityCorsFilter implements Filter {
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
   }
+  
+  /**
+   * Based on the configuration and the incoming request, decide what to return
+   * for the value of the Access-Control-Allow-Origin header, if anything.
+   *  
+   * @param request the incoming request
+   * @return        the origin to return or <code>null</code> if not configured or nothing matches
+   */
+  String getAllowedCorsOrigin(String comingFrom) {
+    String originToReturn = null;
+    // Special case of "*"
+    if ("*".equals(corsOrigins)) {
+      originToReturn = "*";
+    } else {
+      String[] origins = corsOrigins.split(",");
+      for (String testOrigin : origins) {
+        if (testOrigin.trim().equals(comingFrom)) {
+          // The actual origin matches one of the items in the corsOrigins list
+          originToReturn = comingFrom;
+          break;
+        }
+      }      
+    }
+    
+    LOG.trace("Incomding origin is " + comingFrom + ". (Allowed origins are: " + corsOrigins + ".)");
+    if (originToReturn != null) {
+      LOG.trace("Returning Access-Control-Allow-Origin header with value " + originToReturn + ".");
+    } else {
+      LOG.trace("Returning NO Access-Control-Allow-Origin header.");
+    }
+    return originToReturn;
+  }
 
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-    LOG.trace("Adding CORS headers for origin(s): " + corsOrigins); 
+    String comingFrom = ((HttpServletRequest)request).getHeader("Origin");
+    String originToReturn = getAllowedCorsOrigin(comingFrom );
+
     HttpServletResponse res = (HttpServletResponse) response;
-    res.setHeader("Access-Control-Allow-Origin", corsOrigins);
+    if (originToReturn != null) {
+      res.setHeader("Access-Control-Allow-Origin", originToReturn);
+    }
     res.setHeader("Access-Control-Allow-Methods", corsMethods);
     res.setHeader("Access-Control-Max-Age", "3600");
     res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept, x-requested-with, Cache-Control");
