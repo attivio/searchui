@@ -25,6 +25,7 @@
       <directory>${project.basedir}/../frontend</directory>
       <includes>
         <include>users.xml</include>
+        <include>configuration.properties.js</include>
       </includes>
       <outputDirectory>${file.separator}</outputDirectory>
     </fileSet>
