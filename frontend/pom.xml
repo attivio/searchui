@@ -51,19 +51,6 @@
         </executions>
       </plugin>
       <plugin>
-        <artifactId>maven-clean-plugin</artifactId>
-        <configuration>
-          <filesets>
-            <fileset>
-              <directory>${project.basedir}</directory>
-              <includes>
-                <include>node_modules/</include>
-              </includes>
-            </fileset>
-          </filesets>
-        </configuration>
-      </plugin>
-      <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
           <descriptors>
