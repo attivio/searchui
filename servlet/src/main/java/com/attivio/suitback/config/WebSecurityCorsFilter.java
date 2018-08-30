@@ -4,6 +4,7 @@
 package com.attivio.suitback.config;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -55,7 +56,7 @@ public class WebSecurityCorsFilter implements Filter {
       }      
     }
     
-    LOG.trace("Incomding origin is " + comingFrom + ". (Allowed origins are: " + corsOrigins + ".)");
+    LOG.trace("Incoming origin is " + comingFrom + ". (Allowed origins are: " + corsOrigins + ".)");
     if (originToReturn != null) {
       LOG.trace("Returning Access-Control-Allow-Origin header with value " + originToReturn + ".");
     } else {
@@ -66,10 +67,26 @@ public class WebSecurityCorsFilter implements Filter {
 
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-    String comingFrom = ((HttpServletRequest)request).getHeader("Origin");
-    String originToReturn = getAllowedCorsOrigin(comingFrom );
+    HttpServletRequest req = (HttpServletRequest)request;
+    
+    Enumeration<String > origins = req.getHeaders("Origin");
+    String originToReturn = null;
+    if (origins != null) {
+      if (origins.hasMoreElements()) {
+        String origin = origins.nextElement();
+        if (origins.hasMoreElements()) {
+          String queryString = (req.getQueryString() != null) ? ("?" + req.getQueryString()) : "";
+          String requestedURL = req.getRequestURL().append(queryString).toString();
+          LOG.warn("Being called with multiple Origin headers set. URI: " + requestedURL);
+        } else {
+          originToReturn = getAllowedCorsOrigin(origin);
+          if (originToReturn != null) {
+          }
+        }
+      }
+    }
 
-    HttpServletResponse res = (HttpServletResponse) response;
+    HttpServletResponse res = (HttpServletResponse)response;
     if (originToReturn != null) {
       res.setHeader("Access-Control-Allow-Origin", originToReturn);
     }
