@@ -191,7 +191,7 @@ public class RestProxy {
 
     ResponseEntity<String> responseEntity = null;
     
-    LOG.trace("Proxying REST API call from '" + request.getRequestURL().toString() + 
+    LOG.trace("Proxying REST API call (" + method.toString() + ") from '" + request.getRequestURL().toString() + 
         (request.getQueryString() != null ? ("?" + request.getQueryString()) : "") + "' to '" + uri.toString() + "'");
     
     try {
