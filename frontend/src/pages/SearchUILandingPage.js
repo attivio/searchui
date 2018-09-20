@@ -16,6 +16,16 @@ import {
 
 import SearchUIApp from '../SearchUIApp';
 
+type SearchUILandingPageProps = {
+  logoUri: string;
+  logoAltText: string;
+};
+
+type SearchUILandingPageDefaultProps = {
+  logoUri: string;
+  logoAltText: string;
+};
+
 type SearchUILandingPageState = {
   numDocuments: number;
   numTables: number;
@@ -23,13 +33,18 @@ type SearchUILandingPageState = {
   error: string | null;
 };
 
-export default class SearchUILandingPage extends React.Component<void, {}, SearchUILandingPageState> {
+export default class SearchUILandingPage extends React.Component<SearchUILandingPageDefaultProps, SearchUILandingPageProps, SearchUILandingPageState> { // eslint-disable-line max-len
+  static defaultProps = {
+    logoUri: 'img/attivio-logo.png',
+    logoAltText: 'Attivio',
+  };
+
   static contextTypes = {
     searcher: PropTypes.any,
     app: PropTypes.shape({ type: PropTypes.oneOf([SearchUIApp]) }),
   };
 
-  constructor(props: any, context: any) {
+  constructor(props: SearchUILandingPageProps, context: any) {
     super(props, context);
     this.state = {
       numDocuments: 0,
@@ -123,7 +138,7 @@ export default class SearchUILandingPage extends React.Component<void, {}, Searc
               <Col xs={12} sm={12} md={12} lg={12}>
                 <div style={{ textAlign: 'center', paddingTop: '20vh' }}>
                   <div style={{ display: 'inline-block', width: '50%' }}>
-                    <img src="img/attivio-logo.png" alt="Attivio" />
+                    <img src={this.props.logoUri} alt={this.props.logoAltText} />
                   </div>
                 </div>
               </Col>

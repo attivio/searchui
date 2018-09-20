@@ -264,6 +264,16 @@
   },
 
   /**
+   * These properties configure the Search UI's landing page.
+   */
+  SearchUILandingPage: {
+    // This is the path to the logo to use for the landing page
+    logoUri: 'img/attivio-logo.png',
+      // This is the 'alt' text that is used for the logo
+      logoAltText: 'Attivio',
+  },
+
+  /**
    * These properties configure only the default values for properties of any SearchUISearchPage component(s).
    * The SearchUISearchPage is the page that displays the results after executing a query.
    */
