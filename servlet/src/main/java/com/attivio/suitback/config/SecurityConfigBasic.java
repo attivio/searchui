@@ -35,7 +35,8 @@ public class SecurityConfigBasic extends WebSecurityConfigurerAdapter {
       ,"/**/*.svg",
       "/**/*.png",
       "/**/*.gif",
-      "/**/*.ico"
+      "/**/*.ico",
+      "/proxyIdP",
   };
 
   @Value("${suit.attivio.corsOrigins:*}")

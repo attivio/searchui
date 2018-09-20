@@ -302,7 +302,7 @@
     // An optional list of facet field names which will be used to determine
     // the order in which the facets are shown. Any facets not named here will
     // appear after the called-out ones, in the order they are in in the
-    // response.facets array of the parent Searcher compoinent.
+    // response.facets array of the parent Searcher component.
     orderHint: [
       'position',
       'keyphrases',
