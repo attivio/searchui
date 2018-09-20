@@ -260,7 +260,7 @@
     joinRollupMode: 'tree',
     // The name of the Business Center profile to use for queries. If set, this will enable Profile level
     // campaigns and promotions.
-    businessCenterProfile: 'Attivio',
+    businessCenterProfile: null,
   },
 
   /**
