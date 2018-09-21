@@ -87,7 +87,7 @@ export default class SearchUILandingPage extends React.Component<void, {}, Searc
         docs = 'one document';
         break;
       default:
-        docs = `${this.state.numDocuments.toLocaleString()} documents`;
+        docs = `${this.state.numDocuments.toLocaleString()} documents - HI!`;
         break;
     }
     let sources;
