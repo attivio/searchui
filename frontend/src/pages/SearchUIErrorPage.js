@@ -1,10 +1,9 @@
 // @flow
 import React from 'react';
 import PropTypes from 'prop-types';
+import Col from 'react-bootstrap/lib/Col';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
-import DocumentTitle from 'react-document-title';
 
 import {
   Masthead,
@@ -35,24 +34,22 @@ export default class SearchUIErrorPage extends React.Component<void, {}, SearchU
 
   render() {
     return (
-      <DocumentTitle title="Error: Attivio Cognitive Search">
-        <div>
-          <Masthead multiline homeRoute="/landing">
-            <MastheadNavTabs tabInfo={this.context.app.getMastheadNavTabs()} />
-          </Masthead>
-          <Grid>
-            <Row>
-              <Col xs={12} sm={12} md={12} lg={12}>
-                <div style={{ textAlign: 'center', paddingTop: '20vh' }}>
-                  <div style={{ display: 'inline-block', width: '50%' }}>
-                    <h1>Error: unknown page</h1>
-                  </div>
+      <div>
+        <Masthead multiline homeRoute="/landing">
+          <MastheadNavTabs tabInfo={this.context.app.getMastheadNavTabs()} />
+        </Masthead>
+        <Grid>
+          <Row>
+            <Col xs={12} sm={12} md={12} lg={12}>
+              <div style={{ textAlign: 'center', paddingTop: '20vh' }}>
+                <div style={{ display: 'inline-block', width: '50%' }}>
+                  <h1>Error: unknown page</h1>
                 </div>
-              </Col>
-            </Row>
-          </Grid>
-        </div>
-      </DocumentTitle>
+              </div>
+            </Col>
+          </Row>
+        </Grid>
+      </div>
     );
   }
 }

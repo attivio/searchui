@@ -189,6 +189,12 @@
     mapboxKey: '',
   },
 
+  /** These properties configure the UI for the application as a whole. */
+  SearchUIApp: {
+    // This is the title that is used for the browser windows/tabs throughout the Search UI app
+    pageTitle: 'Attivio Search UI',
+  },
+
   /**
    * These properties configure only the default values for properties of any Masthead component(s).
    * The Masthead typically appears at the top of the page and contains a logo image, a page title, navigation breadcrumbs, and a

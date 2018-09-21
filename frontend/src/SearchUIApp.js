@@ -9,23 +9,23 @@ import 'whatwg-fetch';
 import 'babel-polyfill';
 
 import {
-  Configuration,
-  Searcher,
   AuthRoute,
   AuthUtils,
+  Configuration,
   Logger,
   MastheadNavTabs,
   ObjectUtils,
+  Searcher,
 } from '@attivio/suit';
 
-import SearchUILandingPage from './pages/SearchUILandingPage';
-import SearchUIFakeLandingPage from './pages/SearchUIFakeLandingPage';
-import SearchUISearchPage from './pages/SearchUISearchPage';
-import SearchUIInsightsPage from './pages/SearchUIInsightsPage';
 import Document360Page from './pages/Document360Page';
-import SearchUIErrorPage from './pages/SearchUIErrorPage';
 import LoginPage from './pages/LoginPage';
 import LogoutPage from './pages/LogoutPage';
+import SearchUIErrorPage from './pages/SearchUIErrorPage';
+import SearchUIFakeLandingPage from './pages/SearchUIFakeLandingPage';
+import SearchUIInsightsPage from './pages/SearchUIInsightsPage';
+import SearchUILandingPage from './pages/SearchUILandingPage';
+import SearchUISearchPage from './pages/SearchUISearchPage';
 
 require('es6-object-assign').polyfill();
 require('es6-promise').polyfill();
@@ -246,10 +246,15 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
       );
     }
 
+    let pageTitle = 'Attivio Search UI';
+    if (this.state.config && this.state.config.SearchUIApp && this.state.config.SearchUIApp.pageTitle) {
+      pageTitle = this.state.config.SearchUIApp.pageTitle;
+    }
+
     return (
       <Configuration config={this.state.config}>
         <Logger />
-        <DocumentTitle title="Attivio Cognitive Search">
+        <DocumentTitle title={pageTitle}>
           <Router basename={this.state.config.ALL.basename}>
             <Searcher>
               <Switch>
@@ -298,7 +303,7 @@ other pages like the PerspectivePage below:
         <Route exact path="/products" render={MyProductPage} />
         <Route exact path="/perspectives" component={PerspectivePage}/>
         <Route component={NotFound}/>
-      </Switch>
+      </Switch
     </div>
   </Router>
 
