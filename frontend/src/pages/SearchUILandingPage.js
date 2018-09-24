@@ -1,20 +1,30 @@
 // @flow
 import React from 'react';
 import PropTypes from 'prop-types';
+import Col from 'react-bootstrap/lib/Col';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
-import DocumentTitle from 'react-document-title';
 
 import {
-  SimpleQueryRequest,
+  Configurable,
+  Masthead,
+  MastheadNavTabs,
   QueryResponse,
   SearchBar,
-  MastheadNavTabs,
-  Masthead,
+  SimpleQueryRequest,
 } from '@attivio/suit';
 
 import SearchUIApp from '../SearchUIApp';
+
+type SearchUILandingPageProps = {
+  logoUri: string;
+  logoAltText: string;
+};
+
+type SearchUILandingPageDefaultProps = {
+  logoUri: string;
+  logoAltText: string;
+};
 
 type SearchUILandingPageState = {
   numDocuments: number;
@@ -23,13 +33,18 @@ type SearchUILandingPageState = {
   error: string | null;
 };
 
-export default class SearchUILandingPage extends React.Component<void, {}, SearchUILandingPageState> {
+class SearchUILandingPage extends React.Component<SearchUILandingPageDefaultProps, SearchUILandingPageProps, SearchUILandingPageState> { // eslint-disable-line max-len
+  static defaultProps = {
+    logoUri: 'img/attivio-logo.png',
+    logoAltText: 'Attivio',
+  };
+
   static contextTypes = {
     searcher: PropTypes.any,
     app: PropTypes.shape({ type: PropTypes.oneOf([SearchUIApp]) }),
   };
 
-  constructor(props: any, context: any) {
+  constructor(props: SearchUILandingPageProps, context: any) {
     super(props, context);
     this.state = {
       numDocuments: 0,
@@ -113,45 +128,45 @@ export default class SearchUILandingPage extends React.Component<void, {}, Searc
     const indexStatusLabel = this.state.loading ? 'Analyzing your index\u2026' : `Searching across ${docs} from ${sources}.`;
 
     return (
-      <DocumentTitle title="Attivio Cognitive Search">
-        <div>
-          <Masthead multiline homeRoute="/landing">
-            <MastheadNavTabs initialTab="/" tabInfo={this.context.app.getMastheadNavTabs()} />
-          </Masthead>
-          <Grid>
-            <Row>
-              <Col xs={12} sm={12} md={12} lg={12}>
-                <div style={{ textAlign: 'center', paddingTop: '20vh' }}>
-                  <div style={{ display: 'inline-block', width: '50%' }}>
-                    <img src="img/attivio-logo.png" alt="Attivio" />
-                  </div>
+      <div>
+        <Masthead multiline homeRoute="/landing">
+          <MastheadNavTabs initialTab="/" tabInfo={this.context.app.getMastheadNavTabs()} />
+        </Masthead>
+        <Grid>
+          <Row>
+            <Col xs={12} sm={12} md={12} lg={12}>
+              <div style={{ textAlign: 'center', paddingTop: '20vh' }}>
+                <div style={{ display: 'inline-block', width: '50%' }}>
+                  <img src={this.props.logoUri} alt={this.props.logoAltText} />
                 </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={12} sm={12} md={12} lg={12}>
-                <div style={{ textAlign: 'center', paddingTop: '25px' }}>
-                  <div style={{ display: 'inline-block', width: '50%' }}>
-                    <SearchBar
-                      allowLanguageSelect={false}
-                      route="/results"
-                    />
-                  </div>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12} sm={12} md={12} lg={12}>
+              <div style={{ textAlign: 'center', paddingTop: '25px' }}>
+                <div style={{ display: 'inline-block', width: '50%' }}>
+                  <SearchBar
+                    allowLanguageSelect={false}
+                    route="/results"
+                  />
                 </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={12} sm={12} md={12} lg={12}>
-                <div style={{ textAlign: 'center', paddingTop: '25px' }}>
-                  <div style={{ display: 'inline-block', width: '50%' }}>
-                    {indexStatusLabel}
-                  </div>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12} sm={12} md={12} lg={12}>
+              <div style={{ textAlign: 'center', paddingTop: '25px' }}>
+                <div style={{ display: 'inline-block', width: '50%' }}>
+                  {indexStatusLabel}
                 </div>
-              </Col>
-            </Row>
-          </Grid>
-        </div>
-      </DocumentTitle>
+              </div>
+            </Col>
+          </Row>
+        </Grid>
+      </div>
     );
   }
 }
+
+export default Configurable(SearchUILandingPage);
