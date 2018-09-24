@@ -31,7 +31,7 @@
     "styleguide:serve": "styleguidist server"
   },
   "dependencies": {
-    "@attivio/suit": "0.0.30",
+    "@attivio/suit": "0.0.31",
     "@mapbox/mapbox-gl-draw": "^1.0.4",
     "babel-polyfill": "^6.26.0",
     "es6-object-assign": "^1.1.0",
@@ -83,10 +83,12 @@
     "inferno": "^3.10.1",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
+    "react-styleguidist": "^7.3.6",
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.9",
     "webpack": "^3.2.0",
     "webpack-encoding-plugin": "^0.2.1",
+    "webpack-merge": "^4.1.4",
     "xml-loader": "^1.2.1"
   }
 }

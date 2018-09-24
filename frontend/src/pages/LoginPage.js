@@ -1,10 +1,9 @@
 // @flow
 import React from 'react';
-import DocumentTitle from 'react-document-title';
 import { Redirect } from 'react-router-dom';
+import Col from 'react-bootstrap/lib/Col';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
 
 import {
   AuthUtils,
@@ -56,25 +55,23 @@ export default class LoginPage extends React.Component<void, any, LoginPageState
     // masheadTabInfo should not be visible during login
     // const mhTabInfo = this.props.searchEngineType === 'attivio' ? mastheadTabInfo : [];
     return (
-      <DocumentTitle title="Login: Attivio Cognitive Search">
-        <div>
-          <Masthead applicationName="Cognitive Search" multiline homeRoute="/landing" />
-          <Grid fluid>
-            <Row>
-              <Col xs={12} sm={12} md={8} lg={6} mdOffset={2} lgOffset={3}>
-                <div style={{ display: 'inline-block', width: '50%', paddingBottom: '20px' }}>
-                  <h3>Log In</h3>
-                  Enter your log-in credentials to search the Attivio index:
-                </div>
-                <LoginForm
-                  doLogin={this.doLogin}
-                  error={this.state.loginError}
-                />
-              </Col>
-            </Row>
-          </Grid>
-        </div>
-      </DocumentTitle>
+      <div>
+        <Masthead applicationName="Cognitive Search" multiline homeRoute="/landing" />
+        <Grid fluid>
+          <Row>
+            <Col xs={12} sm={12} md={8} lg={6} mdOffset={2} lgOffset={3}>
+              <div style={{ display: 'inline-block', width: '50%', paddingBottom: '20px' }}>
+                <h3>Log In</h3>
+                Enter your log-in credentials to search the Attivio index:
+              </div>
+              <LoginForm
+                doLogin={this.doLogin}
+                error={this.state.loginError}
+              />
+            </Col>
+          </Row>
+        </Grid>
+      </div>
     );
   }
 }

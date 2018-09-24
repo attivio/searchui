@@ -189,6 +189,12 @@
     mapboxKey: '',
   },
 
+  /** These properties configure the UI for the application as a whole. */
+  SearchUIApp: {
+    // This is the title that is used for the browser windows/tabs throughout the Search UI app
+    pageTitle: 'Attivio Search UI',
+  },
+
   /**
    * These properties configure only the default values for properties of any Masthead component(s).
    * The Masthead typically appears at the top of the page and contains a logo image, a page title, navigation breadcrumbs, and a
@@ -264,8 +270,6 @@
     ],
     // The maximum number of facets the Facet Finder attempts to add to the query. Set this to 0 to turn off Facet Finder.
     facetFinderCount: 20,
-    // Determines if primary results should be displayed as 'list', 'usercard', 'doccard', 'debug', or 'simple';
-    format: 'list',
     // An optional filter to apply to all queries when using the advanced query language
     queryFilter: '',
     // The locale for queries; all linguistic processing is performed using this locale
@@ -280,7 +284,17 @@
     joinRollupMode: 'tree',
     // The name of the Business Center profile to use for queries. If set, this will enable Profile level
     // campaigns and promotions.
-    businessCenterProfile: 'Attivio',
+    businessCenterProfile: null,
+  },
+
+  /**
+   * These properties configure the Search UI's landing page.
+   */
+  SearchUILandingPage: {
+    // This is the path to the logo to use for the landing page
+    logoUri: 'img/attivio-logo.png',
+      // This is the 'alt' text that is used for the logo
+      logoAltText: 'Attivio',
   },
 
   /**
