@@ -33,6 +33,8 @@ public class LoginController {
   @RequestMapping("/rest/login")
   public void login(HttpServletResponse response,
 		  @RequestParam(value = "uri", required = true) String targetUri) throws IOException {
-	  response.sendRedirect(targetUri);
+    if (targetUri != null && targetUri.length() > 0) {
+      response.sendRedirect(targetUri);
+    }
   }
 }
