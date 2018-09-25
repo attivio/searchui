@@ -288,13 +288,20 @@
   },
 
   /**
-   * These properties configure the Search UI's landing page.
+   * These properties configure the Search UI landing page.
    */
   SearchUILandingPage: {
-    // This is the path to the logo to use for the landing page
-    logoUri: 'img/attivio-logo.png',
-      // This is the 'alt' text that is used for the logo
-      logoAltText: 'Attivio',
+    // This is the path to the logo to use for the landing page. Leave unset/null to
+    // use the default Attivio logo.
+    logoUri: null,
+    // These properties specify the width and height of the logo on the landing page.
+    // They should be valid CSS dimension strings. Leave unset/null to use the default
+    // size of the image.
+    logoWidth: null,
+    logoHeight: null,
+    // This is the 'alt' text that is used for the logo. Leave unset/null to use the
+    // default text ('Attivio').
+    logoAltText: null,
   },
 
   /**

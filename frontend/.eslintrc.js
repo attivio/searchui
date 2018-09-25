@@ -15,5 +15,6 @@ module.exports = {
     "react/prefer-stateless-function": 0,
     "react/jsx-filename-extension": 0,
     "strict": 0,
+    'no-console': ['error', {allow: ['warn', 'error']}],
   },
 };
