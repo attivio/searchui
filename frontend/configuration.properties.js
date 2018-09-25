@@ -15,11 +15,12 @@
     searchEngineType: 'attivio',
 
     // This is the base URI that will be used for making REST API calls to the
-    // Attivo server. In general, the UI is hosted on the same machine that
-    // serves the REST API, so this should not include the protocol, hostname, or port.
-    // (The case where you're using the development server to communicate with an
-    // Attivio server on  different machine is the only time you should include this
-    // information.)
+    // Attivo server. When runnning as a module within the Attivio node, this should
+    // be the empty string (''). When running in the servlet, it should match the 
+    // baseName property where the servlet is running relative to the machine (without
+    // the hostnasme or port).
+    // Only in the case where you are running a development server, will you need to 
+    // set the full hostname and port of the Attivio server you're communicating with.
 
     // NOTE: if you are using 'elastic' or 'solr', the URI needs to point directly
     // to the collection/handler, for example:
@@ -101,7 +102,7 @@
     // the Deploy Webapp feature in the module will define the type of authentication that
     // will secure the UI. Note that you can also use 'NONE' during the course of developing
     // an application.
-    authType: 'XML',
+    authType: 'SAML',
 
     // This is the default principal realm to use when searching.
     defaultRealm: 'aie',
@@ -334,7 +335,7 @@
     // Whether or not to display a toggle for switching the search results to debug format.
     debugViewToggle: true,
     // The names of the fields to include in the sort menu.
-    // NOTE: if 'elastic' or 'solr' is being used, this fields need to be ones used in
+    // NOTE: if 'elastic' or 'solr' is being used, these fields need to be ones used in
     // customOptions.mappings, for example:
     // sortableFields: [
     //   'title',

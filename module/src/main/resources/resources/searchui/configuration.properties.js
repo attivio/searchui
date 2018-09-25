@@ -3,13 +3,84 @@
    * These properties are not specific to any page/component but may apply to any/all of them.
    */
   ALL: {
+    // Here we define the search engine type, defaults to 'attivio',
+    // but 'elastic' and 'solr' are also supported with limited functionality.
+
+    // For 'elastic' or 'solr' these fields need to be configured:
+    //   - ALL.searchEngineType
+    //   - ALL.baseUri
+    //   - ALL.customOptions
+    //   - SearchUISearchPage.sortableFields
+
+    searchEngineType: 'attivio',
+
     // This is the base URI that will be used for making REST API calls to the
-    // Attivo server. In general, the UI is hosted on the same machine that
-    // serves the REST API, so this should not include the protocol, hostname, or port.
-    // (The case where you're using the development server to communicate with an
-    // Attivio server on  different machine is the only time you should include this
-    // information.)
+    // Attivo server. When runnning as a module within the Attivio node, this should
+    // be the empty string (''). When running in the servlet, it should match the 
+    // baseName property where the servlet is running relative to the machine (without
+    // the hostnasme or port).
+    // Only in the case where you are running a development server, will you need to 
+    // set the full hostname and port of the Attivio server you're communicating with.
+
+    // NOTE: if you are using 'elastic' or 'solr', the URI needs to point directly
+    // to the collection/handler, for example:
+    //   elastic:
+    //   ** using the _search handler **
+    //   baseUri: 'http://example.com:9200/mycollection/_search'
+    //
+    //   solr:
+    //   **  using 'myHandler' handler **
+    //   baseUri: 'http://example.com:8983/solr/mycollection/myHandler'
+    // in the case of 'attivio', only the Attivio instance URI is needed.
+
     baseUri: '',
+
+    // If searchEngineType is 'elastic' or 'solr', the property customOptions
+    // needs to be added.
+
+    // customOptions: {
+    //
+    //   customId: "id", // field to be used as id, in the case of elastic defaults to _id, in solr is mandatory.
+    //   /**
+    //    * The valid fields for mappings are:
+    //    *  - title
+    //    *  - uri
+    //    *  - teaser
+    //    *  - text
+    //    *  - previewImageUri
+    //    *  - thumbnailImageUri
+    //    * The key is the field in the UI and the value is the name of the
+    //    * field in the search engine (elastic or solr).
+    //    * NOTE: Remember not to use fields containing object other than a array (1 dimension).
+    //    */
+    //   mappings: {
+    //     title: "title_field",
+    //     uri: "uri_field",
+    //     teaser: "teaser_field",
+    //     text: "text_field",
+    //     previewImageUri: "previewImageUri_field",
+    //     thumbnailImageUri: "thumbnailImageUri_field"
+    //   },
+    //   /**
+    //    *  Facets contains a array of objects needed to render the Facets menu
+    //    *  on the left side of the search screen.
+    //    *  displayName: a name to display for those facets (for example 'People').
+    //    *  field: the field used to build the facets on the search engine,
+    //    *         NOTE: This field needs to be non-tokenized to work in solr
+    //    *               So for example, if the collection contains a field of type textField (tokenized),
+    //    *               this field needs to be copied to a strField (non-tokenized) to be displayed as Facet.
+    //    */
+    //   facets: [
+    //     {
+    //       displayName: "People",
+    //       field: "people_str_field"
+    //     },
+    //     {
+    //       displayName: "Places",
+    //       field: "places_str_field"
+    //     }
+    //   ]
+    // },
 
     // This is the prefix to use for routes in the application. For example, if it will be
     // running under '/searchui', you will want to set this value to '/searchui' (note the leading slash
@@ -119,6 +190,12 @@
     mapboxKey: '',
   },
 
+  /** These properties configure the UI for the application as a whole. */
+  SearchUIApp: {
+    // This is the title that is used for the browser windows/tabs throughout the Search UI app
+    pageTitle: 'Attivio Search UI',
+  },
+
   /**
    * These properties configure only the default values for properties of any Masthead component(s).
    * The Masthead typically appears at the top of the page and contains a logo image, a page title, navigation breadcrumbs, and a
@@ -174,8 +251,6 @@
     ],
     // The maximum number of facets the Facet Finder attempts to add to the query. Set this to 0 to turn off Facet Finder.
     facetFinderCount: 20,
-    // Determines if primary results should be displayed as 'list', 'usercard', 'doccard', 'debug', or 'simple';
-    format: 'list',
     // An optional filter to apply to all queries when using the advanced query language
     queryFilter: '',
     // The locale for queries; all linguistic processing is performed using this locale
@@ -190,7 +265,24 @@
     joinRollupMode: 'tree',
     // The name of the Business Center profile to use for queries. If set, this will enable Profile level
     // campaigns and promotions.
-    businessCenterProfile: 'Attivio',
+    businessCenterProfile: null,
+  },
+
+  /**
+   * These properties configure the Search UI landing page.
+   */
+  SearchUILandingPage: {
+    // This is the path to the logo to use for the landing page. Leave unset/null to
+    // use the default Attivio logo.
+    logoUri: null,
+    // These properties specify the width and height of the logo on the landing page.
+    // They should be valid CSS dimension strings. Leave unset/null to use the default
+    // size of the image.
+    logoWidth: null,
+    logoHeight: null,
+    // This is the 'alt' text that is used for the logo. Leave unset/null to use the
+    // default text ('Attivio').
+    logoAltText: null,
   },
 
   /**
@@ -203,7 +295,6 @@
     // To force the UI to always use a single model when making queries, set this to an array with
     // that single name as its sole element.
     relevancyModels: [
-      'default',
     ],
     pieChartFacets: [ // The facet field names that should be displayed as pie charts
     ],
@@ -243,7 +334,16 @@
     showScores: false,
     // Whether or not to display a toggle for switching the search results to debug format.
     debugViewToggle: true,
-    sortableFields: [ // The names of the fields to include in the sort menu.
+    // The names of the fields to include in the sort menu.
+    // NOTE: if 'elastic' or 'solr' is being used, these fields need to be ones used in
+    // customOptions.mappings, for example:
+    // sortableFields: [
+    //   'title',
+    //   'teaser',
+    //   'text'
+    // ],
+    // Sorting in 'elastic' or 'solr' doesn't support multi value fields.
+    sortableFields: [
       'title',
       'table',
       'size',
