@@ -17,13 +17,17 @@ import {
 import SearchUIApp from '../SearchUIApp';
 
 type SearchUILandingPageProps = {
-  logoUri: string;
-  logoAltText: string;
+  logoUri: string | null;
+  logoWidth: string | null;
+  logoHeight: string | null;
+  logoAltText: string | null;
 };
 
 type SearchUILandingPageDefaultProps = {
-  logoUri: string;
-  logoAltText: string;
+  logoUri: string | null;
+  logoWidth: string | null;
+  logoHeight: string | null;
+  logoAltText: string | null;
 };
 
 type SearchUILandingPageState = {
@@ -35,8 +39,10 @@ type SearchUILandingPageState = {
 
 class SearchUILandingPage extends React.Component<SearchUILandingPageDefaultProps, SearchUILandingPageProps, SearchUILandingPageState> { // eslint-disable-line max-len
   static defaultProps = {
-    logoUri: 'img/attivio-logo.png',
-    logoAltText: 'Attivio',
+    logoUri: null,
+    logoWidth: null,
+    logoHeight: null,
+    logoAltText: null,
   };
 
   static contextTypes = {
@@ -127,6 +133,16 @@ class SearchUILandingPage extends React.Component<SearchUILandingPageDefaultProp
 
     const indexStatusLabel = this.state.loading ? 'Analyzing your index\u2026' : `Searching across ${docs} from ${sources}.`;
 
+    const logoUri = this.props.logoUri ? this.props.logoUri : 'img/attivio-logo.png';
+    const logoAltText = this.props.logoAltText ? this.props.logoAltText : 'Attivio';
+    const logoStyle = {};
+    if (this.props.logoWidth) {
+      logoStyle.width = this.props.logoWidth;
+    }
+    if (this.props.logoHeight) {
+      logoStyle.height = this.props.logoHeight;
+    }
+
     return (
       <div>
         <Masthead multiline homeRoute="/landing">
@@ -137,7 +153,7 @@ class SearchUILandingPage extends React.Component<SearchUILandingPageDefaultProp
             <Col xs={12} sm={12} md={12} lg={12}>
               <div style={{ textAlign: 'center', paddingTop: '20vh' }}>
                 <div style={{ display: 'inline-block', width: '50%' }}>
-                  <img src={this.props.logoUri} alt={this.props.logoAltText} />
+                  <img src={logoUri} alt={logoAltText} style={logoStyle} />
                 </div>
               </div>
             </Col>

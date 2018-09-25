@@ -31,7 +31,7 @@
     "styleguide:serve": "styleguidist server"
   },
   "dependencies": {
-    "@attivio/suit": "0.0.31",
+    "@attivio/suit": "0.0.32",
     "@mapbox/mapbox-gl-draw": "^1.0.4",
     "babel-polyfill": "^6.26.0",
     "es6-object-assign": "^1.1.0",
