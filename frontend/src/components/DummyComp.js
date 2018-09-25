@@ -16,6 +16,8 @@ export default class DummyComp extends React.Component<DummyCompDefaultfProps, D
     textColor: 'goldenrod',
   };
 
+  static displayName = 'DummyComp';
+
   render() {
     return (
       <div style={{
