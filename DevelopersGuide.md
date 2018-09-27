@@ -23,7 +23,7 @@ See https://help.github.com/articles/fork-a-repo/ for more information about for
 Right now, you have a fork of the Search UI repository, but you don't have the files in that repository on your computer. Let's create a *clone* of your fork locally on your computer.
 
 1. On GitHub, navigate to your fork of the searchui repository.
-2. Under the repository name, click **Clone** or download**.
+2. Under the repository name, click **Clone or download**.
 3. In the **Clone with HTTPs section**, click to copy the clone URL for the repository.
 4. Open a terminal (or Git Bash on Windows)
 5. Type `git clone`, and then paste the URL you copied in Step 2. It will look like this, with your GitHub username instead of YOUR-USERNAME:
