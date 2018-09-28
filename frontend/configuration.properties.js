@@ -228,6 +228,26 @@
     allowLanguageSelect: true,
     autoCompleteUri: '/rest/autocompleteApi/richCgi/dictionaryProvider',
   },
+  
+  /** 
+   * These properties configure the default properties for FacetSearchBar components in the UI. The
+   * FacetSearchBar allows searching among all values of a specific facet, as well as exporting the
+   * list of all values for that facet to a CSV file.
+   */
+  FacetSearchBar: {
+	// Whether the FacetSearchBar should be visible
+	showSearchBar: false,
+	// The placeholder text for the search bar
+        placeholder: 'Search values\u2026',
+	// The label on the 'Search' button
+        buttonLabel: 'Search',
+	// Max number of matching facet values to show
+	maxValues: 5,
+	// Whether there should be an export button
+	showExportButton: false,
+	// The label for the export button
+	exportButtonLabel: 'Export',
+  },
 
   /**
    * These properties configure only the default values for properties of any Searcher component(s).
@@ -324,7 +344,7 @@
     // An optional list of facet field names which will be used to determine
     // the order in which the facets are shown. Any facets not named here will
     // appear after the called-out ones, in the order they are in in the
-    // response.facets array of the parent Searcher compoinent.
+    // response.facets array of the parent Searcher component.
     orderHint: [
       'position',
       'keyphrases',

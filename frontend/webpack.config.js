@@ -111,6 +111,10 @@ module.exports = {
         to: 'img/',
       },
       {
+        from: './src/closer.html',
+        to: 'closer.html',
+      },
+      {
         from: './src/factbook_resources',
         to: 'factbook_resources/',
       },
