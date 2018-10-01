@@ -38,7 +38,13 @@ Deploying Search UI within the Attivio Admin UI is recommended for exploration o
 
 Stand-alone deployments are recommended when Search UI (or a customized version of it) is used as the primary user interface in your production environment. Deploying Search UI within the Attivio Admin UI could lead to resource contention since each Attivio node has other responsibilities, such as ingesting content or responding to queries. Stand-alone deployments can be done on the same host as Attivio nodes provided there are sufficient resources, though in many situations, dedicated hosts are recommended.
 
+Stand-alone deployments are recommended when Search UI (or a customized version of it) is used as the primary user interface in your production environment. Deploying Search UI within the Attivio Admin UI could lead to resource contention since each Attivio node has other responsibilities, such as ingesting content or responding to queries. Stand-alone deployments can be done on the same host as Attivio nodes provided there are sufficient resources, though in many situations, dedicated hosts are recommended.
+
 For instructions on building the application for one of the above deployment options, or if, instead, you wish to customize and build your own application for either deployment option, see the [Developer's Guide](DevelopersGuide.md) for instructions on setting up your development environment and building.
+
+* **[SSO for REST](ConfiguringRESTSSO.md)**  - *use SSO to access the Attivio REST APIs*
+
+This last option is useful in case you don't want to run the Search UI application and instead have a custom SSO-enabled web application which needs to be able to call the Attivio REST APIs directly from the user's browser (as opposed to accessing them from a server), so you don't expose the credentials of the Attivio server in your JavaScript code. This configuration can enable this functionality.
 
 ## How Can I Customize the Search UI?
 
