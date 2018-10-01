@@ -7,11 +7,11 @@ You will need to do the following steps to set up the SAML authentication:
 
 1. Configure Search UI to run in a servlet container such as Tomcat (SAML authentication is not supported when running as a module inside the Attivio instance)
 2. Configure your SAML IdP to know about the Search UI application.
-3. Set up a public/private key pair to be used when encrypting messages sent to the IdP
-4. Configure the Search UI application to know you're using SAML
-5. Configure the servlet to know you are using SAML
-6. Configure the servlet to know if you are behind a reverse proxy or load balancer
-7. Test your configuration
+3. Set up a public/private key pair to be used when encrypting messages sent to the IdP.
+4. Configure the Search UI application to know you're using SAML.
+5. Configure the servlet to know you are using SAML.
+6. Configure the servlet to know if you are behind a reverse proxy or load balancer.
+7. Test your configuration.
 
 ## Step 1: Configuring the Search UI Servlet
 
