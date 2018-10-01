@@ -18,7 +18,7 @@
 ## Overview
 The Attivio **Search UI** is an application built on top of Attivio’s Search UI Toolkit, or **SUIT**. The SUIT library is available in a [separate repository](https://github.com/attivio/suit) and via NPM (see below for details).
 
-The Attivio Search UI allows you to search across and view the data in the index of your Attivio, Elasticsearch or SOLR installation. You can customize it to suit your needs and can also use it as the basis for creating your own, brand-new search application.
+The Attivio Search UI allows you to search across and view the data in the index of your Attivio, Elasticsearch or Solr installation. You can customize it to suit your needs and can also use it as the basis for creating your own, brand-new search application.
 
 ## Project Organization
 The Attivio Search UI is a web application written in JavaScript and based on the React project. It runs in the user’s browser. This component is in the [**frontend**](https://github.com/attivio/searchui/tree/master/frontend) directory of this repository and consists of application-level code for searching the index, including the definitions of the pages in the application and the logic of how they're connected.
@@ -121,7 +121,7 @@ Using our [Text Analytics](https://answers.attivio.com/display/extranet55/Attivi
 ---
 <a name="configuration"></a>
 ## How Do I Configure Search UI?
-Many Search UI features are configurable, including pointing it to an Elasticsearch or SOLR installation.  These settings support rapid prototyping for demos and proof-of-concept projects.  
+Many Search UI features are configurable, including pointing it to an Elasticsearch or Solr installation.  These settings support rapid prototyping for demos and proof-of-concept projects.  
 
 > Setting these preferences will affect all users who may be accessing this application.
 > If any values are not specified, the application uses system-application defaults.
