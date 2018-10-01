@@ -15,10 +15,10 @@
     searchEngineType: 'attivio',
 
     // This is the base URI that will be used for making REST API calls to the
-    // Attivo server. When runnning as a module within the Attivio node, this should
+    // Attivio server. When running as a module within the Attivio node, this should
     // be the empty string (''). When running in the servlet, it should match the 
     // baseName property where the servlet is running relative to the machine (without
-    // the hostnasme or port).
+    // the hostname or port).
     // Only in the case where you are running a development server, will you need to 
     // set the full hostname and port of the Attivio server you're communicating with.
 
@@ -159,6 +159,11 @@
       '*',
     ],
 
+    // The properties in this group control how the fields in the index are
+    // mapped to the fields that UI expects to see when queries are done.
+    // If doing custom queries by constructing your own query request object,
+    // you may want to call Searcher.getFieldList() to get the list of
+    // aliased fields to include in the query request.
     // The field containing the document's title
     title: 'title',
     // The field containing the document's URI
@@ -171,7 +176,7 @@
     longitude: 'longitude',
     // The field containing the document's MIME type (used by the browser when downloading files)
     mimetype: 'mimetype',
-    // The field containing the document's sourcepath (used by the browser when downloading files)
+    // The field containing the document's source path (used by the browser when downloading files)
     sourcePath: 'sourcepath',
     // The field containing the URI to the document's preview image
     previewImageUri: 'img.uri.preview',
@@ -185,22 +190,22 @@
     // The field containing the document's full text
     // (the default SCOPETEASER expression enables scope highlighting on results)
     text: 'SCOPETEASER(text, fragment=true, numFragments=1, fragmentSize=2147483647)',
+
+
     // The public key with which to connect to the mapbox public apis
     // See https://www.mapbox.com/help/how-access-tokens-work/ for more information on how to acquire a public key
     mapboxKey: '',
   },
 
-  /** These properties configure the UI for the application as a whole. */
+  // These properties configure the UI for the application as a whole.
   SearchUIApp: {
     // This is the title that is used for the browser windows/tabs throughout the Search UI app
     pageTitle: 'Attivio Search UI',
   },
 
-  /**
-   * These properties configure only the default values for properties of any Masthead component(s).
-   * The Masthead typically appears at the top of the page and contains a logo image, a page title, navigation breadcrumbs, and a
-   * search input.
-   */
+  // These properties configure only the default values for properties of any Masthead component(s).
+  // The Masthead typically appears at the top of the page and contains a logo image, a page title,
+  // navigation breadcrumbs, and a search input field.
   Masthead: {
     // The location of the logo image to render on the left side of the masthead
     logoUri: 'img/attivio-logo-reverse.png',
@@ -212,10 +217,8 @@
     applicationName: 'Cognitive Search',
   },
 
-  /**
-   * These properties configure only the default values for properties of any SearchBar component(s).
-   * The SearchBar is the input dom element through which the user can type and enter queries.
-   */
+  // These properties configure only the default values for properties of any SearchBar components
+  // that allow the user to enter their queries.
   SearchBar: {
     // The placeholder text to display when the input field is empty.
     placeholder: 'Search\u2026',
@@ -229,18 +232,16 @@
     autoCompleteUri: '/rest/autocompleteApi/richCgi/dictionaryProvider',
   },
   
-  /** 
-   * These properties configure the default properties for FacetSearchBar components in the UI. The
-   * FacetSearchBar allows searching among all values of a specific facet, as well as exporting the
-   * list of all values for that facet to a CSV file.
-   */
+  // These properties configure the default properties for FacetSearchBar components in the UI.
+  // These allow searching among all values of a specific facet, as well as being able to export
+  // the list of all values for that facet to a CSV file.
   FacetSearchBar: {
 	// Whether the FacetSearchBar should be visible
 	showSearchBar: false,
 	// The placeholder text for the search bar
-        placeholder: 'Search values\u2026',
+  placeholder: 'Search values\u2026',
 	// The label on the 'Search' button
-        buttonLabel: 'Search',
+  buttonLabel: 'Search',
 	// Max number of matching facet values to show
 	maxValues: 5,
 	// Whether there should be an export button
@@ -249,10 +250,8 @@
 	exportButtonLabel: 'Export',
   },
 
-  /**
-   * These properties configure only the default values for properties of any Searcher component(s).
-   * The Searcher is a simple interface used by all its children for any querying logic.
-   */
+  // These properties configure the default values for properties of any Searcher components,
+  // which are used by their child components to perform the searches of the index.
   Searcher: {
     // The workflow to use for executing searches
     searchWorkflow: 'search',
@@ -288,9 +287,7 @@
     businessCenterProfile: null,
   },
 
-  /**
-   * These properties configure the Search UI landing page.
-   */
+  // These properties configure the Search UI landing page.
   SearchUILandingPage: {
     // This is the path to the logo to use for the landing page. Leave unset/null to
     // use the default Attivio logo.
@@ -305,10 +302,7 @@
     logoAltText: null,
   },
 
-  /**
-   * These properties configure only the default values for properties of any SearchUISearchPage component(s).
-   * The SearchUISearchPage is the page that displays the results after executing a query.
-   */
+  // These properties configure the SearchUISearchPage which displays search results.
   SearchUISearchPage: {
     // The names of the relevancy models to be able to switch between. If this is an empty array,
     // the server will be queried for the list of available relevancy models and they will be used.
@@ -376,11 +370,9 @@
     ],
   },
 
-  /**
-   * These properties configure only the default values for properties of any SearchUIInsightsPage component(s).
-   * The SearchUIInsightsPage is the page providing insight over a full scope of documents and allowing the user
-   * to narrow that scope.
-   */
+  // These properties configure the SearchUIInsightsPage, which displays facet information
+  // about the current search terms to provide insight into the results and allow the user
+  // to narrow the search's focus.
   SearchUIInsightsPage: {
     pieChartFacets: [ // The facet field names that should be displayed as pie charts
       'table',
@@ -410,10 +402,7 @@
     maxFacetBuckets: 15,
   },
 
-  /**
-   * These properties configure only the default values for properties of any Document360Page component(s).
-   * The Document360Page is the page providing contextual insight of a single document.
-   */
+  // These properties configure the Document360Page, which provides contextual insight for a single document.
   Document360Page: {
     // Show the list of documents which are similar to the focused document on the 360 page
     showMoreLikeThisResults: true,

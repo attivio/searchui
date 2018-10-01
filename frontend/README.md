@@ -8,4 +8,4 @@ See the [Developer's Guide](https://github.com/attivio/searchui/blob/master/Deve
 
 While developing your application, you'll want to see the effects of your changes immediately rather than relying on Maven builds producing artifacts that you can deploy. Fortunately, Node.js provides a convenient way to do this.
 
-See the frontend's [Developer's Guide](Developing.MD) for instructions.
+See the front end's [Developer's Guide](Developing.MD) for instructions.

@@ -52,7 +52,7 @@ export default class LoginPage extends React.Component<void, any, LoginPageState
     }
 
 
-    // masheadTabInfo should not be visible during login
+    // the tabs in the masthead should not be visible during login
     // const mhTabInfo = this.props.searchEngineType === 'attivio' ? mastheadTabInfo : [];
     return (
       <div>
