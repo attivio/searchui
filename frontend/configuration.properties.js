@@ -19,8 +19,6 @@
     // be the empty string (''). When running in the servlet, it should match the 
     // baseName property where the servlet is running relative to the machine (without
     // the hostname or port).
-    // Only in the case where you are running a development server, will you need to 
-    // set the full hostname and port of the Attivio server you're communicating with.
 
     // NOTE: if you are using 'elastic' or 'solr', the URI needs to point directly
     // to the collection/handler, for example:
