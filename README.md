@@ -18,7 +18,7 @@
 ## Overview
 The Attivio **Search UI** is an application built on top of Attivio’s Search UI Toolkit, or **SUIT**. The SUIT library is available in a [separate repository](https://github.com/attivio/suit) and via NPM (see below for details).
 
-The Attivio Search UI allows you to search across and view the data in the index of your Attivio, Elasticsearch or SOLR installation. You can customize it to suit your needs and can also use it as the basis for creating your own, brand-new search application.
+The Attivio Search UI allows you to search across and view the data in the index of your Attivio, Elasticsearch or Solr installation. You can customize it to suit your needs and can also use it as the basis for creating your own, brand-new search application.
 
 ## Project Organization
 The Attivio Search UI is a web application written in JavaScript and based on the React project. It runs in the user’s browser. This component is in the [**frontend**](https://github.com/attivio/searchui/tree/master/frontend) directory of this repository and consists of application-level code for searching the index, including the definitions of the pages in the application and the logic of how they're connected.
@@ -38,7 +38,13 @@ Deploying Search UI within the Attivio Admin UI is recommended for exploration o
 
 Stand-alone deployments are recommended when Search UI (or a customized version of it) is used as the primary user interface in your production environment. Deploying Search UI within the Attivio Admin UI could lead to resource contention since each Attivio node has other responsibilities, such as ingesting content or responding to queries. Stand-alone deployments can be done on the same host as Attivio nodes provided there are sufficient resources, though in many situations, dedicated hosts are recommended.
 
+Stand-alone deployments are recommended when Search UI (or a customized version of it) is used as the primary user interface in your production environment. Deploying Search UI within the Attivio Admin UI could lead to resource contention since each Attivio node has other responsibilities, such as ingesting content or responding to queries. Stand-alone deployments can be done on the same host as Attivio nodes provided there are sufficient resources, though in many situations, dedicated hosts are recommended.
+
 For instructions on building the application for one of the above deployment options, or if, instead, you wish to customize and build your own application for either deployment option, see the [Developer's Guide](DevelopersGuide.md) for instructions on setting up your development environment and building.
+
+* **[SSO for REST](ConfiguringRESTSSO.md)**  - *use SSO to access the Attivio REST APIs*
+
+This last option is useful in case you don't want to run the Search UI application and instead have a custom SSO-enabled web application which needs to be able to call the Attivio REST APIs directly from the user's browser (as opposed to accessing them from a server), so you don't expose the credentials of the Attivio server in your JavaScript code. This configuration can enable this functionality.
 
 ## How Can I Customize the Search UI?
 
@@ -115,7 +121,7 @@ Using our [Text Analytics](https://answers.attivio.com/display/extranet55/Attivi
 ---
 <a name="configuration"></a>
 ## How Do I Configure Search UI?
-Many Search UI features are configurable, including pointing it to an Elasticsearch or SOLR installation.  These settings support rapid prototyping for demos and proof-of-concept projects.  
+Many Search UI features are configurable, including pointing it to an Elasticsearch or Solr installation.  These settings support rapid prototyping for demos and proof-of-concept projects.  
 
 > Setting these preferences will affect all users who may be accessing this application.
 > If any values are not specified, the application uses system-application defaults.

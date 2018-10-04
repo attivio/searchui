@@ -102,10 +102,10 @@ ___
             text: "field_of_text"
           },
         ```
-    3. Add facets (*optional*), if you want to add facets you need to make sure the fields are **searcheable**.
+    3. Add facets (*optional*), if you want to add facets you need to make sure the fields are **searchable**.
         The facets object is an **array of objects** with two properties (`displayName` and `field`)
         * displayName: The name of the facet in the left side menu.
-        * field: The name of the field used to generate the facets (this field needs to exist in the elastic index and needs to be **searcheable**).
+        * field: The name of the field used to generate the facets (this field needs to exist in the elastic index and needs to be **searchable**).
 
         ```javascript
           facets: [

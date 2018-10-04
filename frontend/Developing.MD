@@ -4,7 +4,7 @@ This document describes some techniques you may find helpful while developing wi
 
 ## Development Environment
 
-While you don’t need to have anything installed other than Maven when building the project, you will want to have Node and the Node Package Manager installed directly on your developmnent machine to facilitate quick turnarounds while developing.
+While you don’t need to have anything installed other than Maven when building the project, you will want to have Node and the Node Package Manager installed directly on your development machine to facilitate quick turnarounds while developing.
 
 ### Node and NPM
 
@@ -28,7 +28,7 @@ The output of the Webpack build is in the directory WEB-INF/classes/static insid
 
 Doing this, changes are visible in your browser after refreshing in a second or two after you’ve saved them in the editor.
 
-You also get the advantages of running the application within the servlet, such as accesst to SAML-based single sign on, and the REST API proxying.
+You also get the advantages of running the application within the servlet, such as access to SAML-based single sign on, and the REST API proxying.
 
 ### Running as a Module
 
@@ -40,8 +40,8 @@ This will, among other things, add a directory to your Attivio installation unde
 
 Doing this, changes are visible in your browser after refreshing in a second or two after you’ve saved them in the editor.
 
-You also get the advantages of running the application within the context of the node, such as accesst to Attivio’s web applicaiton security.
+You also get the advantages of running the application within the context of the node, such as access to Attivio’s web application security.
 
 ## Developing the SUIT Library Itself
 
-If you need to make changes to the SUIT library itself, you can speed up your work by following the steps here in addition to those described in the SUIT project’s Develping.MD file.
+If you need to make changes to the SUIT library itself, you can speed up your work by following the steps here in addition to those described in the SUIT project’s Developing.MD file.
