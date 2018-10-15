@@ -72,7 +72,7 @@ type Document360PageProps = {
   insightGraphLinkingFields: Array<string>;
   /**
    * If true, then the 360° page will show links to documents from any table. Set this to false to
-   * only show links to documnents that come from tables other than the one the main document is in.
+   * only show links to documents that come from tables other than the one the main document is in.
    */
   includeAllTables: boolean;
 };

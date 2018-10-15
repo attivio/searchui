@@ -87,13 +87,18 @@ public class WebSecurityCorsFilter implements Filter {
     }
 
     HttpServletResponse res = (HttpServletResponse)response;
+
+    // If there was no Origin header in the request then browser didn't think it was necessary to
+    // add one (e.g. coming from the same machine) so we won't add CORS headers to the response.
     if (originToReturn != null) {
-      res.setHeader("Access-Control-Allow-Origin", originToReturn);
+      if (originToReturn != null) {
+        res.setHeader("Access-Control-Allow-Origin", originToReturn);
+      }
+      res.setHeader("Access-Control-Allow-Methods", corsMethods);
+      res.setHeader("Access-Control-Max-Age", "3600");
+      res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept, x-requested-with, Cache-Control");
+      res.setHeader("Access-Control-Allow-Credentials", "true");
     }
-    res.setHeader("Access-Control-Allow-Methods", corsMethods);
-    res.setHeader("Access-Control-Max-Age", "3600");
-    res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept, x-requested-with, Cache-Control");
-    res.setHeader("Access-Control-Allow-Credentials", "true");
     chain.doFilter(request, res);
   }
 
