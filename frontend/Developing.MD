@@ -8,11 +8,11 @@ While you don’t need to have anything installed other than Maven when building
 
 ### Node and NPM
 
-You can obtain Node from the [project’s website](nodejs.org). Installing Node on your machine will automatically install NPM as well.
+You can obtain Node from the [project’s website](https://nodejs.org). Installing Node on your machine will automatically install NPM as well.
 
 ### IDE
 
-You are free to use whatever IDE or code editor you enjoy working with. However, in developing the SUIT library and the Search UI project, we have been using Microsoft’s free Visual Studio Code. You can download it from the [Microsoft website](code.visualstudio.com). It’s very configurable and has a lot of plug-ins available. We, for example, have it configured to automatically run Flow and ESLint on the code as we type, which helps eliminate errors more efficiently.
+You are free to use whatever IDE or code editor you enjoy working with. However, in developing the SUIT library and the Search UI project, we have been using Microsoft’s free Visual Studio Code. You can download it from the [Microsoft website](https://code.visualstudio.com). It’s very configurable and has a lot of plug-ins available. We, for example, have it configured to automatically run Flow and ESLint on the code as we type, which helps eliminate errors more efficiently.
 
 ## Running
 
