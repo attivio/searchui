@@ -18,20 +18,19 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.net.ssl.SSLContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.httpclient.HttpHost;
+import org.apache.http.HttpHost;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.ssl.SSLContextBuilder;
+import org.apache.http.ssl.SSLContexts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -59,6 +58,8 @@ public class RestProxy {
   static final String API_KEY_PARAM = "apikey";
   
   static final Logger LOG = LoggerFactory.getLogger(RestProxy.class);
+  
+  static RestTemplate restTemplate = null;
   
   @ResponseStatus(value=HttpStatus.FORBIDDEN, reason="Not authenticted") // 403
   static class NotLoggedInException extends Exception {
@@ -179,44 +180,16 @@ public class RestProxy {
     // Build the URI to use when passing the call on to the Attivio server... note that getServletPath() returns the
     // part of the path AFTER the context path, which we don't want since the REST APIs are always based at the root
     URI uri = new URI(attivioProtocol, null, attivioHostname, attivioPort, path, queryString, null);
-
-    // We need to use the Apache HTTP code to allow the GZIPped contents to work right.
-    // We'll use the RestTemplate class to make the actual call to the Attivio server.
-    HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory(
-        HttpClientBuilder.create().build());
-    RequestConfig reqCfg = RequestConfig.custom()
-        .setCookieSpec(CookieSpecs.DEFAULT)
-        .build();
-    // Allow the HTTP client to deal with the default Attivio self-signed certificate
-    if ("https".equalsIgnoreCase(attivioProtocol)) {
-      LOG.trace("Configuring the HTTP client for HTTPS access");
-      SSLConnectionSocketFactory socketFactory;
-      try {
-        socketFactory = new SSLConnectionSocketFactory(new SSLContextBuilder().loadTrustMaterial(null, new TrustSelfSignedStrategy()).build(), NoopHostnameVerifier.INSTANCE);
-        CloseableHttpClient httpClient = HttpClients
-            .custom()
-            .setSSLSocketFactory(socketFactory)
-            .setDefaultRequestConfig(reqCfg)
-            .build();
-        clientHttpRequestFactory.setHttpClient(httpClient);      
-      } catch (KeyManagementException | NoSuchAlgorithmException | KeyStoreException e) {
-        LOG.error("Failed to configure the proxy for HTTPS access", e);
-      }
-    } else {
-      CloseableHttpClient httpClient = HttpClients
-          .custom()
-          .setDefaultRequestConfig(reqCfg)
-          .build();
-      clientHttpRequestFactory.setHttpClient(httpClient);      
-    }
-    RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
     
+    RestTemplate restTemplate = getRestTemplate();
+
     // Make sure the forwarded call is made with UTF-8 encoding
     restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
     
-    LOG.trace("Proxying REST API call (" + method.toString() + ") from '" + request.getRequestURL().toString() + 
+    LOG.debug("Proxying REST API call (" + method.toString() + ") from '" + request.getRequestURL().toString() + 
         (request.getQueryString() != null ? ("?" + request.getQueryString()) : "") + "' to '" + uri.toString() + "'");
 
+    // Make the actual call to the Attivio server
     ResponseEntity<String> responseEntity = null;
     try {
       responseEntity = restTemplate.exchange(uri, method, new HttpEntity<String>(body, headers), String.class);
@@ -242,17 +215,15 @@ public class RestProxy {
       updatedResponseHeaders.put("Cache-Control", Arrays.asList("no-cache, no-store, must-revalidate"));
       
       String realBody = responseEntity.getBody();
-      
-      LOG.trace("The body of the proxied request is:");
-      LOG.trace(realBody);
-      
+
       responseEntity = new ResponseEntity<String>(realBody, updatedResponseHeaders, responseEntity.getStatusCode());
     } catch (RestClientException e) {
       if (e instanceof HttpStatusCodeException) {
         // Got an error from the back end.. make sure we pass it on...
-        String responseBody = ((HttpStatusCodeException)e).getResponseBodyAsString();
         HttpStatus statusCode = ((HttpStatusCodeException)e).getStatusCode();
         LOG.warn("Error contacting the Attivio server. The status code returned was: " + statusCode, e);
+
+        String responseBody = ((HttpStatusCodeException)e).getResponseBodyAsString();
         LOG.debug("The response body was: " + responseBody);
         
         responseEntity = new ResponseEntity<>(responseBody, statusCode);
@@ -275,7 +246,7 @@ public class RestProxy {
    * @return  a {@link HttpHost} for the proxy to use or <code>null</code> if no proxy
    *          should be used 
    */
-  private HttpHost getProxyServer() {
+  HttpHost getProxyServer() {
     HttpHost result = null;
     String hostname = null;
     int port = 0;
@@ -312,5 +283,58 @@ public class RestProxy {
       result = new HttpHost(hostname, port); 
     }
     return result;
+  }
+  
+  /**
+   * Construct the Spring REST template that we'll use to make calls to the Attivio server when
+   * proxying. We only need to do this the very first time we need it and then we can keep it
+   * around to reuse.
+   * 
+   * @return  the rest template to use when calling Attivio (the previously created one if one
+   *          exists, otherwise a new one)
+   */
+  RestTemplate getRestTemplate() {
+    if (restTemplate == null) {
+      // Create the HTTP client that will be used by the Spring RestTemplate class's client factory. 
+      // The client needs to be an Apache one instead of the default Spring one to allow the GZIPped
+      // contents to work right.
+      HttpClientBuilder clientBuilder = HttpClientBuilder.create();
+  
+      // Set the request config to deal with cookies... fixes issue with parsing dates in Netscape-style cookies
+      RequestConfig reqCfg = RequestConfig.custom()
+          .setCookieSpec(CookieSpecs.DEFAULT)
+          .build();
+      clientBuilder.setDefaultRequestConfig(reqCfg);
+  
+      // See if we're configured to go through a proxy server, and set that up, too
+      HttpHost proxy = getProxyServer();
+      if (proxy != null) {
+        LOG.trace("Proxying the calls through a proxy server: " + proxy.toHostString());
+        clientBuilder.setProxy(proxy);
+      } else {
+        clientBuilder.setProxy(proxy);
+      }
+  
+      // If we're using HTTPS to talk to Attivio, this is necessary to allow the client to deal
+      // with the default Attivio self-signed certificate
+      if ("https".equalsIgnoreCase(attivioProtocol)) {
+        LOG.trace("Configuring the REST proxy's HTTP client for HTTPS access");
+        try {
+          SSLContext sslContext = SSLContexts.custom().loadTrustMaterial(null, new TrustSelfSignedStrategy()).build();
+          SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(sslContext, NoopHostnameVerifier.INSTANCE);
+          clientBuilder.setSSLSocketFactory(socketFactory);
+        } catch (KeyManagementException | NoSuchAlgorithmException | KeyStoreException e) {
+          LOG.error("Failed to configure the REST proxy for HTTPS access", e);
+        }
+      }
+      
+      // We'll use the RestTemplate class to make the actual call to the Attivio server.
+      // This client request factory is used to get a client configured the way we want/need it
+      HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory(clientBuilder.build());
+      
+      restTemplate = new RestTemplate(clientHttpRequestFactory);
+    }
+    
+    return restTemplate;
   }
 }
