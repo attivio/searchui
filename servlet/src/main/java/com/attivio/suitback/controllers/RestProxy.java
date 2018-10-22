@@ -241,7 +241,7 @@ public class RestProxy {
    * and if they're not set it will try to use the "standard" properties http.proxyhost and
    * http.proxyport or https.proxyhost and https.proxyport, if they're set. If the
    * port isn't set but the host name is, then the default port for the configured protocol
-   * will be used (80 or 843).
+   * will be used (80 or 443).
    *  
    * @return  a {@link HttpHost} for the proxy to use or <code>null</code> if no proxy
    *          should be used 
@@ -278,7 +278,7 @@ public class RestProxy {
     if (hostname != null) {
       if (port == 0) {
         // Port not set but hostname is, so use default values
-        port = "http".equalsIgnoreCase(attivioProtocol) ? 80 : 843;
+        port = "http".equalsIgnoreCase(attivioProtocol) ? 80 : 443;
       }
       result = new HttpHost(hostname, port); 
     }
