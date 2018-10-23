@@ -8,11 +8,11 @@ While you don’t need to have anything installed other than Maven when building
 
 ### Node and NPM
 
-You can obtain Node from the [project’s website](nodejs.org). Installing Node on your machine will automatically install NPM as well.
+You can obtain Node from the [project’s website](https://nodejs.org). Installing Node on your machine will automatically install NPM as well.
 
 ### IDE
 
-You are free to use whatever IDE or code editor you enjoy working with. However, in developing the SUIT library and the Search UI project, we have been using Microsoft’s free Visual Studio Code. You can download it from the [Microsoft website](code.visualstudio.com). It’s very configurable and has a lot of plug-ins available. We, for example, have it configured to automatically run Flow and ESLint on the code as we type, which helps eliminate errors more efficiently.
+You are free to use whatever IDE or code editor you enjoy working with. However, in developing the SUIT library and the Search UI project, we have been using Microsoft’s free Visual Studio Code. You can download it from the [Microsoft website](https://code.visualstudio.com). It’s very configurable and has a lot of plug-ins available. We, for example, have it configured to automatically run Flow and ESLint on the code as we type, which helps eliminate errors more efficiently.
 
 ## Running
 
@@ -24,7 +24,9 @@ When running with Tomcat, we follow these steps for making changes and quickly s
 
 First, run the normal Maven build (`mvn clean install` from the root directory of the searchui project, for example) to build the UI and the WAR file that wraps it. The WAR will be placed into the searchui/server/target directory. Copy the WAR file to Tomcat’s webapps directory, renaming it to match your basename (e.g., searchui.war). When Tomcat runs, it will automatically unpack the WAR into a directory (e.g., webapps/searchui).
 
-The output of the Webpack build is in the directory WEB-INF/classes/static inside your webapp directory (e.g., $CATALINA_HOME/webapps/searchui/WEB-INF/classes/static). You can now use the command `npm run watch` from within the searchui/frontend directory, passing the path to this directory, to have Webpack watch the source tree for changes and continuously compile and update the expanded WAR.
+The output of the Webpack build is in the directory WEB-INF/classes/static inside your webapp directory (e.g., $CATALINA_HOME/webapps/searchui/WEB-INF/classes/static). You can now use the command `npm run watch` from within the searchui/frontend directory, passing the path to this Webpack build output directory, to have Webpack watch the source tree for changes and continuously compile and update the expanded WAR:
+
+`npm run watch $CATALINA_HOME/webapps/searchui/WEB-INF/classes/static`
 
 Doing this, changes are visible in your browser after refreshing in a second or two after you’ve saved them in the editor.
 
@@ -36,7 +38,7 @@ When running as an Attivio module, we follow these steps for making changes and 
 
 First, run the normal Maven build (`mvn clean install` from the root directory of the searchui project, for example) to build the UI and the module ZIP file that wraps it. The ZIP will be placed into the searchui/module/target directory. Run the command `aie-exec modulemanager -i` followed by the path to the ZIP file to install the module into the local copy of Attivio on your machine.
 
-This will, among other things, add a directory to your Attivio installation under the webapps/searchui/dist directory. You can now use the command `npm run watch` from within the searchui/frontend directory, passing the path to this directory, to have Webpack watch the source tree for changes and continuously compile and update the expanded WAR.
+This will, among other things, add a directory to your Attivio installation under the `webapps/searchui/dist` directory. You can now use the command `npm run watch` from within the searchui/frontend directory, passing the path to this `webapps/searchui/dist` directory, to have Webpack watch the source tree for changes and continuously compile and update the expanded WAR.
 
 Doing this, changes are visible in your browser after refreshing in a second or two after you’ve saved them in the editor.
 
