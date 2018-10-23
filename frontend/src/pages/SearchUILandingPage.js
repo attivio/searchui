@@ -68,7 +68,7 @@ class SearchUILandingPage extends React.Component<SearchUILandingPageDefaultProp
     if (searcher) {
       const qr = new SimpleQueryRequest();
       qr.rows = 0;
-      qr.facets = ['table'];
+      qr.facets = ['table(maxNumBuckets=-1)'];
       searcher.doCustomSearch(qr, (response: QueryResponse | null, error: string | null) => {
         if (response) {
           const numDocuments = response.totalHits;
