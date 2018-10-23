@@ -23,7 +23,7 @@ myResultRenderer(doc: SearchDocument, position: number, baseUri: string, key: st
 * The `doc` parameter is the actual SearchDocument object that's part of the result set.
 * The `position` parameter is the 1-based ordinal position of the document in the search results (note that when paging through a result set, this will continue to increment—i.e. the first document on the second page, if the results are ten to a page, will have a position of 11).
 * The `baseUri` parameter is needed for certain components you may want to include such as the <SearchResultTags> component.
-* The `key` parameter should be set as the [React `key` attribute](https://reactjs.org/docs/lists-and-keys.html#keys) on the outermost component returned to avoid having any warnings in the user's browser console. This is passed in to assure the keys are unique.
+* The `key` parameter should be set as the [React `key` attribute](https://reactjs.org/docs/lists-and-keys.html#keys) on the outermost component returned to expediate DOM updates (and avoid having any warnings in the user's browser console). (This key is passed in from outside to enssure the keys are unique among all of the children of the <SearchResults> component's list.)
 * The function should return the React component to render or `null` if it doesn't want to render anything. If the function returns null, the SearchResults component will fall back to rendering the document using a `<ListSearchResult>` component.
 
 ### Passing an Array of Rendering Functions
@@ -38,11 +38,11 @@ As mentioned above, it is possible to still use the string values to specify one
 * Passing `SimpleSearchResult.renderer` will render the document as a `<SimpleSearchResult>` compoenent.
 * Passing `DebugSearchResult.renderer` will render the document as a `<DebugSearchResult>` compoenent.
 
-Note that following this same method of including the static renderer function inside the custom component classes will make your code more uniform.
+Note that following this same method of including the static renderer function inside the custom component classes will make your code more uniform and reuseable, although it is certainly possible to have a function that knows about several different types of results components.
 
 ### Examples
 
-A very simple custom component which is rendered when the first document in the list is in the table "user" might look like this:
+A very simple custom component that renders a result only if 1) the result is the first on in the result set and 2) the document is part of the "user" table might look like this:
 
 ```js
 import React from 'react';
