@@ -1,16 +1,16 @@
 ## Custom Search Results
 
-As of version 0.0.35 of the SUIT library, search application developers now have the capability to fully customize the way search results are displayed in their SearchResults component.
+As of version 1.0.2 of Search UI, which is built using version 0.0.35 of the SUIT library, search application developers have the capability to fully customize the way search results are displayed by the SearchResults component.
 
-In prior versions of SUIT, applicartion developers were limited to using the standard "List," "Simple," and "Debug" views. Those who needed more flexibility were forced to modify the SUIT library itself to customize their results display.
+In prior versions of Search UI and SUIT, application developers were limited to using the standard "List," "Simple," and "Debug" views. Those who needed more flexibility were forced to modify the SUIT library itself to customize their results display.
 
 ### Rendering Functions
 
-If you look at the documentation for the SearchResults component, you will notice that the `format` property is no longer a simple union of string constants (i.e., `'list' | 'simple' | 'debug'`) but can be set to a function which is used to render individual search results. (The original string values can still be used, but internally they each map to a single function call that renders one of the built-in search result components: `<ListSearchResult>`, `<SimpleSearchResult>`, or `<DebugSearchResult>`.
+If you look at the documentation for the [SearchResults](https://github.com/attivio/suit/blob/master/src/components/SearchResults.js) component, you will notice that the `format` property is no longer a simple union of string constants (i.e., `'list' | 'simple' | 'debug'`) but can be set to a function which is used to render individual search results. (The original string values can still be used, but internally they each map to a single function call that renders one of the built-in search result components: `<ListSearchResult>`, `<SimpleSearchResult>`, or `<DebugSearchResult>`.
 
-When the `format` property is set to be a function, then that function is called with informaiton about a document in the results and it renders the document as it sees fit.
+When the `format` property is set to be a function, then that function is called with informaiton about a document in the results and it can render the document as it sees fit.
 
-The function passed to the `format` property should look like this if it should return your custom component called `<MySearchResult>`:
+The function passed to the `format` property should look like this onem, which just returns a hypothetical custom component called `<MySearchResult>`:
 
 ```js
 myResultRenderer(doc: SearchDocument, position: number, baseUri: string, key: string): any {
@@ -20,10 +20,10 @@ myResultRenderer(doc: SearchDocument, position: number, baseUri: string, key: st
 }
 ```
 
-* The `doc` parameter is the SearchDocument that's part of the result set.
+* The `doc` parameter is the actual SearchDocument object that's part of the result set.
 * The `position` parameter is the 1-based ordinal position of the document in the search results (note that when paging through a result set, this will continue to increment—i.e. the first document on the second page, if the results are ten to a page, will have a position of 11).
 * The `baseUri` parameter is needed for certain components you may want to include such as the <SearchResultTags> component.
-* The `key` parameter should be set as the React `key` attribute on the outermost component returned to avoid having any warnings in the user's browser console.
+* The `key` parameter should be set as the [React `key` attribute](https://reactjs.org/docs/lists-and-keys.html#keys) on the outermost component returned to avoid having any warnings in the user's browser console. This is passed in to assure the keys are unique.
 * The function should return the React component to render or `null` if it doesn't want to render anything. If the function returns null, the SearchResults component will fall back to rendering the document using a `<ListSearchResult>` component.
 
 ### Passing an Array of Rendering Functions
