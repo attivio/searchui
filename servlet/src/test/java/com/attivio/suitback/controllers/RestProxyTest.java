@@ -62,8 +62,8 @@ public class RestProxyTest {
     System.clearProperty("http.proxyPort");
     
     proxyServer = restProxy.getProxyServer(); 
-    if (!proxyServer.getHostName().equals("example2.com") || !(proxyServer.getPort() == 843)) {
-      fail("The proxy should be example2.com:843");
+    if (!proxyServer.getHostName().equals("example2.com") || !(proxyServer.getPort() == 443)) {
+      fail("The proxy should be example2.com:443");
     }
     
     System.setProperty("https.proxyPort", "7777");
@@ -76,8 +76,8 @@ public class RestProxyTest {
     ReflectionTestUtils.setField(restProxy, "proxyHostname", "example3.com");
 
     proxyServer = restProxy.getProxyServer(); 
-    if (!proxyServer.getHostName().equals("example3.com") || !(proxyServer.getPort() == 843)) {
-      fail("The proxy should be example3.com:843");
+    if (!proxyServer.getHostName().equals("example3.com") || !(proxyServer.getPort() == 443)) {
+      fail("The proxy should be example3.com:443");
     }
     
     ReflectionTestUtils.setField(restProxy, "attivioProtocol", "http");
