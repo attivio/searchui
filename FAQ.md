@@ -30,11 +30,11 @@ The property `ALL.entityFields` is a map of the field names to the strings to sh
 
 The realm used when accessing the Attivio server on a user’s behalf is set in the property ALL.defaultRealm. You will likely not need to change this from the default value of "aie" unless you have custom authentication in your instance.
 
-### How do I change the way a single document looks on the results page?
+### How do I change the way documents look on the results page?
 
-You can currently do this by changing the `format` parameter of the `<SearchResults>` component on the page. The available values are `list`, which is the default list format used by the Search UI, `debug`, which presents the default "debug" view with all of each document's field names and values, and `simple`, which provides a view with just the ordinal position, type, name and contents preview of each document.
+For simple cases, you can do this by changing the `format` parameter of the `<SearchResults>` component on the page. The available values are `list`, which is the default list format used by the Search UI, `debug`, which presents the default "debug" view with all of each document's field names and values, and `simple`, which provides a view with just the ordinal position, type, name and contents preview of each document. The `<SearchResults>` component appears in the default Search UI application in the file `SearchUISearchResults.js` and you can change the configuration there.
 
-A future version of SUIT will allow passing a function as this property which is presented a document and returns a rendered element to show for that document.
+Starting with version 1.0.2 of Search UI, it is possible to add custom code that will control how individual search results are rendered in the UI. This process is described in [Custom Search Results](CustomSearchResults.md).
 
 ### How do I change the name of the application in the URL (i.e. from “/searchui” to something else)?
 
