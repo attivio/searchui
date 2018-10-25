@@ -36,20 +36,31 @@ For simple cases, you can do this by changing the `format` parameter of the `<Se
 
 Starting with version 1.0.2 of Search UI, it is possible to add custom code that will control how individual search results are rendered in the UI. This process is described in [Custom Search Results](CustomSearchResults.md).
 
-### How do I change the name of the application in the URL (i.e. from “/searchui” to something else)?
+### How do I change the name of the application (i.e. from “searchui” to something else)?
 
-There are a few places you'll need to change this. How you do so will depend on whether you are running Search UI as an Attivio module or hosted in a servlet container like Tomcat.
+You might want to do this if you are creating a customized version of Seaerch UI which needs to live alongside the original one (or any scenario in which you need multiple Search-UI-based applications). This will apply to both the WAR file for running in a servlet container and the module for running inside the Attivio node.
 
-In the file `configuration.properties.js`:
+Here are all of the files you'll need to change to rename the application:
 
-* Change the 
-
-In the file `application.properties` (Servlet only):
-
-* Change the
-
-
-> **_Updates for this answer are coming_**
+| File | Details |
+| ---- | ------- |
+| [pom.xml](pom.xml) | change the Maven group ID from "com.attivio.searchui" |
+| [frontend/configuration.properties.js](frontend/configuration.properties.js) | change the value of the `basename` property |
+| [frontend/pom.xml](frontend/pom.xml) | change the Maven group ID from "com.attivio.searchui" |
+| [frontend/webpack.config.js](frontend/webpack.config.js) | change the value of the `prefix` variable |
+| [module/pom.xml](module/pom.xml) | change the Maven group ID from "com.attivio.searchui" |
+| [module/dist-assembly.xml](module/dist-assembly.xml) | change the references to the Maven group ID |
+| [module/src/main/resources/attivio.module.json](module/src/main/resources/attivio.module.json) | update the module's name and the replace "searchui" in the directory paths |
+| [module/src/main/resources/conf/searchui](module/src/main/resources/conf/searchui) | Rename directory |
+| [module/src/main/resources/conf/searchui/beans](module/src/main/resources/conf/searchui/beans) | Update value of `configurationPath` property using new directory name |
+| [module/src/main/resources/conf/searchui/features.xml](module/src/main/resources/conf/searchui/features.xml) | change the URLs for the links that appear in the admin UI in the `<f:deployWebapp>` tag |
+| [module/src/main/resources/conf/searchui/module.xml](module/src/main/resources/conf/searchui/module.xml) | Update path used when importing the beans.xml file |
+| [module/src/main/resources/searchui](module/src/main/resources/searchui) | Rename directory |
+| [module/src/main/resources/searchui/configuration.properties.js](module/src/main/resources/searchui/configuration.properties.js) | Make same chanfges as to `frontend/configuration.properties.js` (note that this will be unnecessary once the build is updated to use a single copy of this file for both the module and servlet builds, after which the one in the frontend subproject will be the only one you need to change) |
+| [module/src/main/resources/webapps/searchui](module/src/main/resources/webapps/searchui) | Rename directory |
+| [module/src/main/resources/webapps/searchui/WEB-INF/searchui-servlet.xml](module/src/main/resources/webapps/searchui/WEB-INF/searchui-servlet.xml) | Rename file (but don't alter its contents) |
+| [module/src/main/resources/webapps/searchui/WEB-INF/web.xml](module/src/main/resources/webapps/searchui/WEB-INF/web.xml) | Update the name of the servlet in both the `<servlet>` and `<servlet-mapping>` tags |
+| [servlet/pom.xml](servlet/pom.xml) | change the Maven group ID from "com.attivio.searchui" |
 
 ### How do I change the name displayed for the application (i.e. from “Cognitive Search”)?
 
