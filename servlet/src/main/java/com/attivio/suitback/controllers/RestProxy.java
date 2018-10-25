@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.http.HttpHost;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
@@ -82,10 +81,6 @@ public class RestProxy {
   String attivioPassword;
   @Value("${suit.attivio.authToken:}")
   String attivioAuthToken;
-  @Value("${suit.attivio.proxy.hostname:}")
-  String proxyHostname;
-  @Value("${suit.attivio.proxy.port:0}")
-  int proxyPort;
   @Value("${security.saml.entityId:}")
   String entityId;
 
@@ -140,7 +135,7 @@ public class RestProxy {
           headers.add(headerName, singleHeaderValue);
         }
       } else {
-        LOG.trace("Omitting Host header when proxying");
+        LOG.trace("Omitting Host header when proxying REST API calls");
       }
     }
 
@@ -235,57 +230,6 @@ public class RestProxy {
   }
   
   /**
-   * Get the host/port configured for the proxy server, if any. If none is configured,
-   * this method returns <code>null</code>. This will first check the Attivio-specific
-   * properties <code>suit.attivio.proxy.hostname</code> and <code>suit.attivio.proxy.port</code>
-   * and if they're not set it will try to use the "standard" properties http.proxyhost and
-   * http.proxyport or https.proxyhost and https.proxyport, if they're set. If the
-   * port isn't set but the host name is, then the default port for the configured protocol
-   * will be used (80 or 443).
-   *  
-   * @return  a {@link HttpHost} for the proxy to use or <code>null</code> if no proxy
-   *          should be used 
-   */
-  HttpHost getProxyServer() {
-    HttpHost result = null;
-    String hostname = null;
-    int port = 0;
-    // If the Attivio proxy information is set, use that...
-    if (proxyHostname != null && proxyHostname.length() > 0) {
-      hostname = proxyHostname;
-      port = proxyPort;
-    } else if ("http".equalsIgnoreCase(attivioProtocol)) {
-      hostname = System.getProperty("http.proxyHost");
-      String portString = System.getProperty("http.proxyPort");
-      if (portString != null) {
-        try {
-          port = Integer.parseInt(portString, 10);
-        } catch (NumberFormatException e) {
-          port = 0;
-        }
-      }
-    } else if ("https".equalsIgnoreCase(attivioProtocol)) {
-      hostname = System.getProperty("https.proxyHost");
-      String portString = System.getProperty("https.proxyPort");
-      if (portString != null) {
-        try {
-          port = Integer.parseInt(portString, 10);
-        } catch (NumberFormatException e) {
-          port = 0;
-        }
-      }
-    }
-    if (hostname != null) {
-      if (port == 0) {
-        // Port not set but hostname is, so use default values
-        port = "http".equalsIgnoreCase(attivioProtocol) ? 80 : 443;
-      }
-      result = new HttpHost(hostname, port); 
-    }
-    return result;
-  }
-  
-  /**
    * Construct the Spring REST template that we'll use to make calls to the Attivio server when
    * proxying. We only need to do this the very first time we need it and then we can keep it
    * around to reuse.
@@ -305,15 +249,9 @@ public class RestProxy {
           .setCookieSpec(CookieSpecs.DEFAULT)
           .build();
       clientBuilder.setDefaultRequestConfig(reqCfg);
-  
-      // See if we're configured to go through a proxy server, and set that up, too
-      HttpHost proxy = getProxyServer();
-      if (proxy != null) {
-        LOG.trace("Proxying the calls through a proxy server: " + proxy.toHostString());
-        clientBuilder.setProxy(proxy);
-      } else {
-        clientBuilder.setProxy(proxy);
-      }
+
+      // This allows any system properties that the user has configured for proxy support, etc., to take effect 
+      clientBuilder.useSystemProperties();
   
       // If we're using HTTPS to talk to Attivio, this is necessary to allow the client to deal
       // with the default Attivio self-signed certificate
