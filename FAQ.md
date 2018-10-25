@@ -52,7 +52,7 @@ Here are all of the files you'll need to change to rename the application:
 | [module/dist-assembly.xml](module/dist-assembly.xml) | change the references to the Maven group ID |
 | [module/src/main/resources/attivio.module.json](module/src/main/resources/attivio.module.json) | update the module's name and the replace "searchui" in the directory paths |
 | [module/src/main/resources/conf/searchui](module/src/main/resources/conf/searchui) | Rename directory |
-| [module/src/main/resources/conf/searchui/beans](module/src/main/resources/conf/searchui/beans) | Update value of `configurationPath` property using new directory name |
+| [module/src/main/resources/conf/searchui/beans.xml](module/src/main/resources/conf/searchui/beans.xml) | Update value of `configurationPath` property using new directory name |
 | [module/src/main/resources/conf/searchui/features.xml](module/src/main/resources/conf/searchui/features.xml) | change the URLs for the links that appear in the admin UI in the `<f:deployWebapp>` tag |
 | [module/src/main/resources/conf/searchui/module.xml](module/src/main/resources/conf/searchui/module.xml) | Update path used when importing the beans.xml file |
 | [module/src/main/resources/searchui](module/src/main/resources/searchui) | Rename directory |
