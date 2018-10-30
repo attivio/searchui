@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
+  AuthUtils,
   Configurable,
   FacetInsights,
   Masthead,
@@ -63,7 +64,7 @@ class SearchUIInsightsPage extends React.Component<SearchUIInsightsPageProps, Se
   render() {
     return (
       <div>
-        <Masthead multiline homeRoute="/landing">
+        <Masthead multiline homeRoute="/landing" logoutFunction={AuthUtils.logout}>
           <MastheadNavTabs initialTab="/insights" tabInfo={this.context.app.getMastheadNavTabs()} />
           <SearchBar
             inMasthead
