@@ -7,6 +7,7 @@ import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 
 import {
+  AuthUtils,
   Configurable,
   FacetResults,
   Masthead,
@@ -168,7 +169,7 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
     const showTags = this.props.searchEngineType === 'attivio';
     return (
       <div>
-        <Masthead multiline homeRoute="/landing">
+        <Masthead multiline homeRoute="/landing" logoutFunction={AuthUtils.logout}>
           <MastheadNavTabs initialTab="/results" tabInfo={this.context.app.getMastheadNavTabs()} />
           <SearchBar
             inMasthead

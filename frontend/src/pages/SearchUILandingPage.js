@@ -6,6 +6,7 @@ import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 
 import {
+  AuthUtils,
   Configurable,
   Masthead,
   MastheadNavTabs,
@@ -145,7 +146,7 @@ class SearchUILandingPage extends React.Component<SearchUILandingPageDefaultProp
 
     return (
       <div>
-        <Masthead multiline homeRoute="/landing">
+        <Masthead multiline homeRoute="/landing" logoutFunction={AuthUtils.logout}>
           <MastheadNavTabs initialTab="/" tabInfo={this.context.app.getMastheadNavTabs()} />
         </Masthead>
         <Grid>

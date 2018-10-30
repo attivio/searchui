@@ -10,6 +10,7 @@ import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 
 import {
+  AuthUtils,
   Configurable,
   Doc360Breadcrumbs,
   DocumentEntityList,
@@ -341,7 +342,7 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
 
     return (
       <div>
-        <Masthead multiline homeRoute="/landing">
+        <Masthead multiline homeRoute="/landing" logoutFunction={AuthUtils.logout}>
           <MastheadNavTabs tabInfo={this.context.app.getMastheadNavTabs()} />
           <SearchBar
             inMasthead

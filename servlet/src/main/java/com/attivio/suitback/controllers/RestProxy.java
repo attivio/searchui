@@ -32,6 +32,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.ssl.SSLContexts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -59,6 +60,9 @@ public class RestProxy {
   static final Logger LOG = LoggerFactory.getLogger(RestProxy.class);
   
   static RestTemplate restTemplate = null;
+  
+  @Autowired
+  UserController userController;
   
   @ResponseStatus(value=HttpStatus.FORBIDDEN, reason="Not authenticted") // 403
   static class NotLoggedInException extends Exception {
@@ -92,7 +96,7 @@ public class RestProxy {
   @ResponseBody
   public ResponseEntity<String> mirrorQuery(@RequestBody(required=false) String body, HttpMethod method, HttpServletRequest request,
     HttpServletResponse response) throws URISyntaxException, UnsupportedEncodingException, NotLoggedInException {
-    UserDetails userInfo = UserController.getUserDetails();
+    UserDetails userInfo = userController.getUserDetails();
     String newBody = body;
     if (userInfo != null) {
       // Parse the request object and add the username to it so the
