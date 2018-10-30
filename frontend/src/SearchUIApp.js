@@ -20,7 +20,6 @@ import {
 
 import Document360Page from './pages/Document360Page';
 import LoginPage from './pages/LoginPage';
-import LogoutPage from './pages/LogoutPage';
 import SearchUIErrorPage from './pages/SearchUIErrorPage';
 import SearchUIFakeLandingPage from './pages/SearchUIFakeLandingPage';
 import SearchUIInsightsPage from './pages/SearchUIInsightsPage';
@@ -72,8 +71,7 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
     '/results',
     '/insights',
     '/doc360',
-    '/login',
-    '/loggedout',
+    '/locallogin',
     '/error',
   ];
 
@@ -263,8 +261,7 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
                 <AuthRoute exact path="/results" component={SearchUISearchPage} />
                 <AuthRoute exact path="/insights" component={SearchUIInsightsPage} />
                 <AuthRoute exact path="/doc360" component={Document360Page} />
-                <Route exact path="/login" component={LoginPage} />
-                <Route exact path="/loggedout" component={LogoutPage} />
+                <Route exact path="/locallogin" component={LoginPage} />
                 <Route exact path="/error" component={SearchUIErrorPage} />
                 <Route path="*" component={SearchUIErrorPage} />
               </Switch>
