@@ -105,9 +105,13 @@
     // inherently insecure.
     authType: 'SAML',
 
-    // If the authType is set to XML, then the loginPage must be set to a page which contains
-    // a <LoginForm> component that can do the logging in using the AutUtils class in SUIT.
-    loginPage: 'locallogin',
+    // If the authType property is set to XML, this must be set so that the SUIT library knows
+    // where to redirect when the user has logged out. If the user logs out, then when this
+    // redirection happens the page at this route will be passed a query parameter, "action,"
+    // set to the value "logout" that can be used to show a message about having successfully
+    // logged out. If authType is not XML, then this property is not used and doesn't need to
+    // be set.
+    loginPage: '/login',
 
     // This is the default principal realm to use when searching.
     defaultRealm: 'aie',
