@@ -94,12 +94,16 @@
     // Set this to 'SAML' to enable SAML authentication when hosting the UI in a servlet
     // (SAML authentication must also be enabled on the back end, using the values in the
     // application.properties file).
-    // Set this to 'XML' to use the contents of the users.xml file to define users. In this
-    // case, the front-end application's login page will be used to log users in.
     // Set this to 'NONE' if you will be hosting the UI in an Attivio module; in this case
     // the Deploy Webapp feature in the module will define the type of authentication that
     // will secure the UI. Note that you can also use 'NONE' during the course of developing
     // an application.
+    // Set this to 'XML' to use the contents of the users.xml file to define users. In this
+    // case, the front-end application's login page (defined by the loginPage property below)
+    // will be used to log users in.
+    // IMPORTANT: The XML-based authentication is only suitable for use in proof-of-concept
+    // or development settings and should NEVER be used for a production system as it is
+    // inherently insecure.
     authType: 'SAML',
 
     // If the authType property is set to XML, this must be set so that the SUIT library knows
@@ -109,6 +113,7 @@
     // logged out. If authType is not XML, then this property is not used and doesn't need to
     // be set.
     loginPage: '/login',
+
 
     // This is the default principal realm to use when searching.
     defaultRealm: 'aie',
