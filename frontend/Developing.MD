@@ -44,6 +44,10 @@ Doing this, changes are visible in your browser after refreshing in a second or 
 
 You also get the advantages of running the application within the context of the node, such as access to Attivio’s web application security.
 
+#### Running in Attivio 5.5.0
+
+If you are running Search UI as a module inside an Attivio 5.5.0 installation, you will need to manually copy the file `configuration.properties.js` into the `resources/searchui` directory in your project's configuration. You can then edit this file to configure your Search UI installation. This step is optional when installing into later versions of Attivio (5.5.1+), as the `configuration.properties.js` file in the installation will be used as a default if none exists in the project.
+
 ## Developing the SUIT Library Itself
 
 If you need to make changes to the SUIT library itself, you can speed up your work by following the steps here in addition to those described in the SUIT project’s Developing.MD file.
