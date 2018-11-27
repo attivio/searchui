@@ -75,7 +75,7 @@
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
           <descriptors>
-            <descriptor>dist-assembly.xml</descriptor>
+            <descriptor>src/assembly/dist.xml</descriptor>
           </descriptors>
         </configuration>
         <executions>
@@ -127,23 +127,6 @@
                 <configuration>
                   <arguments>run validateComponents</arguments>
                 </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <configuration>
-              <descriptors>
-                <descriptor>dist-assembly.xml</descriptor>
-              </descriptors>
-            </configuration>
-            <executions>
-              <execution>
-                <id>generate-assembly</id>
-                <phase>package</phase>
-                <goals>
-                  <goal>single</goal>
-                </goals>
               </execution>
             </executions>
           </plugin>

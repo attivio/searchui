@@ -8,7 +8,7 @@
   <includeBaseDirectory>false</includeBaseDirectory>
   <files>
     <file>
-      <source>${project.build.directory}/${project.artifactId}-${project.version}.${project.packaging}</source>
+      <source>${project.build.directory}/${project.build.finalName}.${project.packaging}</source>
       <destName>${project.artifactId}.${project.packaging}</destName>
       <outputDirectory>${file.separator}</outputDirectory>
     </file>

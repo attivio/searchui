@@ -39,7 +39,6 @@
     </dependency>
   </dependencies>
   <build>
-    <finalName>searchui-module-${project.version}</finalName>
     <resources>
       <resource>
         <directory>src/main/resources</directory>
@@ -61,7 +60,7 @@
             </goals>
             <configuration>
               <descriptors>
-                <descriptor>dist-assembly.xml</descriptor>
+                <descriptor>src/assembly/dist.xml</descriptor>
               </descriptors>
             </configuration>
           </execution>
