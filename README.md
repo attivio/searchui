@@ -13,6 +13,7 @@
 * [360&deg; View](#360-view)
 * [Insights](#insights)
 * [How Do I Configure Search UI?](#how-do-i-configure-search-ui)
+* [Supported Browsers](#supported-browsers)
 * [Contributing](#contributing)
 
 ## Overview
@@ -128,6 +129,25 @@ Many Search UI features are configurable, including pointing it to an Elasticsea
 > If Search UI is deployed to multiple web servers or Attivio nodes, the preferences must be manually synchronized across all nodes.
 
 The full list of properties and the description of each can be found in the [configuration.properties.js](frontend/configuration.properties.js) file.
+
+<a name="supported-browsers"></a>
+## Supported Browsers
+Search UI is tested with the following browsers at release time:
+
+**Windows Clients:**
+
+* Chrome stable - latest stable version
+* Microsoft Edge - latest stable version
+* Internet Explorer 11
+
+**Mac clients:** 
+* Chrome stable - latest stable version
+
+**Linux clients:** 
+* Chrome stable - latest stable version
+
+**Recommended Screen Resolution:**
+* 1280 x 800 pixels, 1600 x 900 pixels or higher
 
 ## Contributing
 To report an issue or contribute, see [CONTRIBUTING.md](CONTRIBUTING.md)
