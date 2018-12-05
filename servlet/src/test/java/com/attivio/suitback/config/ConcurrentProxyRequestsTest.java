@@ -102,7 +102,7 @@ public class ConcurrentProxyRequestsTest {
           subThreadPool.execute(requester);
         }
         try {
-          subThreadPool.awaitTermination(2, TimeUnit.SECONDS);
+          subThreadPool.awaitTermination(5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
           Assert.fail(e.getMessage());
         }
@@ -113,7 +113,7 @@ public class ConcurrentProxyRequestsTest {
       threadPool.execute(rootRequester);
     }
     try {
-      threadPool.awaitTermination(5, TimeUnit.SECONDS);
+      threadPool.awaitTermination(10, TimeUnit.SECONDS);
     } catch (InterruptedException e) {
       Assert.fail(e.getMessage());
     }
