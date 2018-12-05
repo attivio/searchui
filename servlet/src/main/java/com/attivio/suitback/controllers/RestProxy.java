@@ -181,9 +181,6 @@ public class RestProxy {
     URI uri = new URI(attivioProtocol, null, attivioHostname, attivioPort, path, queryString, null);
     
     RestTemplate restTemplate = getRestTemplate();
-
-    // Make sure the forwarded call is made with UTF-8 encoding
-    restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
     
     LOG.debug("Proxying REST API call (" + method.toString() + ") from '" + request.getRequestURL().toString() + 
         (request.getQueryString() != null ? ("?" + request.getQueryString()) : "") + "' to '" + uri.toString() + "'");
@@ -275,6 +272,9 @@ public class RestProxy {
       HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory(clientBuilder.build());
       
       restTemplate = new RestTemplate(clientHttpRequestFactory);
+      
+      // Make sure the forwarded call is made with UTF-8 encoding
+      restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
     }
     
     return restTemplate;
