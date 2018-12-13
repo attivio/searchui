@@ -12,7 +12,7 @@
   <name>Front End</name>
   <description>The front-end JavaScript application</description>
   <properties>
-    <frontend.node.version>v8.9.4</frontend.node.version>
+    <frontend.node.version>v11.4.0</frontend.node.version>
   </properties>
   <build>
     <sourceDirectory>src</sourceDirectory>
