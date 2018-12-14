@@ -3,15 +3,15 @@
    * These properties are not specific to any page/component but may apply to any/all of them.
    */
   ALL: {
-    // Here we define the search engine type, defaults to 'attivio',
-    // but 'elastic' and 'solr' are also supported with limited functionality.
-
-    // For 'elastic' or 'solr' these fields need to be configured:
-    //   - ALL.searchEngineType
+    // Here we define the search engine type, which defaults to 'attivio'
+    // for the Attivio platform. In addition, ElasticSearch (use the value 'elastic')
+    // and Solr (use the value 'solr') are supported, with limited functionality.
+    // If the searchEngineType property is set to "elastic" or "solr," then these additional
+    // properties also need to be configured appropriately—see the comments for them for
+    // details:
     //   - ALL.baseUri
     //   - ALL.customOptions
     //   - SearchUISearchPage.sortableFields
-
     searchEngineType: 'attivio',
 
     // This is the base URI that will be used for making REST API calls to the
@@ -30,8 +30,7 @@
     //   **  using 'myHandler' handler **
     //   baseUri: 'http://example.com:8983/solr/mycollection/myHandler'
     // in the case of 'attivio', only the Attivio instance URI is needed.
-
-    baseUri: '/searchui',
+    baseUri: '${searchui.baseUri}',
 
     // If searchEngineType is 'elastic' or 'solr', the property customOptions
     // needs to be added.
@@ -104,7 +103,7 @@
     // IMPORTANT: The XML-based authentication is only suitable for use in proof-of-concept
     // or development settings and should NEVER be used for a production system as it is
     // inherently insecure.
-    authType: 'SAML',
+    authType: '${searchui.authType}',
 
     // If the authType property is set to XML, this must be set so that the SUIT library knows
     // where to redirect when the user has logged out. If the user logs out, then when this
@@ -112,7 +111,7 @@
     // set to the value "logout" that can be used to show a message about having successfully
     // logged out. If authType is not XML, then this property is not used and doesn't need to
     // be set.
-    loginPage: '/login',
+    loginPage: '/locallogin',
 
 
     // This is the default principal realm to use when searching.

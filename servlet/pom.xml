@@ -16,6 +16,8 @@
     <version.httpclient>4.5.3</version.httpclient>
     <version.spring.boot.securitry.saml>1.13</version.spring.boot.securitry.saml>
     <version.gson>2.8.2</version.gson>
+    <searchui.authType>SAML</searchui.authType>
+    <searchui.baseUri>/searchui</searchui.baseUri>
   </properties>
   <dependencyManagement>
     <dependencies>

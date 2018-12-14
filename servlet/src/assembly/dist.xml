@@ -12,20 +12,21 @@
       <destName>${project.artifactId}.${project.packaging}</destName>
       <outputDirectory>${file.separator}</outputDirectory>
     </file>
+    <file>
+      <source>${project.basedir}/../frontend/configuration.properties.js</source>
+      <outputDirectory>${file.separator}</outputDirectory>
+      <filtered>true</filtered>
+    </file>
+    <file>
+      <source>${project.basedir}/../frontend/users.xml</source>
+      <outputDirectory>${file.separator}</outputDirectory>
+    </file>
   </files>
   <fileSets>
     <fileSet>
       <directory>${project.basedir}</directory>
       <includes>
         <include>application.properties</include>
-      </includes>
-      <outputDirectory>${file.separator}</outputDirectory>
-    </fileSet>
-    <fileSet>
-      <directory>${project.basedir}/../frontend</directory>
-      <includes>
-        <include>users.xml</include>
-        <include>configuration.properties.js</include>
       </includes>
       <outputDirectory>${file.separator}</outputDirectory>
     </fileSet>
