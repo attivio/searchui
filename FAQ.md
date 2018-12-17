@@ -72,7 +72,21 @@ This ia a bit more complicated. Please see the tutorial on doing this in the Sea
 
 ### How do I do a one-off query that doesn’t affect the results page?
 
-> **_Updates for this answer are coming_**
+If the component from which you want to do the search is nested inside a Searcher component (there is a Searcher in the SearchUIApp component, which most everything else is inside of), you can use the containing Searcher's `doCustomSearch()` method to perform any sort of _ad hoc_ query that you like. You can access the Searcher component from your component's context by defining it in the component's context types, like this:
+```js
+  import PropTypes from 'prop-types';
+  import { Searcher } from '@attivio/suit';
+  // ...
+    static contextTypes = {
+      searcher: PropTypes.instanceOf(Searcher),
+    };
+```
+
+Once you've defined the searcher, you can perform a query with `this.context.searcher.doCustomSearch(myQuery, callback)`. The myQuery parameter is a SimpleQueryRequest object. You can either construct one yourself (see the [class' documentation](https://attivio.github.io/suit/api/index.html#simplequeryrequest) for details) or, if you want to mostly use the values configured on the Searcher component, you can call its `getQueryRequest()` method to have it build a SimpleQueryRequest object that you can then modify to set the query you want to execute (or other properties, such as the query language). The callback parameter is a function that will be called with the search results (or an error message) when the query completes.
+
+The KnowledgeGraphPanel component uses this technique to perform the query that populates the 360° view of a document; look at [its source code](https://github.com/attivio/suit/blob/master/src/components/KnowledgeGraphPanel.js) to see an example.
+
+You can also instantiate an instance of the Search class (which is what the Searcher uses internally) to have even more control, but this requires more configuration. You might need to use the Search class directly if, say, you want to make a query from code that isn't inside a component. The Search class is documented [here](https://attivio.github.io/suit/api/index.html#search).
 
 ### How do I force the results page to show a new query?
 
