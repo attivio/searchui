@@ -73,6 +73,10 @@ module.exports = {
         loader: `url-loader?limit=100000&publicPath=${publicPath}`,
       },
       {
+        test: /\.gif$/,
+        loader: `url-loader?limit=100000&publicPath=${publicPath}`,
+      },
+      {
         test: /\.jpg$/,
         loader: `file-loader?publicPath=${publicPath}`,
       },
