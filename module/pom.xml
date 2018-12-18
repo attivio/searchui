@@ -10,6 +10,10 @@
   <artifactId>module</artifactId>
   <name>Module</name>
   <description>Wraps the front-end application in an Attivio module</description>
+  <properties>
+    <searchui.authType>NONE</searchui.authType>
+    <searchui.baseUri></searchui.baseUri>
+  </properties>
   <dependencies>
     <dependency>
       <!-- Update this when renaming the project -->
