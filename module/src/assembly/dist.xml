@@ -26,12 +26,12 @@
     </file>
     <file>
       <source>${project.basedir}/../frontend/configuration.properties.js</source>
-      <outputDirectory>${file.separator}</outputDirectory>
+      <outputDirectory>${file.separator}resources${file.separator}searchui${file.separator}</outputDirectory>
       <filtered>true</filtered>
     </file>
     <file>
       <source>${project.basedir}/../frontend/users.xml</source>
-      <outputDirectory>${file.separator}</outputDirectory>
+      <outputDirectory>${file.separator}resources${file.separator}searchui${file.separator}</outputDirectory>
     </file>
   </files>
   <dependencySets>
