@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/attivio/searchui.svg)](https://travis-ci.org/attivio/searchui)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fattivio%2Fsearchui.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fattivio%2Fsearchui?ref=badge_shield)
 
 <a href="http://www.attivio.com" target="_blank"><img src="images/attivio-logo.png" alt="Attivio" width="240" border="0" /></a>
 ## Table of Contents
@@ -151,3 +152,7 @@ Search UI is tested with the following browsers at release time:
 
 ## Contributing
 To report an issue or contribute, see [CONTRIBUTING.md](CONTRIBUTING.md)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fattivio%2Fsearchui.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fattivio%2Fsearchui?ref=badge_large)
