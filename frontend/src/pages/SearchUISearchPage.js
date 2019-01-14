@@ -159,7 +159,7 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
           includeRelevancy
           right
         />
-        <SearchDebugToggle right />
+        {this.props.debugViewToggle ? <SearchDebugToggle right /> : null}
       </SecondaryNavBar>
     );
   }
