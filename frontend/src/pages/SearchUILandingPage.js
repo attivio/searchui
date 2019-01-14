@@ -24,13 +24,6 @@ type SearchUILandingPageProps = {
   logoAltText: string | null;
 };
 
-type SearchUILandingPageDefaultProps = {
-  logoUri: string | null;
-  logoWidth: string | null;
-  logoHeight: string | null;
-  logoAltText: string | null;
-};
-
 type SearchUILandingPageState = {
   numDocuments: number;
   numTables: number;
@@ -38,7 +31,7 @@ type SearchUILandingPageState = {
   error: string | null;
 };
 
-class SearchUILandingPage extends React.Component<SearchUILandingPageDefaultProps, SearchUILandingPageProps, SearchUILandingPageState> { // eslint-disable-line max-len
+class SearchUILandingPage extends React.Component<SearchUILandingPageProps, SearchUILandingPageState> { // eslint-disable-line max-len
   static defaultProps = {
     logoUri: null,
     logoWidth: null,

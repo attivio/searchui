@@ -78,21 +78,6 @@ type Document360PageProps = {
   includeAllTables: boolean;
 };
 
-type Document360PageDefaultProps = {
-  baseUri: string;
-  entityFields: Map<string, string>;
-  title: string;
-  uri: string;
-  table: string;
-  teaser: string;
-  text: string;
-  previewImageUri: string;
-  thumbnailImageUri: string;
-  moreLikeThisQuery: string;
-  insightGraphLinkingFields: Array<string>;
-  includeAllTables: boolean;
-};
-
 type Document360PageState = {
   docId: string | null;
   doc: SearchDocument | null;
@@ -101,7 +86,7 @@ type Document360PageState = {
   entityValue: string | null;
 };
 
-class Document360Page extends React.Component<Document360PageDefaultProps, Document360PageProps, Document360PageState> { // eslint-disable-line max-len
+class Document360Page extends React.Component<Document360PageProps, Document360PageState> { // eslint-disable-line max-len
   static defaultProps = {
     baseUri: '',
     entityFields: new Map(),

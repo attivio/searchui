@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
-class SearchUIFakeLandingPage extends React.Component<void, {}, void> {
+class SearchUIFakeLandingPage extends React.Component<{}> {
   static contextTypes = {
     searcher: PropTypes.any,
     router: PropTypes.any,

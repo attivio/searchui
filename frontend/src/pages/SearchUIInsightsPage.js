@@ -43,7 +43,7 @@ type SearchUIInsightsPageProps = {
   entityColors: Map<string, string>;
 };
 
-class SearchUIInsightsPage extends React.Component<SearchUIInsightsPageProps, SearchUIInsightsPageProps, void> {
+class SearchUIInsightsPage extends React.Component<SearchUIInsightsPageProps> {
   static contextTypes = {
     app: PropTypes.shape({ type: PropTypes.oneOf([SearchUIApp]) }),
   };

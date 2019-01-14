@@ -7,11 +7,7 @@ type DummyCompProps = {
   textColor: ?string;
 };
 
-type DummyCompDefaultfProps = {
-  textColor: ?string;
-};
-
-export default class DummyComp extends React.Component<DummyCompDefaultfProps, DummyCompProps, void> {
+export default class DummyComp extends React.Component<DummyCompProps> {
   static defaultProps = {
     textColor: 'goldenrod',
   };

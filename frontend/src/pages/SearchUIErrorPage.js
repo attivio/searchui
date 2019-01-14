@@ -17,7 +17,7 @@ type SearchUIErrorPageState = {
   numTables: number;
 };
 
-export default class SearchUIErrorPage extends React.Component<void, {}, SearchUIErrorPageState> {
+export default class SearchUIErrorPage extends React.Component<{}, SearchUIErrorPageState> {
   static contextTypes = {
     app: PropTypes.shape({ type: PropTypes.oneOf([SearchUIApp]) }),
   };

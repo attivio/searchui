@@ -27,13 +27,13 @@
     "flow": "flow --show-all-errors src",
     "buildflow": "run-script-os",
     "buildflow:linux:darwin": "flow --show-all-errors --one-line src | grep -v node_modules | ./scripts/cleanflow.sh",
-    "buildflow:win32": "flow --show-all-errors src",
+    "buildflow:win32": "flow --show-all-errors --one-line src",
     "lint": "eslint src --ext .js --ext .jsx",
     "prod": "webpack -p --progress",
     "styleguide": "styleguidist build",
     "styleguide:serve": "styleguidist server",
-    "validateComponents": "run-script-os",
-    "validateComponents:linux:darwin": "./scripts/validatecomponents.sh"
+    "validatecomponents": "run-script-os",
+    "validatecomponents:linux:darwin": "./scripts/validatecomponents.sh"
   },
   "dependencies": {
     "@attivio/suit": "file:///../../newsuit",

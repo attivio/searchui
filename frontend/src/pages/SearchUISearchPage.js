@@ -102,7 +102,7 @@ type SearchUISearchPageProps = {
 /**
  * Page for doing a simple search using a <Searcher> component.
  */
-class SearchUISearchPage extends React.Component<SearchUISearchPageProps, SearchUISearchPageProps, void> {
+class SearchUISearchPage extends React.Component<SearchUISearchPageProps, void> {
   static defaultProps = {
     baseUri: '',
     searchEngineType: 'attivio',

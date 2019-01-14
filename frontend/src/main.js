@@ -5,7 +5,10 @@ import ReactDOM from 'react-dom';
 import SearchUIApp from './SearchUIApp';
 import './style/main.less';
 
-ReactDOM.render(
-  <SearchUIApp />,
-  document.getElementById('root'),
-);
+const root = document.getElementById('root');
+if (root) {
+  ReactDOM.render(
+    <SearchUIApp />,
+    root,
+  );
+}

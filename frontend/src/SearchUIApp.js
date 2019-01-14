@@ -45,7 +45,7 @@ type SearchUIAppState = {
  * 404 errors when trying to directly access these routes from their
  * browser’s address bar.
  */
-export default class SearchUIApp extends React.Component<void, {}, SearchUIAppState> {
+export default class SearchUIApp extends React.Component<{}, SearchUIAppState> {
   /**
    * Make sure any values that are supposed to be Maps are, in fact, maps...
    */
@@ -131,7 +131,7 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
     app: PropTypes.shape({ type: PropTypes.oneOf([SearchUIApp]) }),
   };
 
-  constructor(props: {}) {
+  constructor(props: any) {
     super(props);
     this.state = {
       config: null,
@@ -173,8 +173,8 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
     });
     SearchUIApp.loadConfig('users', (data: string | null) => {
       // Users are not required so we set them to an empty object by default.
-      // If there weas an error loading the users, we'll pretend there wasn't—
-      // even if the server isn't sending us users, we don't care unless we're
+      // If there was an error loading the users, we'll pretend there wasn't.
+      // Even if the server isn't sending us users, we don't care unless we're
       // configured for XML authentication and, in that case, the AuthUtils.configure()
       // method will complain about that...
       let users = {};
@@ -197,7 +197,7 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
   }
 
   getMastheadNavTabs(): Array<MastheadNavTabs.NavTabInfo> {
-    if (this.state.config.searchEngineTypen && this.state.config.searchEngineType !== 'attivio') {
+    if (this.state.config.searchEngineType && this.state.config.searchEngineType !== 'attivio') {
       return [];
     }
     return [
