@@ -297,6 +297,15 @@
     businessCenterProfile: null,
   },
 
+  NavbarFilter: {
+    // This is the maximum number of characters to display when showing hierarchical facets in
+    // the NavbarFilter component. 0 means "no truncation." If set to non-zero value and
+    // any of the segments in the hierarchical facet filter's name are longer than that many
+    // characters, they will be truncated (with an ellipsis added to the segment name) and
+    // a tooltip containing the full name will be added to the component.
+    maxHierarchicalSegmentLength: 0,
+  },
+
   // These properties configure the Search UI landing page.
   SearchUILandingPage: {
     // This is the path to the logo to use for the landing page. Leave unset/null to
