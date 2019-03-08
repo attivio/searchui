@@ -256,7 +256,7 @@ These configuration steps all involve changes to the file application.properties
 
 If you are running a local servlet container such as Tomcat, the Search UI serevlet will proxy REST API calls made by the UI to the underlying Attivio platform you are searching against. If the Attivio instance is running outside your local network (such as when hosted by Attivio Managed Services) and your network is configured to require external traffic to go through a proxy server, you must tell the servlet about this proxy. It is configured in the standard Java way, using system properties: for an HTTP-based proxy, set http.proxyHost and http.proxyPort appropriately, for HTTPS, set https.proxyHost and https.proxyPort. For more detail, or more advanced options, see the Java documentation on proxying network calls, here: https://docs.oracle.com/javase/6/docs/technotes/guides/net/proxies.html.
  
-You can set the properties in the application.properties file that configures the Search UI servlet, or via any other means, such as Tomcat's CATALINA_OPTS environment variable.
+You can set these properties via the same means as you would set other system properties, e.g. adding them to Tomcat's CATALINA_OPTS environment variable or setenv.sh file.
 
 ## Configuring Search UI as a Module
 
