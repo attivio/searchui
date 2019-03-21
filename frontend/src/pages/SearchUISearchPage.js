@@ -2,27 +2,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import DocumentTitle from 'react-document-title';
+import Col from 'react-bootstrap/lib/Col';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
 
 import {
+  AuthUtils,
   Configurable,
-  SearchBar,
-  MastheadNavTabs,
-  SecondaryNavBar,
-  SearchResultsCount,
-  SpellCheckMessage,
-  SearchResultsFacetFilters,
-  SearchResults,
-  PlacementResults,
-  SearchResultsPager,
-  SearchRelevancyModel,
-  SearchDebugToggle,
   FacetResults,
-  NavbarSort,
   Masthead,
+  MastheadNavTabs,
+  NavbarSort,
+  PlacementResults,
+  SearchBar,
+  SearchDebugToggle,
+  SearchRelevancyModel,
+  SearchResults,
+  SearchResultsCount,
+  SearchResultsFacetFilters,
+  SearchResultsPager,
+  SecondaryNavBar,
+  SpellCheckMessage,
 } from '@attivio/suit';
 
 import SearchUIApp from '../SearchUIApp';
@@ -35,7 +35,7 @@ type SearchUISearchPageProps = {
   baseUri: string;
 
   /**
-   * The list of relevancy models to show that will be availale for the user
+   * The list of relevancy models to show that will be available for the user
    * to choose from. If this is set to a single-element array, then that one
    * relevancy model will be used for all queries and the user will not see
    * a menu for choosing the model. If this is not set (and the value is the
@@ -168,49 +168,47 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
     const showScores = this.props.showScores && this.props.searchEngineType === 'attivio';
     const showTags = this.props.searchEngineType === 'attivio';
     return (
-      <DocumentTitle title="Search: Attivio Cognitive Search">
-        <div>
-          <Masthead multiline homeRoute="/landing">
-            <MastheadNavTabs initialTab="/results" tabInfo={this.context.app.getMastheadNavTabs()} />
-            <SearchBar
-              inMasthead
-            />
-          </Masthead>
-          {this.renderSecondaryNavBar()}
-          <div style={{ padding: '10px' }}>
-            <Grid fluid>
-              <Row>
-                <Col xs={12} sm={5} md={4} lg={3}>
-                  <FacetResults
-                    pieChartFacets={this.props.pieChartFacets}
-                    barChartFacets={this.props.barChartFacets}
-                    columnChartFacets={this.props.columnChartFacets}
-                    barListFacets={this.props.barListFacets}
-                    tagCloudFacets={this.props.tagCloudFacets}
-                    timeSeriesFacets={this.props.timeSeriesFacets}
-                    sentimentFacets={this.props.sentimentFacets}
-                    geoMapFacets={this.props.geoMapFacets}
-                    maxFacetBuckets={this.props.maxFacetBuckets}
-                    orderHint={this.props.orderHint}
-                    entityColors={this.props.entityColors}
-                  />
-                </Col>
-                <Col xs={12} sm={7} md={8} lg={9}>
-                  <PlacementResults />
-                  <SpellCheckMessage />
-                  <SearchResults
-                    format={this.context.searcher.state.format}
-                    entityFields={this.props.entityFields}
-                    baseUri={this.props.baseUri}
-                    showScores={showScores}
-                    showTags={showTags}
-                  />
-                </Col>
-              </Row>
-            </Grid>
-          </div>
+      <div>
+        <Masthead multiline homeRoute="/landing" logoutFunction={AuthUtils.logout}>
+          <MastheadNavTabs initialTab="/results" tabInfo={this.context.app.getMastheadNavTabs()} />
+          <SearchBar
+            inMasthead
+          />
+        </Masthead>
+        {this.renderSecondaryNavBar()}
+        <div style={{ padding: '10px' }}>
+          <Grid fluid>
+            <Row>
+              <Col xs={12} sm={5} md={4} lg={3}>
+                <FacetResults
+                  pieChartFacets={this.props.pieChartFacets}
+                  barChartFacets={this.props.barChartFacets}
+                  columnChartFacets={this.props.columnChartFacets}
+                  barListFacets={this.props.barListFacets}
+                  tagCloudFacets={this.props.tagCloudFacets}
+                  timeSeriesFacets={this.props.timeSeriesFacets}
+                  sentimentFacets={this.props.sentimentFacets}
+                  geoMapFacets={this.props.geoMapFacets}
+                  maxFacetBuckets={this.props.maxFacetBuckets}
+                  orderHint={this.props.orderHint}
+                  entityColors={this.props.entityColors}
+                />
+              </Col>
+              <Col xs={12} sm={7} md={8} lg={9}>
+                <PlacementResults />
+                <SpellCheckMessage />
+                <SearchResults
+                  format={this.context.searcher.state.format}
+                  entityFields={this.props.entityFields}
+                  baseUri={this.props.baseUri}
+                  showScores={showScores}
+                  showTags={showTags}
+                />
+              </Col>
+            </Row>
+          </Grid>
         </div>
-      </DocumentTitle>
+      </div>
     );
   }
 }

@@ -5,7 +5,7 @@
     <!-- Update this when renaming the project -->
     <groupId>com.attivio.searchui</groupId>
     <artifactId>parent</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.7-SNAPSHOT</version>
   </parent>
   <artifactId>servlet</artifactId>
   <packaging>war</packaging>
@@ -16,6 +16,8 @@
     <version.httpclient>4.5.3</version.httpclient>
     <version.spring.boot.securitry.saml>1.13</version.spring.boot.securitry.saml>
     <version.gson>2.8.2</version.gson>
+    <searchui.authType>SAML</searchui.authType>
+    <searchui.baseUri>/searchui</searchui.baseUri>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -58,6 +60,16 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
       <exclusions>
@@ -66,6 +78,11 @@
           <groupId>commons-logging</groupId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-servlet</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.github.ulisesbocchio</groupId>
@@ -144,32 +161,23 @@
           <warSourceDirectory>${project.build.directory}/dependency</warSourceDirectory>
         </configuration>
       </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>generate-dist-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <descriptors>
+                <descriptor>src/assembly/dist.xml</descriptor>
+              </descriptors>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
-  <profiles>
-    <profile>
-      <id>dist</id>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>generate-dist-assembly</id>
-                <phase>package</phase>
-                <goals>
-                  <goal>single</goal>
-                </goals>
-                <configuration>
-                  <descriptors>
-                    <descriptor>src/assembly/dist.xml</descriptor>
-                  </descriptors>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 </project>

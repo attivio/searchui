@@ -5,28 +5,28 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import QueryString from 'query-string';
 
-import DocumentTitle from 'react-document-title';
+import Col from 'react-bootstrap/lib/Col';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
 
 import {
+  AuthUtils,
   Configurable,
-  SearchDocument,
-  SimilarDocuments,
-  Subheader360,
+  Doc360Breadcrumbs,
+  DocumentEntityList,
+  DocumentThumbnail,
   FieldNames,
-  SimpleQueryRequest,
+  KnowledgeGraphPanel,
+  Masthead,
+  MastheadNavTabs,
   QueryResponse,
   SearchBar,
-  MastheadNavTabs,
-  SecondaryNavBar,
-  Masthead,
-  DocumentEntityList,
-  Doc360Breadcrumbs,
-  DocumentThumbnail,
-  KnowledgeGraphPanel,
+  SearchDocument,
   SearchResultTitle,
+  SecondaryNavBar,
+  SimilarDocuments,
+  SimpleQueryRequest,
+  Subheader360,
 } from '@attivio/suit';
 
 import SearchUIApp from '../SearchUIApp';
@@ -73,7 +73,7 @@ type Document360PageProps = {
   insightGraphLinkingFields: Array<string>;
   /**
    * If true, then the 360° page will show links to documents from any table. Set this to false to
-   * only show links to documnents that come from tables other than the one the main document is in.
+   * only show links to documents that come from tables other than the one the main document is in.
    */
   includeAllTables: boolean;
 };
@@ -341,23 +341,21 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
     }
 
     return (
-      <DocumentTitle title="Document 360°: Attivio Cognitive Search">
-        <div>
-          <Masthead multiline homeRoute="/landing">
-            <MastheadNavTabs tabInfo={this.context.app.getMastheadNavTabs()} />
-            <SearchBar
-              inMasthead
-              route="/results"
-            />
-          </Masthead>
-          <SecondaryNavBar>
-            <Doc360Breadcrumbs currentDoc={this.state.doc} />
-          </SecondaryNavBar>
-          <div style={{ padding: '10px' }}>
-            {pageContents}
-          </div>
+      <div>
+        <Masthead multiline homeRoute="/landing" logoutFunction={AuthUtils.logout}>
+          <MastheadNavTabs tabInfo={this.context.app.getMastheadNavTabs()} />
+          <SearchBar
+            inMasthead
+            route="/results"
+          />
+        </Masthead>
+        <SecondaryNavBar>
+          <Doc360Breadcrumbs currentDoc={this.state.doc} />
+        </SecondaryNavBar>
+        <div style={{ padding: '10px' }}>
+          {pageContents}
         </div>
-      </DocumentTitle>
+      </div>
     );
   }
 }

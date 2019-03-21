@@ -4,7 +4,7 @@
   <!-- Update this when renaming the project -->
   <groupId>com.attivio.searchui</groupId>
   <artifactId>parent</artifactId>
-  <version>1.0.2-SNAPSHOT</version>
+  <version>1.0.7-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Parent POM</name>
   <description>Parent for building the components of a SUIT-based application.</description>
@@ -23,23 +23,14 @@
     <system>GitHub</system>
     <url>https://github.com/attivio/searchui/issues</url>
   </issueManagement>
-  <distributionManagement>
-    <repository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-    </snapshotRepository>
-  </distributionManagement>
   <scm>
-    <connection>scm:git:https://github.com/attivio/searchui.git</connection>
-    <developerConnection>scm:git:https://github.com/attivio/searchui.git</developerConnection>
+    <connection>scm:git:git@github.com:attivio/searchui.git</connection>
+    <developerConnection>scm:git:git@github.com:attivio/searchui.git</developerConnection>
     <url>https://github.com/attivio/searchui.git</url>
     <tag>HEAD</tag>
   </scm>
   <build>
+    <finalName>searchui-${project.artifactId}-${project.version}</finalName>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -68,34 +59,60 @@
           <artifactId>spring-boot-maven-plugin</artifactId>
           <version>1.5.9.RELEASE</version>
         </plugin>
-        <plugin>
-          <artifactId>maven-gpg-plugin</artifactId>
-          <version>1.6</version>
-        </plugin>
-        <plugin>
-          <groupId>org.sonatype.plugins</groupId>
-          <artifactId>nexus-staging-maven-plugin</artifactId>
-          <version>1.6.7</version>
-          <extensions>true</extensions>
-        </plugin>
       </plugins>
     </pluginManagement>
-    <plugins>
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <serverId>ossrh</serverId>
-          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-          <autoReleaseAfterClose>true</autoReleaseAfterClose>
-        </configuration>
-      </plugin>
-    </plugins>
   </build>
   <modules>
     <module>frontend</module>
     <module>servlet</module>
     <module>module</module>
   </modules>
+  <profiles>
+    <profile>
+      <id>attivio-release</id>
+      <properties>
+        <maven.test.skip>true</maven.test.skip>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+      </properties>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>net.nicoulaj.maven.plugins</groupId>
+              <artifactId>checksum-maven-plugin</artifactId>
+              <version>1.8</version>
+            </plugin>
+            <plugin>
+              <artifactId>maven-release-plugin</artifactId>
+              <version>2.5.3</version>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+        <plugins>
+          <plugin>
+            <groupId>net.nicoulaj.maven.plugins</groupId>
+            <artifactId>checksum-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>generate-dist-checksum</id>
+                <phase>install</phase>
+                <goals>
+                  <goal>artifacts</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-release-plugin</artifactId>
+            <configuration>
+              <allowTimestampedSnapshots>true</allowTimestampedSnapshots>
+              <preparationGoals>initialize</preparationGoals>
+              <goals>deploy</goals>
+              <arguments><![CDATA["-DskipTests -Dmaven.javadoc.skip=true"]]></arguments>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

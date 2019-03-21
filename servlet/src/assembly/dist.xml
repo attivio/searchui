@@ -8,8 +8,17 @@
   <includeBaseDirectory>false</includeBaseDirectory>
   <files>
     <file>
-      <source>${project.build.directory}/${project.artifactId}-${project.version}.${project.packaging}</source>
+      <source>${project.build.directory}/${project.build.finalName}.${project.packaging}</source>
       <destName>${project.artifactId}.${project.packaging}</destName>
+      <outputDirectory>${file.separator}</outputDirectory>
+    </file>
+    <file>
+      <source>${project.basedir}/../frontend/configuration.properties.js</source>
+      <outputDirectory>${file.separator}</outputDirectory>
+      <filtered>true</filtered>
+    </file>
+    <file>
+      <source>${project.basedir}/../frontend/users.xml</source>
       <outputDirectory>${file.separator}</outputDirectory>
     </file>
   </files>
@@ -18,14 +27,6 @@
       <directory>${project.basedir}</directory>
       <includes>
         <include>application.properties</include>
-      </includes>
-      <outputDirectory>${file.separator}</outputDirectory>
-    </fileSet>
-    <fileSet>
-      <directory>${project.basedir}/../frontend</directory>
-      <includes>
-        <include>users.xml</include>
-        <include>configuration.properties.js</include>
       </includes>
       <outputDirectory>${file.separator}</outputDirectory>
     </fileSet>

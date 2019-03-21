@@ -3,23 +3,22 @@
    * These properties are not specific to any page/component but may apply to any/all of them.
    */
   ALL: {
-    // Here we define the search engine type, defaults to 'attivio',
-    // but 'elastic' and 'solr' are also supported with limited functionality.
-
-    // For 'elastic' or 'solr' these fields need to be configured:
-    //   - ALL.searchEngineType
+    // Here we define the search engine type, which defaults to 'attivio'
+    // for the Attivio platform. In addition, ElasticSearch (use the value 'elastic')
+    // and Solr (use the value 'solr') are supported, with limited functionality.
+    // If the searchEngineType property is set to "elastic" or "solr," then these additional
+    // properties also need to be configured appropriately—see the comments for them for
+    // details:
     //   - ALL.baseUri
     //   - ALL.customOptions
     //   - SearchUISearchPage.sortableFields
-
     searchEngineType: 'attivio',
 
     // This is the base URI that will be used for making REST API calls to the
-    // Attivo server. In general, the UI is hosted on the same machine that
-    // serves the REST API, so this should not include the protocol, hostname, or port.
-    // (The case where you're using the development server to communicate with an
-    // Attivio server on  different machine is the only time you should include this
-    // information.)
+    // Attivio server. When running as a module within the Attivio node, this should
+    // be the empty string (''). When running in the servlet, it should match the 
+    // baseName property where the servlet is running relative to the machine (without
+    // the hostname or port).
 
     // NOTE: if you are using 'elastic' or 'solr', the URI needs to point directly
     // to the collection/handler, for example:
@@ -31,8 +30,7 @@
     //   **  using 'myHandler' handler **
     //   baseUri: 'http://example.com:8983/solr/mycollection/myHandler'
     // in the case of 'attivio', only the Attivio instance URI is needed.
-
-    baseUri: '/searchui',
+    baseUri: '${searchui.baseUri}',
 
     // If searchEngineType is 'elastic' or 'solr', the property customOptions
     // needs to be added.
@@ -95,13 +93,26 @@
     // Set this to 'SAML' to enable SAML authentication when hosting the UI in a servlet
     // (SAML authentication must also be enabled on the back end, using the values in the
     // application.properties file).
-    // Set this to 'XML' to use the contents of the users.xml file to define users. In this
-    // case, the front-end application's login page will be used to log users in.
     // Set this to 'NONE' if you will be hosting the UI in an Attivio module; in this case
     // the Deploy Webapp feature in the module will define the type of authentication that
     // will secure the UI. Note that you can also use 'NONE' during the course of developing
     // an application.
-    authType: 'XML',
+    // Set this to 'XML' to use the contents of the users.xml file to define users. In this
+    // case, the front-end application's login page (defined by the loginPage property below)
+    // will be used to log users in.
+    // IMPORTANT: The XML-based authentication is only suitable for use in proof-of-concept
+    // or development settings and should NEVER be used for a production system as it is
+    // inherently insecure.
+    authType: '${searchui.authType}',
+
+    // If the authType property is set to XML, this must be set so that the SUIT library knows
+    // where to redirect when the user has logged out. If the user logs out, then when this
+    // redirection happens the page at this route will be passed a query parameter, "action,"
+    // set to the value "logout" that can be used to show a message about having successfully
+    // logged out. If authType is not XML, then this property is not used and doesn't need to
+    // be set.
+    loginPage: '/locallogin',
+
 
     // This is the default principal realm to use when searching.
     defaultRealm: 'aie',
@@ -158,6 +169,11 @@
       '*',
     ],
 
+    // The properties in this group control how the fields in the index are
+    // mapped to the fields that UI expects to see when queries are done.
+    // If doing custom queries by constructing your own query request object,
+    // you may want to call Searcher.getFieldList() to get the list of
+    // aliased fields to include in the query request.
     // The field containing the document's title
     title: 'title',
     // The field containing the document's URI
@@ -170,7 +186,7 @@
     longitude: 'longitude',
     // The field containing the document's MIME type (used by the browser when downloading files)
     mimetype: 'mimetype',
-    // The field containing the document's sourcepath (used by the browser when downloading files)
+    // The field containing the document's source path (used by the browser when downloading files)
     sourcePath: 'sourcepath',
     // The field containing the URI to the document's preview image
     previewImageUri: 'img.uri.preview',
@@ -184,16 +200,22 @@
     // The field containing the document's full text
     // (the default SCOPETEASER expression enables scope highlighting on results)
     text: 'SCOPETEASER(text, fragment=true, numFragments=1, fragmentSize=2147483647)',
+
+
     // The public key with which to connect to the mapbox public apis
     // See https://www.mapbox.com/help/how-access-tokens-work/ for more information on how to acquire a public key
     mapboxKey: '',
   },
 
-  /**
-   * These properties configure only the default values for properties of any Masthead component(s).
-   * The Masthead typically appears at the top of the page and contains a logo image, a page title, navigation breadcrumbs, and a
-   * search input.
-   */
+  // These properties configure the UI for the application as a whole.
+  SearchUIApp: {
+    // This is the title that is used for the browser windows/tabs throughout the Search UI app
+    pageTitle: 'Attivio Search UI',
+  },
+
+  // These properties configure only the default values for properties of any Masthead component(s).
+  // The Masthead typically appears at the top of the page and contains a logo image, a page title,
+  // navigation breadcrumbs, and a search input field.
   Masthead: {
     // The location of the logo image to render on the left side of the masthead
     logoUri: 'img/attivio-logo-reverse.png',
@@ -205,10 +227,8 @@
     applicationName: 'Cognitive Search',
   },
 
-  /**
-   * These properties configure only the default values for properties of any SearchBar component(s).
-   * The SearchBar is the input dom element through which the user can type and enter queries.
-   */
+  // These properties configure only the default values for properties of any SearchBar components
+  // that allow the user to enter their queries.
   SearchBar: {
     // The placeholder text to display when the input field is empty.
     placeholder: 'Search\u2026',
@@ -222,18 +242,16 @@
     autoCompleteUri: '/rest/autocompleteApi/richCgi/dictionaryProvider',
   },
   
-  /** 
-   * These properties configure the default properties for FacetSearchBar components in the UI. The
-   * FacetSearchBar allows searching among all values of a specific facet, as well as exporting the
-   * list of all values for that facet to a CSV file.
-   */
+  // These properties configure the default properties for FacetSearchBar components in the UI.
+  // These allow searching among all values of a specific facet, as well as being able to export
+  // the list of all values for that facet to a CSV file.
   FacetSearchBar: {
 	// Whether the FacetSearchBar should be visible
 	showSearchBar: false,
 	// The placeholder text for the search bar
-        placeholder: 'Search values\u2026',
+  placeholder: 'Search values\u2026',
 	// The label on the 'Search' button
-        buttonLabel: 'Search',
+  buttonLabel: 'Search',
 	// Max number of matching facet values to show
 	maxValues: 5,
 	// Whether there should be an export button
@@ -242,10 +260,8 @@
 	exportButtonLabel: 'Export',
   },
 
-  /**
-   * These properties configure only the default values for properties of any Searcher component(s).
-   * The Searcher is a simple interface used by all its children for any querying logic.
-   */
+  // These properties configure the default values for properties of any Searcher components,
+  // which are used by their child components to perform the searches of the index.
   Searcher: {
     // The workflow to use for executing searches
     searchWorkflow: 'search',
@@ -264,8 +280,6 @@
     ],
     // The maximum number of facets the Facet Finder attempts to add to the query. Set this to 0 to turn off Facet Finder.
     facetFinderCount: 20,
-    // Determines if primary results should be displayed as 'list', 'usercard', 'doccard', 'debug', or 'simple';
-    format: 'list',
     // An optional filter to apply to all queries when using the advanced query language
     queryFilter: '',
     // The locale for queries; all linguistic processing is performed using this locale
@@ -280,13 +294,34 @@
     joinRollupMode: 'tree',
     // The name of the Business Center profile to use for queries. If set, this will enable Profile level
     // campaigns and promotions.
-    businessCenterProfile: 'Attivio',
+    businessCenterProfile: null,
   },
 
-  /**
-   * These properties configure only the default values for properties of any SearchUISearchPage component(s).
-   * The SearchUISearchPage is the page that displays the results after executing a query.
-   */
+  NavbarFilter: {
+    // This is the maximum number of characters to display when showing hierarchical facets in
+    // the NavbarFilter component. 0 means "no truncation." If set to non-zero value and
+    // any of the segments in the hierarchical facet filter's name are longer than that many
+    // characters, they will be truncated (with an ellipsis added to the segment name) and
+    // a tooltip containing the full name will be added to the component.
+    maxHierarchicalSegmentLength: 0,
+  },
+
+  // These properties configure the Search UI landing page.
+  SearchUILandingPage: {
+    // This is the path to the logo to use for the landing page. Leave unset/null to
+    // use the default Attivio logo.
+    logoUri: null,
+    // These properties specify the width and height of the logo on the landing page.
+    // They should be valid CSS dimension strings. Leave unset/null to use the default
+    // size of the image.
+    logoWidth: null,
+    logoHeight: null,
+    // This is the 'alt' text that is used for the logo. Leave unset/null to use the
+    // default text ('Attivio').
+    logoAltText: null,
+  },
+
+  // These properties configure the SearchUISearchPage which displays search results.
   SearchUISearchPage: {
     // The names of the relevancy models to be able to switch between. If this is an empty array,
     // the server will be queried for the list of available relevancy models and they will be used.
@@ -322,7 +357,7 @@
     // An optional list of facet field names which will be used to determine
     // the order in which the facets are shown. Any facets not named here will
     // appear after the called-out ones, in the order they are in in the
-    // response.facets array of the parent Searcher compoinent.
+    // response.facets array of the parent Searcher component.
     orderHint: [
       'position',
       'keyphrases',
@@ -333,7 +368,7 @@
     // Whether or not to display a toggle for switching the search results to debug format.
     debugViewToggle: true,
     // The names of the fields to include in the sort menu.
-    // NOTE: if 'elastic' or 'solr' is being used, this fields need to be ones used in
+    // NOTE: if 'elastic' or 'solr' is being used, these fields need to be ones used in
     // customOptions.mappings, for example:
     // sortableFields: [
     //   'title',
@@ -354,11 +389,9 @@
     ],
   },
 
-  /**
-   * These properties configure only the default values for properties of any SearchUIInsightsPage component(s).
-   * The SearchUIInsightsPage is the page providing insight over a full scope of documents and allowing the user
-   * to narrow that scope.
-   */
+  // These properties configure the SearchUIInsightsPage, which displays facet information
+  // about the current search terms to provide insight into the results and allow the user
+  // to narrow the search's focus.
   SearchUIInsightsPage: {
     pieChartFacets: [ // The facet field names that should be displayed as pie charts
       'table',
@@ -388,10 +421,7 @@
     maxFacetBuckets: 15,
   },
 
-  /**
-   * These properties configure only the default values for properties of any Document360Page component(s).
-   * The Document360Page is the page providing contextual insight of a single document.
-   */
+  // These properties configure the Document360Page, which provides contextual insight for a single document.
   Document360Page: {
     // Show the list of documents which are similar to the focused document on the 360 page
     showMoreLikeThisResults: true,

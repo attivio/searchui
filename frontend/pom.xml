@@ -5,14 +5,14 @@
     <!-- Update this when renaming the project -->
     <groupId>com.attivio.searchui</groupId>
     <artifactId>parent</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.7-SNAPSHOT</version>
   </parent>
   <artifactId>frontend</artifactId>
   <packaging>pom</packaging>
   <name>Front End</name>
   <description>The front-end JavaScript application</description>
   <properties>
-    <frontend.node.version>v8.9.4</frontend.node.version>
+    <frontend.node.version>v11.4.0</frontend.node.version>
   </properties>
   <build>
     <sourceDirectory>src</sourceDirectory>
@@ -40,6 +40,7 @@
             </goals>
           </execution>
           <execution>
+            <!-- This is the main build of the JavaScript code -->
             <id>webpack-build</id>
             <goals>
               <goal>webpack</goal>
@@ -48,13 +49,33 @@
               <arguments>--output-path=${project.build.directory}/dist</arguments>
             </configuration>
           </execution>
+          <execution>
+            <!-- Coding style validation of the JavaScript code -->
+            <id>lint-validation</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <arguments>run lint</arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <!-- Build the Styleguide for the components in the project -->
+            <id>styleguide-build</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <arguments>run styleguide</arguments>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
           <descriptors>
-            <descriptor>dist-assembly.xml</descriptor>
+            <descriptor>src/assembly/dist.xml</descriptor>
           </descriptors>
         </configuration>
         <executions>
@@ -69,4 +90,48 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>linux</id>
+      <!-- There are some things we can only do on Linux -->
+      <activation>
+        <os>
+          <family>linux</family>
+        </os>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.github.eirslett</groupId>
+            <artifactId>frontend-maven-plugin</artifactId>
+            <configuration>
+              <installDirectory>target</installDirectory>
+            </configuration>
+            <executions>
+              <execution>
+                <!-- Type validation of the JavaScript code -->
+                <id>flow-validation</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <configuration>
+                  <arguments>run flow</arguments>
+                </configuration>
+              </execution>
+              <execution>
+                <!-- Do additional custom validation of the components in the project -->
+                <id>component-validation</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <configuration>
+                  <arguments>run validateComponents</arguments>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

@@ -12,6 +12,13 @@ This page describes how to implement the latter option and has been validated us
 
 Once you have built the application following the steps outlined in the [Developer's Guide](DevelopersGuide.md), execute the following steps to deploy your application to Tomcat.
 
+---
+**NOTE**
+
+If deploying more than one SUIT-based application via Tomcat, Attivio recommends deploying each to its own instance of Tomcat. For more information, see the "Advanced Configuration - Multiple Tomcat Instances" section of [https://tomcat.apache.org/tomcat-9.0-doc/RUNNING.txt](https://tomcat.apache.org/tomcat-9.0-doc/RUNNING.txt)
+
+---
+
 ## Deploying to Tomcat
 1. Stop Tomcat
 2. Copy the WAR file produced by the Maven build in the servlet project's target directory or download and unzip the [latest](https://github.com/attivio/searchui/releases/latest) pre-built release and copy the `searchui.war` file within it to `<tomcat home>/webapps`

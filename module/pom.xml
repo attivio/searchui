@@ -5,11 +5,15 @@
     <!-- Update this when renaming the project -->
     <groupId>com.attivio.searchui</groupId>
     <artifactId>parent</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.7-SNAPSHOT</version>
   </parent>
   <artifactId>module</artifactId>
   <name>Module</name>
   <description>Wraps the front-end application in an Attivio module</description>
+  <properties>
+    <searchui.authType>NONE</searchui.authType>
+    <searchui.baseUri />
+  </properties>
   <dependencies>
     <dependency>
       <!-- Update this when renaming the project -->
@@ -39,7 +43,6 @@
     </dependency>
   </dependencies>
   <build>
-    <finalName>searchui-module-${project.version}</finalName>
     <resources>
       <resource>
         <directory>src/main/resources</directory>
@@ -61,7 +64,7 @@
             </goals>
             <configuration>
               <descriptors>
-                <descriptor>dist-assembly.xml</descriptor>
+                <descriptor>src/assembly/dist.xml</descriptor>
               </descriptors>
             </configuration>
           </execution>

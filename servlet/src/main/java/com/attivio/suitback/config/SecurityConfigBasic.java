@@ -5,11 +5,13 @@ package com.attivio.suitback.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 
 @Configuration
 @Profile("!saml")
@@ -33,8 +35,16 @@ public class SecurityConfigBasic extends WebSecurityConfigurerAdapter {
       ,"/**/*.svg",
       "/**/*.png",
       "/**/*.gif",
-      "/**/*.ico"
+      "/**/*.ico",
+      "/proxyIdP",
   };
+
+  @Value("${suit.attivio.corsOrigins:*}")
+  String corsOrigins;
+
+  @Value("${suit.attivio.corsMethods:*}")
+  String corsMethods;
+  
 
   @Override
   public void configure(WebSecurity web) throws Exception {
@@ -54,6 +64,7 @@ public class SecurityConfigBasic extends WebSecurityConfigurerAdapter {
           .and()
       .httpBasic()
         .disable()
+      .addFilterBefore(new WebSecurityCorsFilter(corsOrigins, corsMethods), ChannelProcessingFilter.class)
       .csrf()
         .disable()
       .authorizeRequests()

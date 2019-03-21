@@ -9,23 +9,22 @@ import 'whatwg-fetch';
 import 'babel-polyfill';
 
 import {
-  Configuration,
-  Searcher,
   AuthRoute,
   AuthUtils,
+  Configuration,
   Logger,
   MastheadNavTabs,
   ObjectUtils,
+  Searcher,
 } from '@attivio/suit';
 
-import SearchUILandingPage from './pages/SearchUILandingPage';
-import SearchUIFakeLandingPage from './pages/SearchUIFakeLandingPage';
-import SearchUISearchPage from './pages/SearchUISearchPage';
-import SearchUIInsightsPage from './pages/SearchUIInsightsPage';
 import Document360Page from './pages/Document360Page';
-import SearchUIErrorPage from './pages/SearchUIErrorPage';
 import LoginPage from './pages/LoginPage';
-import LogoutPage from './pages/LogoutPage';
+import SearchUIErrorPage from './pages/SearchUIErrorPage';
+import SearchUIFakeLandingPage from './pages/SearchUIFakeLandingPage';
+import SearchUIInsightsPage from './pages/SearchUIInsightsPage';
+import SearchUILandingPage from './pages/SearchUILandingPage';
+import SearchUISearchPage from './pages/SearchUISearchPage';
 
 require('es6-object-assign').polyfill();
 require('es6-promise').polyfill();
@@ -72,8 +71,7 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
     '/results',
     '/insights',
     '/doc360',
-    '/login',
-    '/loggedout',
+    '/locallogin',
     '/error',
   ];
 
@@ -109,6 +107,26 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
     return path;
   }
 
+  static loadConfig(url: string, callback: (data: string | null, error: string | null) => void) {
+    fetch(`${SearchUIApp.getBasePath()}/${url}`, { credentials: 'include' }).then((response) => {
+      response.text().then((rawData) => {
+        if (rawData.startsWith('<html') && rawData.includes('j_security_check')) {
+          // We're not logged in yet... let's redirect to the login page
+          callback(null, 'Not yet logged in.');
+        } else {
+          let data = rawData;
+          // Account for case where the data comes quoted...
+          if (rawData.startsWith('"') && rawData.endsWith('"')) {
+            data = JSON.parse(rawData);
+          }
+          callback(data, null);
+        }
+      }, (error) => {
+        callback(null, error.toString());
+      });
+    });
+  }
+
   static childContextTypes = {
     app: PropTypes.shape({ type: PropTypes.oneOf([SearchUIApp]) }),
   };
@@ -121,6 +139,7 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
       loading: true,
       configurationError: null,
     };
+    (this: any).configureSuit = this.configureSuit.bind(this);
   }
 
   state: SearchUIAppState;
@@ -132,40 +151,34 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
   }
 
   componentWillMount() {
-    fetch(`${SearchUIApp.getBasePath()}/configuration`, { credentials: 'include' }).then((response) => {
-      response.text().then((rawData) => {
-        let data = rawData;
-        if (rawData.startsWith('"') && rawData.endsWith('"')) {
-          data = JSON.parse(rawData);
+    SearchUIApp.loadConfig('configuration', (data: string | null, error: string | null) => {
+      if (data) {
+        try {
+          const jsonData = looseParseJson(data);
+          // Handle any map massaging...
+          const config = SearchUIApp.updateData(jsonData);
+          this.updateState(config, null, null);
+        } catch (parsingError) {
+          this.updateState(null, null, `Failed to parse the application\u2019s configuration data: ${parsingError}`);
         }
-        // const strippedData = stripJsonComments(data);
-        const jsonData = looseParseJson(data);
-        const config = SearchUIApp.updateData(jsonData);
-        this.setState({
-          config,
-        }, () => {
-          this.configureSuit();
-        });
-      }).catch((error) => {
-        this.setState({
-          loading: false,
-          configurationError: `Failed to load the configuration properties. Make sure you have the configuration.properties.js file in the configured location. ${error}`, // eslint-disable-line max-len
-        });
-      });
-    }, (error) => {
-      this.setState({
-        loading: false,
-        configurationError: `Failed to load the configuration properties. Make sure you have the configuration.properties.js file in the configured location. ${error}`, // eslint-disable-line max-len
-      });
+      } else {
+        let message;
+        if (error) {
+          message = `Failed to load the application\u2019s configuration data: ${error}`;
+        } else {
+          message = 'Failed to load the application\u2019s configuration data.';
+        }
+        this.updateState(null, null, message);
+      }
     });
-    fetch(`${SearchUIApp.getBasePath()}/users`, { credentials: 'include' }).then((response) => {
-      response.text().then((rawData) => {
-        let data = rawData;
-        if (rawData.startsWith('"') && rawData.endsWith('"')) {
-          data = JSON.parse(rawData);
-        }
-        let users = {};
-
+    SearchUIApp.loadConfig('users', (data: string | null) => {
+      // Users are not required so we set them to an empty object by default.
+      // If there weas an error loading the users, we'll pretend there wasn't—
+      // even if the server isn't sending us users, we don't care unless we're
+      // configured for XML authentication and, in that case, the AuthUtils.configure()
+      // method will complain about that...
+      let users = {};
+      if (data) {
         if (data && data.length > 0) {
           users = xmlJs.xml2js(data, {
             compact: true,
@@ -178,23 +191,8 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
             ignoreDoctype: true,
           });
         }
-
-        this.setState({
-          users,
-        }, () => {
-          this.configureSuit();
-        });
-      }).catch((error) => {
-        this.setState({
-          loading: false,
-          configurationError: `Failed to load user configuration for XML authentication: ${error}`,
-        });
-      });
-    }, (error) => {
-      this.setState({
-        loading: false,
-        configurationError: `Failed to load user configuration for XML authentication: ${error}`,
-      });
+      }
+      this.updateState(null, users, null);
     });
   }
 
@@ -209,20 +207,35 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
   }
 
   configureSuit() {
-    if (this.state.users && this.state.config) {
-      try {
-        AuthUtils.configure(this.state.users, this.state.config);
+    if (this.state.loading) {
+      if (this.state.configurationError) {
         this.setState({
-          configurationError: null,
           loading: false,
         });
-      } catch (exception) {
-        this.setState({
-          configurationError: exception,
-          loading: false,
-        });
+      } else if (this.state.users && this.state.config) {
+        const configurationError = AuthUtils.configure(this.state.users, this.state.config);
+        const newState = {};
+        newState.loading = false;
+        if (configurationError) {
+          newState.configurationError = configurationError;
+        }
+        this.setState(newState);
       }
     }
+  }
+
+  updateState(config: any, users: any, configurationError: string | null) {
+    const newState = {};
+    if (config !== null) {
+      newState.config = config;
+    }
+    if (users !== null) {
+      newState.users = users;
+    }
+    if (configurationError !== null) {
+      newState.configurationError = configurationError;
+    }
+    this.setState(newState, this.configureSuit);
   }
 
   render() {
@@ -246,10 +259,15 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
       );
     }
 
+    let pageTitle = 'Attivio Search UI';
+    if (this.state.config && this.state.config.SearchUIApp && this.state.config.SearchUIApp.pageTitle) {
+      pageTitle = this.state.config.SearchUIApp.pageTitle;
+    }
+
     return (
       <Configuration config={this.state.config}>
         <Logger />
-        <DocumentTitle title="Attivio Cognitive Search">
+        <DocumentTitle title={pageTitle}>
           <Router basename={this.state.config.ALL.basename}>
             <Searcher>
               <Switch>
@@ -258,8 +276,7 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
                 <AuthRoute exact path="/results" component={SearchUISearchPage} />
                 <AuthRoute exact path="/insights" component={SearchUIInsightsPage} />
                 <AuthRoute exact path="/doc360" component={Document360Page} />
-                <Route exact path="/login" component={LoginPage} />
-                <Route exact path="/loggedout" component={LogoutPage} />
+                <Route exact path="/locallogin" component={LoginPage} />
                 <Route exact path="/error" component={SearchUIErrorPage} />
                 <Route path="*" component={SearchUIErrorPage} />
               </Switch>
@@ -298,7 +315,7 @@ other pages like the PerspectivePage below:
         <Route exact path="/products" render={MyProductPage} />
         <Route exact path="/perspectives" component={PerspectivePage}/>
         <Route component={NotFound}/>
-      </Switch>
+      </Switch
     </div>
   </Router>
 

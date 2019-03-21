@@ -73,6 +73,10 @@ module.exports = {
         loader: `url-loader?limit=100000&publicPath=${publicPath}`,
       },
       {
+        test: /\.gif$/,
+        loader: `url-loader?limit=100000&publicPath=${publicPath}`,
+      },
+      {
         test: /\.jpg$/,
         loader: `file-loader?publicPath=${publicPath}`,
       },
@@ -109,6 +113,10 @@ module.exports = {
       {
         from: './src/img',
         to: 'img/',
+      },
+      {
+        from: './src/closer.html',
+        to: 'closer.html',
       },
       {
         from: './src/factbook_resources',

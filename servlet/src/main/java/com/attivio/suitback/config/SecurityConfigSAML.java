@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.saml.storage.EmptyStorageFactory;
 import org.springframework.security.saml.websso.WebSSOProfileConsumerImpl;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 
 import com.github.ulisesbocchio.spring.boot.security.saml.bean.SAMLConfigurerBean;
 import com.github.ulisesbocchio.spring.boot.security.saml.configurer.ServiceProviderBuilder;
@@ -21,7 +22,7 @@ import com.github.ulisesbocchio.spring.boot.security.saml.configurer.ServiceProv
 @Configuration
 @Profile("saml")
 public class SecurityConfigSAML extends ServiceProviderConfigurerAdapter {
-  // Add the property logging.level.com.attivio.suitback.config.ServiceProviderConfig
+  // Add the property logging.level.com.attivio.suitback.config.SecurityConfigSAML
   // to the application.properties to get debug logging (e.g., with value of DEBUG).
   static final Logger LOG = LoggerFactory.getLogger(SecurityConfigSAML.class);
 
@@ -49,7 +50,7 @@ public class SecurityConfigSAML extends ServiceProviderConfigurerAdapter {
   @Value("${saml.sso.context-provider.lb.server-port:443}")
   int lbServerPort;
   
-  @Value("${saml.sso.context-provider.lb.server-name:false}")
+  @Value("${saml.sso.context-provider.lb.server-name:}")
   String lbServerName;
   
   @Value("${saml.sso.context-provider.lb.context-path:/searchui}")
@@ -67,14 +68,18 @@ public class SecurityConfigSAML extends ServiceProviderConfigurerAdapter {
   @Value("${saml.sso.maxAssertionTime:3000}")
   int maxAssertionTime;
   
+  @Value("${suit.attivio.corsOrigins:*}")
+  String corsOrigins;
+
+  @Value("${suit.attivio.corsMethods:*}")
+  String corsMethods;
+  
   @Autowired
   SAMLConfigurerBean samlConfigurer;
 
   @Override
   public void configure(ServiceProviderBuilder serviceProvider) throws Exception {
     LOG.trace("The service provider's entity ID is: " + entityId);
-    LOG.trace("The default success URL is: /");
-    LOG.trace("The default loggout URL is: /loggedout");
     LOG.trace("Setting the max authentication age to: " + maxAuthenticationAge + " seconds");
     LOG.trace("Setting the max response skew to: " + responseSkew + " seconds");
     LOG.trace("Setting the max assertion time to: " + maxAssertionTime + " seconds");
@@ -90,7 +95,7 @@ public class SecurityConfigSAML extends ServiceProviderConfigurerAdapter {
     EmptyStorageFactory messageStorage = new EmptyStorageFactory();
     
     if (lbEnabled) {
-      LOG.trace("Using the load-balancer-aware SAML context provider");
+      LOG.debug("Using the load-balancer-aware SAML context provider");
       LOG.trace("The load balancer URL scheme is: " + lbScheme);
       LOG.trace("The load balancer URL server name is: " + lbServerName);
       LOG.trace("The load balancer URL server port is: " + lbServerPort);
@@ -126,10 +131,11 @@ public class SecurityConfigSAML extends ServiceProviderConfigurerAdapter {
           .idpSelectionPageURL(null)
       .and()
         .logout()
-          .defaultTargetURL("/loggedout")
+          .defaultTargetURL("/")
+          .clearAuthentication(true)
           .invalidateSession(true);
     } else {
-      LOG.trace("Using the standard SAML context provider");
+      LOG.debug("Using the standard SAML context provider");
       
       serviceProvider
         .samlContextProvider()
@@ -156,7 +162,7 @@ public class SecurityConfigSAML extends ServiceProviderConfigurerAdapter {
           .idpSelectionPageURL(null)
       .and()
         .logout()
-          .defaultTargetURL("/loggedout")
+          .defaultTargetURL("/")
           .invalidateSession(true);
     }
   }
@@ -171,10 +177,11 @@ public class SecurityConfigSAML extends ServiceProviderConfigurerAdapter {
   
   @Override
   public void configure(HttpSecurity http) throws Exception {
-    LOG.trace("Configuring the servlet with SAML authentication enabled");
+    LOG.debug("Configuring the servlet with SAML authentication enabled");
     http
     .httpBasic()
       .disable()
+    .addFilterBefore(new WebSecurityCorsFilter(corsOrigins, corsMethods), ChannelProcessingFilter.class)
     .csrf()
       .disable()
     .anonymous()

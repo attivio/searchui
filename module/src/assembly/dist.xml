@@ -24,18 +24,30 @@
       <source>${project.build.directory}/${project.build.finalName}.${project.packaging}</source>
       <outputDirectory>lib</outputDirectory>
     </file>
+    <file>
+      <source>${project.basedir}/../frontend/configuration.properties.js</source>
+      <outputDirectory>${file.separator}resources${file.separator}searchui${file.separator}</outputDirectory>
+      <filtered>true</filtered>
+    </file>
+    <file>
+      <source>${project.basedir}/../frontend/users.xml</source>
+      <outputDirectory>${file.separator}resources${file.separator}searchui${file.separator}</outputDirectory>
+    </file>
   </files>
   <dependencySets>
     <dependencySet>
       <outputDirectory>lib</outputDirectory>
       <excludes>
+        <!-- Update this when renaming the project -->
         <exclude>com.attivio.searchui:frontend:zip:dist</exclude>
       </excludes>
       <useProjectArtifact>false</useProjectArtifact>
     </dependencySet>
     <dependencySet>
+      <!-- Update this when renaming the project -->
       <outputDirectory>webapps/searchui/dist</outputDirectory>
       <includes>
+        <!-- Update this when renaming the project -->
         <include>com.attivio.searchui:frontend:zip:dist</include>
       </includes>
       <unpack>true</unpack>
