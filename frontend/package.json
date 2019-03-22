@@ -35,11 +35,7 @@
     "validateComponents:linux:darwin": "./scripts/validateComponents.sh"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@attivio/suit": "file:../../suit",
-=======
-    "@attivio/suit": "0.0.62",
->>>>>>> upstream/master
     "@mapbox/mapbox-gl-draw": "^1.0.4",
     "babel-polyfill": "^6.26.0",
     "es6-object-assign": "^1.1.0",
