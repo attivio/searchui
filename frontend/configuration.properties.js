@@ -295,6 +295,8 @@
     // The name of the Business Center profile to use for queries. If set, this will enable Profile level
     // campaigns and promotions.
     businessCenterProfile: null,
+    // Maximium number of times a query can be resubmitted
+    maxResubmits: 1,
   },
 
   NavbarFilter: {
