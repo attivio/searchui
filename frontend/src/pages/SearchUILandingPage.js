@@ -109,7 +109,7 @@ class SearchUILandingPage extends React.Component<SearchUILandingPageDefaultProp
         docs = 'one document';
         break;
       default:
-        docs = `${this.state.numDocuments.toLocaleString()} documents - HI!`;
+        docs = `${this.state.numDocuments.toLocaleString()} documents`;
         break;
     }
     let sources;
