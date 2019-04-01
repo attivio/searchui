@@ -261,6 +261,7 @@
   },
   
   // Enable autocomplete suggestions when users go to add tags
+  // Set to empty string to disable autocomplete for tags
   SearchResultTags: {
     autoCompleteUri: '/rest/autocompleteApi/richCgi/dictionaryProvider',
   },
