@@ -259,6 +259,12 @@
 	// The label for the export button
 	exportButtonLabel: 'Export',
   },
+  
+  // Enable autocomplete suggestions when users go to add tags
+  SearchResultTags: {
+    autoCompleteUri: '/rest/autocompleteApi/richCgi/dictionaryProvider',
+  },
+
 
   // These properties configure the default values for properties of any Searcher components,
   // which are used by their child components to perform the searches of the index.
