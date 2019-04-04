@@ -131,15 +131,17 @@ public class RestProxy {
     LOG.trace("Transferring incoming headers to proxied request:");
     while (headerNames.hasMoreElements()) {
       String headerName = headerNames.nextElement();
-      if (!"Host".equalsIgnoreCase(headerName)) {
+      if ("Host".equalsIgnoreCase(headerName)) {
+        LOG.trace("Omitting Host header when proxying REST API calls");
+      } else if ("Cookie".equalsIgnoreCase(headerName)) {
+        LOG.trace("Omitting Cookie header when proxying REST API calls");
+      } else {
         Enumeration<String> headersForName = request.getHeaders(headerName);
         while (headersForName.hasMoreElements()) {
           String singleHeaderValue = headersForName.nextElement();
           LOG.trace(headerName + " = " + singleHeaderValue);
           headers.add(headerName, singleHeaderValue);
         }
-      } else {
-        LOG.trace("Omitting Host header when proxying REST API calls");
       }
     }
 
