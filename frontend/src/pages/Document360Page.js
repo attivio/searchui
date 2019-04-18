@@ -27,81 +27,83 @@ import {
   SimilarDocuments,
   SimpleQueryRequest,
   Subheader360,
+  Spinner,
 } from '@attivio/suit';
 
 import SearchUIApp from '../SearchUIApp';
 
 type Document360PageProps = {
-  location: PropTypes.object.isRequired;
-  history: PropTypes.object.isRequired;
+  location: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
   /**
    * Optional. The location of the node through which to interact with Attivio.
    * Defaults to the value in the configuration.
    */
-  baseUri: string;
+  baseUri: string,
   /** A map of the field names to the label to use for any entity fields */
-  entityFields: Map<string, string>;
+  entityFields: Map<string, string>,
   /** A field expression to override what is used for the title, defaults to 'title' */
-  title: string;
+  title: string,
   /** A field expression to override what is used for the URI, defaults to 'uri' */
-  uri: string;
+  uri: string,
   /** A field expression to override what is used for the table, defaults to 'table' */
-  table: string;
+  table: string,
   /**
    * A field expression to override what is used for the teaser, defaults to
    * 'SCOPETEASER(text, fragment=true, numFragments=4, fragmentScope=sentence)'
    */
-  teaser: string;
+  teaser: string,
   /**
    * A field expression to override what is used for the text, defaults to
    * 'SCOPETEASER(text, fragment=true, numFragments=1, fragmentSize=2147483647)'
    */
-  text: string;
+  text: string,
   /**
    * A field expression to override what is used for the URI to the preview image,
    * defaults to 'img.uri.preview'
    */
-  previewImageUri: string;
+  previewImageUri: string,
   /** A field expression to override what is used for the UTI to the document’s
    * thumbnail, defaults to 'img.uri.thumbnail' */
-  thumbnailImageUri: string;
+  thumbnailImageUri: string,
   /**
    * A field expression to override what is used for the query to use when asking
    * for similar documents, defaults to 'morelikethisquery' */
-  moreLikeThisQuery: string;
+  moreLikeThisQuery: string,
   /** The list of fields to use to do the join */
-  insightGraphLinkingFields: Array<string>;
+  insightGraphLinkingFields: Array<string>,
   /**
    * If true, then the 360° page will show links to documents from any table. Set this to false to
    * only show links to documents that come from tables other than the one the main document is in.
    */
-  includeAllTables: boolean;
+  includeAllTables: boolean,
 };
 
 type Document360PageDefaultProps = {
-  baseUri: string;
-  entityFields: Map<string, string>;
-  title: string;
-  uri: string;
-  table: string;
-  teaser: string;
-  text: string;
-  previewImageUri: string;
-  thumbnailImageUri: string;
-  moreLikeThisQuery: string;
-  insightGraphLinkingFields: Array<string>;
-  includeAllTables: boolean;
+  baseUri: string,
+  entityFields: Map<string, string>,
+  title: string,
+  uri: string,
+  table: string,
+  teaser: string,
+  text: string,
+  previewImageUri: string,
+  thumbnailImageUri: string,
+  moreLikeThisQuery: string,
+  insightGraphLinkingFields: Array<string>,
+  includeAllTables: boolean,
 };
 
 type Document360PageState = {
-  docId: string | null;
-  doc: SearchDocument | null;
-  error: string | null;
-  entityName: string | null;
-  entityValue: string | null;
+  docId: string | null,
+  doc: SearchDocument | null,
+  error: string | null,
+  entityName: string | null,
+  entityValue: string | null,
 };
 
-class Document360Page extends React.Component<Document360PageDefaultProps, Document360PageProps, Document360PageState> { // eslint-disable-line max-len
+class Document360Page extends React.Component<Document360PageDefaultProps, Document360PageProps, Document360PageState> {
+  // eslint-disable-line max-len
   static defaultProps = {
     baseUri: '',
     entityFields: new Map(),
@@ -113,14 +115,7 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
     previewImageUri: 'img.uri.preview',
     thumbnailImageUri: 'img.uri.thumbnail',
     moreLikeThisQuery: 'morelikethisquery',
-    insightGraphLinkingFields: [
-      'people',
-      'company',
-      'location',
-      'author',
-      'cc',
-      'to',
-    ],
+    insightGraphLinkingFields: ['people', 'company', 'location', 'author', 'cc', 'to'],
     includeAllTables: false,
   };
 
@@ -257,17 +252,20 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
    * Navigate to the 360° page for the document with the passed-in ID.
    */
   navigateToDoc(docId: string) {
-    this.setState({
-      // Clear these out so we don't use them on the new search
-      entityName: null,
-      entityValue: null,
-    }, () => {
-      const escapedDocId = encodeURIComponent(docId);
-      const path = '/doc360';
-      const search = QueryString.parse(this.props.location.search);
-      search.docId = escapedDocId;
-      this.props.history.push({ pathname: path, search: `?${QueryString.stringify(search)}` });
-    });
+    this.setState(
+      {
+        // Clear these out so we don't use them on the new search
+        entityName: null,
+        entityValue: null,
+      },
+      () => {
+        const escapedDocId = encodeURIComponent(docId);
+        const path = '/doc360';
+        const search = QueryString.parse(this.props.location.search);
+        search.docId = escapedDocId;
+        this.props.history.push({ pathname: path, search: `?${QueryString.stringify(search)}` });
+      },
+    );
   }
 
   /**
@@ -293,7 +291,7 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
         <Grid fluid>
           <Row>
             <Col xs={10} sm={10}>
-              <h1 className="attivio-360-hed" >
+              <h1 className="attivio-360-hed">
                 <SearchResultTitle doc={doc} />
               </h1>
               <Row>
@@ -337,24 +335,19 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
     } else if (this.state.error) {
       pageContents = <div>{this.state.error}</div>;
     } else {
-      pageContents = <div>Loading\u2026</div>;
+      pageContents = <Spinner />;
     }
 
     return (
       <div>
         <Masthead multiline homeRoute="/landing" logoutFunction={AuthUtils.logout}>
           <MastheadNavTabs tabInfo={this.context.app.getMastheadNavTabs()} />
-          <SearchBar
-            inMasthead
-            route="/results"
-          />
+          <SearchBar inMasthead route="/results" />
         </Masthead>
         <SecondaryNavBar>
           <Doc360Breadcrumbs currentDoc={this.state.doc} />
         </SecondaryNavBar>
-        <div style={{ padding: '10px' }}>
-          {pageContents}
-        </div>
+        <div style={{ padding: '10px' }}>{pageContents}</div>
       </div>
     );
   }

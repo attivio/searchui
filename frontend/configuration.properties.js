@@ -260,6 +260,18 @@
 	exportButtonLabel: 'Export',
   },
 
+  // These properties configure the spinner that is shown when a search is being performed.
+  Spinner: {
+	  // name of the spinner image with the extension placed in searchui/frontend/src/img folder
+	  spinner: 'img/spinner.gif',
+	  // height for the spinner
+	  spinnerHeight: '50%',
+	  // width for the spinner
+	  spinnerWidth: '50%',
+	  // text that should be displayed with the spinner
+  	spinnerLabel: 'Loading Results...',
+  },
+
   // These properties configure the default values for properties of any Searcher components,
   // which are used by their child components to perform the searches of the index.
   Searcher: {
