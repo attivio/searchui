@@ -261,15 +261,18 @@
   },
 
   // These properties configure the spinner that is shown when a search is being performed.
-  Spinner: {
-	  // name of the spinner image with the extension placed in searchui/frontend/src/img folder
-	  spinner: 'img/spinner.gif',
-	  // height for the spinner
-	  spinnerHeight: '50%',
-	  // width for the spinner
-	  spinnerWidth: '50%',
-	  // text that should be displayed with the spinner
-  	spinnerLabel: 'Loading Results...',
+  BusyIndicator: {
+	// type of BusyIndicator that should be shown - available types are elipsis, spinny and spinnyCentered 
+	// spinnyCentered shows a big spinner in the center of its container with a message
+	type: 'spinnyCentered',
+	// name of the spinner image with the extension placed in searchui/frontend/src/img folder
+	spinner: 'img/spinner.gif',
+	// height for the spinner
+	spinnerHeight: '50%',
+	// width for the spinner
+	spinnerWidth: '50%',
+	// text that should be displayed with the spinner
+  message: 'Loading Results...',
   },
 
   // These properties configure the default values for properties of any Searcher components,
