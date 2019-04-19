@@ -23,6 +23,7 @@ import {
   SearchResultsPager,
   SecondaryNavBar,
   SpellCheckMessage,
+  BusyIndicator,
 } from '@attivio/suit';
 
 import SearchUIApp from '../SearchUIApp';
@@ -92,7 +93,7 @@ type SearchUISearchPageProps = {
   orderHint: Array<string>;
   /** Controls the colors used to show various entity types (the value can be any valid CSS color) */
   entityColors: Map<string, string>;
-  /**
+  /*
    * The type of engine being used to do the searching. This will affect the way the
    * search results are rendered.
    */
@@ -167,14 +168,17 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
   render() {
     const showScores = this.props.showScores && this.props.searchEngineType === 'attivio';
     const showTags = this.props.searchEngineType === 'attivio';
-    return (
+    const showContents = this.context.searcher && this.context.searcher.state.response && !this.context.searcher.state.isSearching;
+    const header = (
       <div>
         <Masthead multiline homeRoute="/landing" logoutFunction={AuthUtils.logout}>
           <MastheadNavTabs initialTab="/results" tabInfo={this.context.app.getMastheadNavTabs()} />
-          <SearchBar
-            inMasthead
-          />
+          <SearchBar inMasthead />
         </Masthead>
+      </div>
+    );
+    const mainContents = (
+      <div>
         {this.renderSecondaryNavBar()}
         <div style={{ padding: '10px' }}>
           <Grid fluid>
@@ -210,6 +214,18 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
         </div>
       </div>
     );
+    const pageContents = showContents ? (
+      <div>
+        {header}
+        {mainContents}
+      </div>
+    ) : (
+      <div>
+        {header}
+        <BusyIndicator />
+      </div>
+    );
+    return pageContents;
   }
 }
 

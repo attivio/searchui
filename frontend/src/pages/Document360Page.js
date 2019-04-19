@@ -27,6 +27,7 @@ import {
   SimilarDocuments,
   SimpleQueryRequest,
   Subheader360,
+  BusyIndicator,
 } from '@attivio/suit';
 
 import SearchUIApp from '../SearchUIApp';
@@ -71,7 +72,7 @@ type Document360PageProps = {
   moreLikeThisQuery: string;
   /** The list of fields to use to do the join */
   insightGraphLinkingFields: Array<string>;
-  /**
+  /*
    * If true, then the 360° page will show links to documents from any table. Set this to false to
    * only show links to documents that come from tables other than the one the main document is in.
    */
@@ -337,7 +338,7 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
     } else if (this.state.error) {
       pageContents = <div>{this.state.error}</div>;
     } else {
-      pageContents = <div>Loading\u2026</div>;
+      pageContents = <BusyIndicator />;
     }
 
     return (
