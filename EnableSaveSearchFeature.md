@@ -53,20 +53,25 @@ This would show a heart icon with a drop down next to the Search Bar, which mean
 	}
 	```
 
+
 ## How to use saved searches
 After you enable and configure saved searches, you should have this component right next to the search bar:
-[Saved Search Gif]
+![SavedSearch](https://user-images.githubusercontent.com/31805650/56602139-cdad5a00-65ca-11e9-9ee8-0744cc3de6cc.gif)
 
 ### Saving a search
 You can save searches by clicking on the first option in the drop-down menu 'SAVE SEARCH'. It will open up a modal that asks for the name for this search. 
+![Save a search](https://user-images.githubusercontent.com/31805650/56602446-7956aa00-65cb-11e9-975b-e5f2d1ee4ebc.gif)
 > If you don't enter a name, the search term is used as the name.
 
 Click on save search button to save the search.
 
+
 ### Revisiting a search
 You can revisit a search by clicking on the search title in the drop-down for saved search.
+![Revisit a search](https://user-images.githubusercontent.com/31805650/56602470-8378a880-65cb-11e9-8e25-d04818424108.gif)
 
 
 ### Deleting a saved search
 You can also delete a saved search, there's a **x** next to every saved search in the drop-down. Simply click on the **x** to delete a saved search.
+![Delete a search](https://user-images.githubusercontent.com/31805650/56602482-8a072000-65cb-11e9-9821-7852ce27dfcb.gif)
 > Note that the drop down only shows the 10 most recent saved searches.
