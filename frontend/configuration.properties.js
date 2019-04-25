@@ -259,6 +259,12 @@
 	// The label for the export button
 	exportButtonLabel: 'Export',
   },
+  
+  // These properties configure the default properties for FacetResults component in the UI.
+  FacetResults: {
+	hideFacet: [ // The facet field names that should be hidden from the FacetResults
+	],
+  },
 
   // These properties configure the default values for properties of any Searcher components,
   // which are used by their child components to perform the searches of the index.
