@@ -195,13 +195,13 @@ These questions show how to configur the Search UI application to searxh an Elas
 
 You need to configure two things to make Search UI work with Elasticsearch. First, set the property `ALL.searchEngineType` to the value `elastic` and then uncomment the `ALL.customOptions` property and fill its values in as described in the comments.
 
-Please see additional inforrmation in Engine.md, which also desribes necessary configuration for your Elasticsearch instance.
+Please see additional inforrmation in [Engine.md](frontend/Engine.md), which also desribes necessary configuration for your Elasticsearch instance.
 
 ### How do I configure Search UI to talk to Solr’s index?
 
 You need to configure two things to make Search UI work with Solr. First, set the property `ALL.searchEngineType`  to the value `solr` and then uncomment the `ALL.customOptions` property and fill its values in as described in the comments.
 
-Please see additional inforrmation in Engine.md, which also desribes necessary configuration for your Solr instance.
+Please see additional inforrmation in [Engine.md](frontend/Engine.md), which also desribes necessary configuration for your Solr instance.
 
 ## Changes that require Building the Application
 
