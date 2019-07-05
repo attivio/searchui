@@ -240,6 +240,12 @@
     // Whether to show a toggle for simple/advanced language in the search bar
     allowLanguageSelect: true,
     autoCompleteUri: '/rest/autocompleteApi/richCgi/dictionaryProvider',
+    // configures the search workflow used for saved searches, if empty the default search workflow is used
+    savedSearchWorkflow: '',
+    // configures the table name for saved searches
+	  savedSearchTable: 'testTable',
+    // specifies the index zone for saved searches
+	  savedSearchZone: 'testZone',
   },
   
   // These properties configure the default properties for FacetSearchBar components in the UI.
