@@ -310,10 +310,10 @@
   
   // These properties configure the tags/options shown for each of the list search results
   SearchResultTags: {
-  // Whether to show an option to add/view comments for a search result. False by default.
-	  comments: false,
+    // Whether to show an option to add/view comments for a search result. False by default.
+    comments: false,
 	  // Specify the table field for the comment documents in the index. 'comments' by default.
-	  commentsTable: 'comments'
+    commentsTable: 'comments'
   },
 
   // These properties configure the Search UI landing page.
