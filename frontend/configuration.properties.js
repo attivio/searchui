@@ -240,6 +240,8 @@
     // Whether to show a toggle for simple/advanced language in the search bar
     allowLanguageSelect: true,
     autoCompleteUri: '/rest/autocompleteApi/richCgi/dictionaryProvider',
+    // Whether signal needs to be generated when autocomplete item is selected
+    createAutoCompleteSignal: true,
   },
   
   // These properties configure the default properties for FacetSearchBar components in the UI.
