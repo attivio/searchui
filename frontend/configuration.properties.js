@@ -313,7 +313,9 @@
     // Whether to show an option to add/view comments for a search result. False by default.
     comments: false,
     // Specify the table field for the comment documents in the index. 'comments' by default.
-    commentsTable: 'comments'
+    commentsTable: 'comments',
+    // Specify the index zone to be used for storing the comments' documents. 'default' by default.
+    zoneName: 'default',
   },
 
   // These properties configure the Search UI landing page.
