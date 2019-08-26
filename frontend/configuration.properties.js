@@ -205,6 +205,11 @@
     // The public key with which to connect to the mapbox public apis
     // See https://www.mapbox.com/help/how-access-tokens-work/ for more information on how to acquire a public key
     mapboxKey: '',
+	
+	// Specifies whether to enable the breifcase feature
+	// NOTE: There should be a multivalue field named briefcaseDocIds in the schema
+	enableBriefcases: false,
+	briefcaseMultivalueField: 'briefcaseDocIds',
   },
 
   // These properties configure the UI for the application as a whole.
