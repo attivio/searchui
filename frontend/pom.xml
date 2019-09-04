@@ -46,7 +46,7 @@
               <goal>webpack</goal>
             </goals>
             <configuration>
-              <arguments>--output-path=${project.build.directory}/dist</arguments>
+              <arguments>--output-path="${project.build.directory}/dist"</arguments>
             </configuration>
           </execution>
           <execution>
