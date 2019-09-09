@@ -272,6 +272,7 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
             <Searcher>
               <Switch>
                 <AuthRoute exact path="/" component={SearchUILandingPage} />
+                <AuthRoute exact path="/no-mast" component={SearchUILandingPage} />
                 <AuthRoute exact path="/landing" component={SearchUIFakeLandingPage} />
                 <AuthRoute exact path="/results" component={SearchUISearchPage} />
                 <AuthRoute exact path="/insights" component={SearchUIInsightsPage} />
