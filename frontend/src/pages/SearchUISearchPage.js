@@ -206,6 +206,7 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
                   baseUri={this.props.baseUri}
                   showScores={showScores}
                   showTags={showTags}
+                  url360Page={simple ? '/no-mast-doc360' : '/doc360'}
                 />
               </Col>
             </Row>

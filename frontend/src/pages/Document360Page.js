@@ -347,11 +347,11 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
           <MastheadNavTabs tabInfo={this.context.app.getMastheadNavTabs()} />
           <SearchBar
             inMasthead
-            route="/results"
+            route={simple ? '/no-mast-results' : '/results'}
           />
         </Masthead>
         <SecondaryNavBar>
-          <Doc360Breadcrumbs currentDoc={this.state.doc} />
+          <Doc360Breadcrumbs currentDoc={this.state.doc} urlResultsPage={simple ? '/no-mast-results' : '/results'} />
         </SecondaryNavBar>
         <div style={{ padding: '10px' }}>
           {pageContents}
