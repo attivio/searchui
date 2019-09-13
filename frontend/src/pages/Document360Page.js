@@ -283,6 +283,7 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
 
   render() {
     let pageContents;
+    const simple = this.props.location && this.props.location.pathname.includes('no-mast');
 
     if (this.state.doc) {
       const doc = this.state.doc;
@@ -342,7 +343,7 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
 
     return (
       <div>
-        <Masthead multiline homeRoute="/landing" logoutFunction={AuthUtils.logout}>
+        <Masthead multiline simple={simple} homeRoute="/landing" logoutFunction={AuthUtils.logout}>
           <MastheadNavTabs tabInfo={this.context.app.getMastheadNavTabs()} />
           <SearchBar
             inMasthead

@@ -73,6 +73,10 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
     '/doc360',
     '/locallogin',
     '/error',
+    '/no-mast',
+    '/no-mast-results',
+    '/no-mast-insights',
+    '/no-mast-doc360',
   ];
 
   /**
@@ -200,9 +204,10 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
     if (this.state.config.searchEngineTypen && this.state.config.searchEngineType !== 'attivio') {
       return [];
     }
+    const noMast = window.location.pathname.includes('no-mast');
     return [
-      new MastheadNavTabs.NavTabInfo('Results', '/results'),
-      new MastheadNavTabs.NavTabInfo('Insights', '/insights'),
+      new MastheadNavTabs.NavTabInfo('Results', noMast ? '/no-mast-results' : '/results'),
+      new MastheadNavTabs.NavTabInfo('Insights', noMast ? '/no-mast-insights' : '/insights'),
     ];
   }
 
@@ -275,8 +280,11 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
                 <AuthRoute exact path="/no-mast" component={SearchUILandingPage} />
                 <AuthRoute exact path="/landing" component={SearchUIFakeLandingPage} />
                 <AuthRoute exact path="/results" component={SearchUISearchPage} />
+                <AuthRoute exact path="/no-mast-results" component={SearchUISearchPage} />
                 <AuthRoute exact path="/insights" component={SearchUIInsightsPage} />
+                <AuthRoute exact path="/no-mast-insights" component={SearchUIInsightsPage} />
                 <AuthRoute exact path="/doc360" component={Document360Page} />
+                <AuthRoute exact path="/no-mast-doc360" component={Document360Page} />
                 <Route exact path="/locallogin" component={LoginPage} />
                 <Route exact path="/error" component={SearchUIErrorPage} />
                 <Route path="*" component={SearchUIErrorPage} />

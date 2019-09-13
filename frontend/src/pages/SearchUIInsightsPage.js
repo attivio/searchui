@@ -17,6 +17,7 @@ import {
 import SearchUIApp from '../SearchUIApp';
 
 type SearchUIInsightsPageProps = {
+  location: PropTypes.object.isRequired;
   /** The facet field names that should be displayed as pie charts */
   pieChartFacets: Array<string> | string | null;
   /** The facet field names that should be displayed as bar charts */
@@ -49,6 +50,7 @@ class SearchUIInsightsPage extends React.Component<SearchUIInsightsPageProps, Se
   };
 
   static defaultProps = {
+    location: null,
     pieChartFacets: null,
     barChartFacets: null,
     columnChartFacets: null,
@@ -62,9 +64,10 @@ class SearchUIInsightsPage extends React.Component<SearchUIInsightsPageProps, Se
   };
 
   render() {
+    const simple = this.props.location && this.props.location.pathname.includes('/no-mast');
     return (
       <div>
-        <Masthead multiline homeRoute="/landing" logoutFunction={AuthUtils.logout}>
+        <Masthead multiline simple={simple} homeRoute="/landing" logoutFunction={AuthUtils.logout}>
           <MastheadNavTabs initialTab="/insights" tabInfo={this.context.app.getMastheadNavTabs()} />
           <SearchBar
             inMasthead

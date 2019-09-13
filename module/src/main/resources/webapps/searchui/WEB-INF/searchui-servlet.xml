@@ -26,8 +26,11 @@
   <mvc:view-controller path="/no-mast" view-name="index" />
   <mvc:view-controller path="landing" view-name="index" />
   <mvc:view-controller path="/results" view-name="index" />
+  <mvc:view-controller path="/no-mast-results" view-name="index" />
   <mvc:view-controller path="/insights" view-name="index" />
+  <mvc:view-controller path="/no-mast-insights" view-name="index" />
   <mvc:view-controller path="/doc360" view-name="index" />
+  <mvc:view-controller path="/no-mast-doc360" view-name="index" />
   <mvc:view-controller path="login" view-name="index" />
   <mvc:view-controller path="/loggedout" view-name="index" />
   <mvc:view-controller path="/error" view-name="index" />

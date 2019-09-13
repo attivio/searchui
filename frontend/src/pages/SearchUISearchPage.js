@@ -28,6 +28,7 @@ import {
 import SearchUIApp from '../SearchUIApp';
 
 type SearchUISearchPageProps = {
+  location: PropTypes.object.isRequired;
   /**
    * Optional. The location of the node through which to interact with Attivio.
    * Defaults to the value in the configuration.
@@ -104,6 +105,7 @@ type SearchUISearchPageProps = {
  */
 class SearchUISearchPage extends React.Component<SearchUISearchPageProps, SearchUISearchPageProps, void> {
   static defaultProps = {
+    location: null,
     baseUri: '',
     searchEngineType: 'attivio',
     relevancyModels: [],
@@ -167,9 +169,10 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
   render() {
     const showScores = this.props.showScores && this.props.searchEngineType === 'attivio';
     const showTags = this.props.searchEngineType === 'attivio';
+    const simple = this.props.location && this.props.location.pathname.includes('no-mast');
     return (
       <div>
-        <Masthead multiline homeRoute="/landing" logoutFunction={AuthUtils.logout}>
+        <Masthead multiline simple={simple} homeRoute="/landing" logoutFunction={AuthUtils.logout}>
           <MastheadNavTabs initialTab="/results" tabInfo={this.context.app.getMastheadNavTabs()} />
           <SearchBar
             inMasthead

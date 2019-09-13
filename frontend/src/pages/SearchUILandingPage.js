@@ -18,6 +18,7 @@ import {
 import SearchUIApp from '../SearchUIApp';
 
 type SearchUILandingPageProps = {
+  location: PropTypes.object.isRequired;
   logoUri: string | null;
   logoWidth: string | null;
   logoHeight: string | null;
@@ -144,9 +145,11 @@ class SearchUILandingPage extends React.Component<SearchUILandingPageDefaultProp
       logoStyle.height = this.props.logoHeight;
     }
 
+    const simple = this.props.location && this.props.location.pathname.includes('/no-mast');
+
     return (
       <div>
-        <Masthead multiline homeRoute="/landing" logoutFunction={AuthUtils.logout}>
+        <Masthead multiline simple={simple} homeRoute="/landing" logoutFunction={AuthUtils.logout}>
           <MastheadNavTabs initialTab="/" tabInfo={this.context.app.getMastheadNavTabs()} />
         </Masthead>
         <Grid>
@@ -165,7 +168,7 @@ class SearchUILandingPage extends React.Component<SearchUILandingPageDefaultProp
                 <div style={{ display: 'inline-block', width: '50%' }}>
                   <SearchBar
                     allowLanguageSelect={false}
-                    route="/results"
+                    route={simple ? '/no-mast-results' : '/results'}
                   />
                 </div>
               </div>
