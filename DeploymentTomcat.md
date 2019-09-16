@@ -7,7 +7,7 @@ This page describes how to implement the latter option and has been validated us
 
 | Apache Tomcat Version |
 | ---|
-| 9.0.5 |
+| 9.0.22 |
 | 8.5.24 |
 
 Once you have built the application following the steps outlined in the [Developer's Guide](DevelopersGuide.md), execute the following steps to deploy your application to Tomcat.
