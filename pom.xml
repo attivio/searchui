@@ -4,7 +4,7 @@
   <!-- Update this when renaming the project -->
   <groupId>com.attivio.searchui</groupId>
   <artifactId>parent</artifactId>
-  <version>1.0.8-SNAPSHOT</version>
+  <version>1.0.8</version>
   <packaging>pom</packaging>
   <name>Parent POM</name>
   <description>Parent for building the components of a SUIT-based application.</description>
@@ -27,7 +27,7 @@
     <connection>scm:git:git@github.com:attivio/searchui.git</connection>
     <developerConnection>scm:git:git@github.com:attivio/searchui.git</developerConnection>
     <url>https://github.com/attivio/searchui.git</url>
-    <tag>HEAD</tag>
+    <tag>searchui-1.0.8</tag>
   </scm>
   <build>
     <finalName>searchui-${project.artifactId}-${project.version}</finalName>
