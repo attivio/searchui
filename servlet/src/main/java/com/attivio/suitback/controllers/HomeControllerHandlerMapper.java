@@ -1,10 +1,7 @@
-/**
-* Copyright 2018 Attivio Inc., All rights reserved.
-*/
+/** Copyright 2018 Attivio Inc., All rights reserved. */
 package com.attivio.suitback.controllers;
 
 import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,13 +13,24 @@ public class HomeControllerHandlerMapper extends AbstractHandlerMapping {
   // to the application.properties to get logging (e.g., with value of TRACE).
   static final Logger LOG = LoggerFactory.getLogger(HomeControllerHandlerMapper.class);
 
-  static final String[] DEFAULT_ROUTES = new String[] {"/", "/login", "/loggededout", "/error", "/landing", "/results", "/insights", "/doc360"};
+  static final String[] DEFAULT_ROUTES =
+      new String[] {
+        "/",
+        "/login",
+        "/loggededout",
+        "/error",
+        "/landing",
+        "/results",
+        "/results/no-mast",
+        "/insights",
+        "/doc360"
+      };
 
   @Value("${suit.attivio.routes:}")
   String[] routes;
-  
+
   HomeController homeController;
-  
+
   public HomeControllerHandlerMapper(HomeController homeController) {
     this.homeController = homeController;
   }
