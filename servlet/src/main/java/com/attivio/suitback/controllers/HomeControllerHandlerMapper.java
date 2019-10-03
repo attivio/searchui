@@ -21,7 +21,7 @@ public class HomeControllerHandlerMapper extends AbstractHandlerMapping {
         "/error",
         "/landing",
         "/results",
-        "/results/no-mast",
+        "/results-no-mast",
         "/insights",
         "/doc360"
       };
