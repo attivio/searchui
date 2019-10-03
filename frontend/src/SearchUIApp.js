@@ -132,18 +132,12 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
     app: PropTypes.shape({ type: PropTypes.oneOf([SearchUIApp]) }),
   };
 
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      config: null,
-      users: null,
-      loading: true,
-      configurationError: null,
-    };
-    (this: any).configureSuit = this.configureSuit.bind(this);
-  }
-
-  state: SearchUIAppState;
+  state: SearchUIAppState = {
+    config: null,
+    configurationError: null,
+    loading: true,
+    users: null,
+  };
 
   getChildContext() {
     return {
@@ -207,7 +201,7 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
     ];
   }
 
-  configureSuit() {
+  configureSuit = () => {
     if (this.state.loading) {
       if (this.state.configurationError) {
         this.setState({

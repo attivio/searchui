@@ -151,6 +151,12 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
   }
 
   renderSecondaryNavBar(hideMasthead: boolean) {
+    const {
+      baseUri,
+      relevancyModels,
+      sortableFields,
+    } = this.props;
+
     return (
       <SecondaryNavBar>
         <SearchResultsCount />
@@ -159,11 +165,11 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
         <SearchResultsPager right />
         <SearchRelevancyModel
           right
-          baseUri={this.props.baseUri}
-          models={this.props.relevancyModels}
+          baseUri={baseUri}
+          models={relevancyModels}
         />
         <NavbarSort
-          fieldNames={this.props.sortableFields}
+          fieldNames={sortableFields}
           includeRelevancy
           right
         />
@@ -189,12 +195,15 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
       pieChartFacets,
       searchEngineType,
       sentimentFacets,
+      showScores,
       tagCloudFacets,
       timeSeriesFacets,
     } = this.props;
 
+    const { app = null, searcher = null } = this.context;
+
     const showTags = searchEngineType === 'attivio';
-    const showScores = this.props.showScores && showTags;
+    const showScoresInSearchResults = showScores && showTags;
 
     const hideMasthead = pathname && pathname.includes('no-mast');
 
@@ -202,7 +211,10 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
       <div>
         {!hideMasthead &&
           <Masthead multiline homeRoute="/landing" logoutFunction={AuthUtils.logout}>
-            <MastheadNavTabs initialTab="/results" tabInfo={this.context.app.getMastheadNavTabs()} />
+            <MastheadNavTabs
+              initialTab="/results"
+              tabInfo={app ? app.getMastheadNavTabs() : []}
+            />
             <SearchBar inMasthead />
           </Masthead>
         }
@@ -229,10 +241,10 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
                 <PlacementResults />
                 <SpellCheckMessage />
                 <SearchResults
-                  format={this.context.searcher.state.format}
+                  format={searcher && searcher.state ? searcher.state.format : null}
                   entityFields={entityFields}
                   baseUri={baseUri}
-                  showScores={showScores}
+                  showScores={showScoresInSearchResults}
                   showTags={showTags}
                 />
               </Col>
