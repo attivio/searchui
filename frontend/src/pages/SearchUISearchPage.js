@@ -98,6 +98,10 @@ type SearchUISearchPageProps = {
    * search results are rendered.
    */
   searchEngineType: 'attivio' | 'solr' | 'elastic';
+  /**
+   * Location object injected by withRouter.
+   */
+  location: {};
 };
 
 /**
@@ -184,18 +188,18 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
       pieChartFacets,
       searchEngineType,
       sentimentFacets,
-      showScores,
       tagCloudFacets,
-    }
-    
+      timeSeriesFacets,
+    } = this.props;
+
     const showTags = searchEngineType === 'attivio';
-    const showScores = showScores && showTags;
-    const queryParams = QueryString.parse(location.search);
+    const showScores = this.props.showScores && showTags;
+    const queryParams = location && location.search ? QueryString.parse(location.search) : null;
     const hideMasthead = queryParams && queryParams.nomast;
 
     return (
       <div>
-        {!hideMasthead && 
+        {!hideMasthead &&
           <Masthead multiline homeRoute="/landing" logoutFunction={AuthUtils.logout}>
             <MastheadNavTabs initialTab="/results" tabInfo={this.context.app.getMastheadNavTabs()} />
             <SearchBar inMasthead />
@@ -239,4 +243,4 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
   }
 }
 
-export default Configurable(SearchUISearchPage);
+export default withRouter(Configurable(SearchUISearchPage));
