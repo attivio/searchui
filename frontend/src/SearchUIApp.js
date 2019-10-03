@@ -69,6 +69,7 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
     '/',
     '/landing',
     '/results',
+    '/results/no-mast',
     '/insights',
     '/doc360',
     '/locallogin',
@@ -150,7 +151,7 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     SearchUIApp.loadConfig('configuration', (data: string | null, error: string | null) => {
       if (data) {
         try {
@@ -274,6 +275,7 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
                 <AuthRoute exact path="/" component={SearchUILandingPage} />
                 <AuthRoute exact path="/landing" component={SearchUIFakeLandingPage} />
                 <AuthRoute exact path="/results" component={SearchUISearchPage} />
+                <AuthRoute exact path="/results/no-mast" component={SearchUISearchPage} />
                 <AuthRoute exact path="/insights" component={SearchUIInsightsPage} />
                 <AuthRoute exact path="/doc360" component={Document360Page} />
                 <Route exact path="/locallogin" component={LoginPage} />

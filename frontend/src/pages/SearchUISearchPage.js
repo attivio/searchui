@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import PropTypes from 'prop-types';
-import QueryString from 'query-string';
 import { withRouter } from 'react-router-dom';
 import Col from 'react-bootstrap/lib/Col';
 import Grid from 'react-bootstrap/lib/Grid';
@@ -99,7 +98,7 @@ type SearchUISearchPageProps = {
    */
   searchEngineType: 'attivio' | 'solr' | 'elastic';
   /**
-   * Location object injected by withRouter.
+   * location object injected by withRouter.
    */
   location: {};
 };
@@ -182,7 +181,9 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
       entityColors,
       entityFields,
       geoMapFacets,
-      location,
+      location: {
+        pathname,
+      },
       maxFacetBuckets,
       orderHint,
       pieChartFacets,
@@ -194,8 +195,8 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
 
     const showTags = searchEngineType === 'attivio';
     const showScores = this.props.showScores && showTags;
-    const queryParams = location && location.search ? QueryString.parse(location.search) : null;
-    const hideMasthead = queryParams && queryParams.nomast;
+
+    const hideMasthead = pathname && pathname.includes('no-mast');
 
     return (
       <div>
