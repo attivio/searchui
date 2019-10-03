@@ -154,7 +154,7 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
 
   state: Document360PageState;
 
-  componentWillMount() {
+  componentDidMount() {
     const search = QueryString.parse(this.props.location.search);
     const docId = search.docId;
     this.setDocId(docId);

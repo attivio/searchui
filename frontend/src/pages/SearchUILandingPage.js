@@ -64,7 +64,7 @@ class SearchUILandingPage extends React.Component<SearchUILandingPageDefaultProp
   state: SearchUILandingPageState;
 
   componentDidMount() {
-    const searcher = this.context.searcher;
+    const { searcher } = this.context;
     searcher.state.response = undefined;
     if (searcher) {
       const qr = new SimpleQueryRequest();

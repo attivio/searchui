@@ -1,7 +1,8 @@
 // @flow
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import QueryString from 'query-string';
+import { withRouter } from 'react-router-dom';
 import Col from 'react-bootstrap/lib/Col';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
@@ -139,14 +140,18 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
     app: PropTypes.shape({ type: PropTypes.oneOf([SearchUIApp]) }),
   };
 
-  componentWillMount() {
-    this.context.searcher.doSearch();
+  componentDidMount() {
+    const { searcher = null } = this.context;
+    if (searcher) {
+      searcher.doSearch();
+    }
   }
 
-  renderSecondaryNavBar() {
+  renderSecondaryNavBar(hideMasthead: boolean) {
     return (
       <SecondaryNavBar>
         <SearchResultsCount />
+        {hideMasthead && <SearchBar />}
         <SearchResultsFacetFilters />
         <SearchResultsPager right />
         <SearchRelevancyModel
@@ -165,33 +170,54 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
   }
 
   render() {
-    const showScores = this.props.showScores && this.props.searchEngineType === 'attivio';
-    const showTags = this.props.searchEngineType === 'attivio';
+    const {
+      barChartFacets,
+      barListFacets,
+      baseUri,
+      columnChartFacets,
+      entityColors,
+      entityFields,
+      geoMapFacets,
+      location,
+      maxFacetBuckets,
+      orderHint,
+      pieChartFacets,
+      searchEngineType,
+      sentimentFacets,
+      showScores,
+      tagCloudFacets,
+    }
+    
+    const showTags = searchEngineType === 'attivio';
+    const showScores = showScores && showTags;
+    const queryParams = QueryString.parse(location.search);
+    const hideMasthead = queryParams && queryParams.nomast;
+
     return (
       <div>
-        <Masthead multiline homeRoute="/landing" logoutFunction={AuthUtils.logout}>
-          <MastheadNavTabs initialTab="/results" tabInfo={this.context.app.getMastheadNavTabs()} />
-          <SearchBar
-            inMasthead
-          />
-        </Masthead>
-        {this.renderSecondaryNavBar()}
+        {!hideMasthead && 
+          <Masthead multiline homeRoute="/landing" logoutFunction={AuthUtils.logout}>
+            <MastheadNavTabs initialTab="/results" tabInfo={this.context.app.getMastheadNavTabs()} />
+            <SearchBar inMasthead />
+          </Masthead>
+        }
+        {this.renderSecondaryNavBar(hideMasthead)}
         <div style={{ padding: '10px' }}>
           <Grid fluid>
             <Row>
               <Col xs={12} sm={5} md={4} lg={3}>
                 <FacetResults
-                  pieChartFacets={this.props.pieChartFacets}
-                  barChartFacets={this.props.barChartFacets}
-                  columnChartFacets={this.props.columnChartFacets}
-                  barListFacets={this.props.barListFacets}
-                  tagCloudFacets={this.props.tagCloudFacets}
-                  timeSeriesFacets={this.props.timeSeriesFacets}
-                  sentimentFacets={this.props.sentimentFacets}
-                  geoMapFacets={this.props.geoMapFacets}
-                  maxFacetBuckets={this.props.maxFacetBuckets}
-                  orderHint={this.props.orderHint}
-                  entityColors={this.props.entityColors}
+                  pieChartFacets={pieChartFacets}
+                  barChartFacets={barChartFacets}
+                  columnChartFacets={columnChartFacets}
+                  barListFacets={barListFacets}
+                  tagCloudFacets={tagCloudFacets}
+                  timeSeriesFacets={timeSeriesFacets}
+                  sentimentFacets={sentimentFacets}
+                  geoMapFacets={geoMapFacets}
+                  maxFacetBuckets={maxFacetBuckets}
+                  orderHint={orderHint}
+                  entityColors={entityColors}
                 />
               </Col>
               <Col xs={12} sm={7} md={8} lg={9}>
@@ -199,8 +225,8 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
                 <SpellCheckMessage />
                 <SearchResults
                   format={this.context.searcher.state.format}
-                  entityFields={this.props.entityFields}
-                  baseUri={this.props.baseUri}
+                  entityFields={entityFields}
+                  baseUri={baseUri}
                   showScores={showScores}
                   showTags={showTags}
                 />
