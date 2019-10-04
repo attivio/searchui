@@ -246,7 +246,7 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
                   baseUri={baseUri}
                   showScores={showScoresInSearchResults}
                   showTags={showTags}
-                  show360={!hideMasthead}
+                  hide360Link={hideMasthead}
                 />
               </Col>
             </Row>
