@@ -5,14 +5,14 @@
     <!-- Update this when renaming the project -->
     <groupId>com.attivio.searchui</groupId>
     <artifactId>parent</artifactId>
-    <version>1.0.6-SNAPSHOT</version>
+    <version>5.6.5-SNAPSHOT</version>
   </parent>
   <artifactId>module</artifactId>
   <name>Module</name>
   <description>Wraps the front-end application in an Attivio module</description>
   <properties>
     <searchui.authType>NONE</searchui.authType>
-    <searchui.baseUri></searchui.baseUri>
+    <searchui.baseUri />
   </properties>
   <dependencies>
     <dependency>

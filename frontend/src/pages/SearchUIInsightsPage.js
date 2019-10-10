@@ -62,10 +62,12 @@ class SearchUIInsightsPage extends React.Component<SearchUIInsightsPageProps, Se
   };
 
   render() {
+    const { app } = this.context;
+
     return (
       <div>
         <Masthead multiline homeRoute="/landing" logoutFunction={AuthUtils.logout}>
-          <MastheadNavTabs initialTab="/insights" tabInfo={this.context.app.getMastheadNavTabs()} />
+          <MastheadNavTabs initialTab="/insights" tabInfo={app.getMastheadNavTabs()} />
           <SearchBar
             inMasthead
           />

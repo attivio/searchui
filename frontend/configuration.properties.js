@@ -240,6 +240,8 @@
     // Whether to show a toggle for simple/advanced language in the search bar
     allowLanguageSelect: true,
     autoCompleteUri: '/rest/autocompleteApi/richCgi/dictionaryProvider',
+    // Whether signal needs to be generated when autocomplete item is selected
+    createAutoCompleteSignal: true,
   },
   
   // These properties configure the default properties for FacetSearchBar components in the UI.
@@ -295,6 +297,17 @@
     // The name of the Business Center profile to use for queries. If set, this will enable Profile level
     // campaigns and promotions.
     businessCenterProfile: null,
+    // Maximum times a query can be resubmitted, such as for And-to-Or resubmission
+    maxResubmits: 1,
+  },
+
+  NavbarFilter: {
+    // This is the maximum number of characters to display when showing hierarchical facets in
+    // the NavbarFilter component. 0 means "no truncation." If set to non-zero value and
+    // any of the segments in the hierarchical facet filter's name are longer than that many
+    // characters, they will be truncated (with an ellipsis added to the segment name) and
+    // a tooltip containing the full name will be added to the component.
+    maxHierarchicalSegmentLength: 0,
   },
 
   // These properties configure the Search UI landing page.

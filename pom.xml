@@ -4,7 +4,7 @@
   <!-- Update this when renaming the project -->
   <groupId>com.attivio.searchui</groupId>
   <artifactId>parent</artifactId>
-  <version>1.0.6-SNAPSHOT</version>
+  <version>5.6.5-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Parent POM</name>
   <description>Parent for building the components of a SUIT-based application.</description>
@@ -67,4 +67,52 @@
     <module>servlet</module>
     <module>module</module>
   </modules>
+  <profiles>
+    <profile>
+      <id>attivio-release</id>
+      <properties>
+        <maven.test.skip>true</maven.test.skip>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+      </properties>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>net.nicoulaj.maven.plugins</groupId>
+              <artifactId>checksum-maven-plugin</artifactId>
+              <version>1.8</version>
+            </plugin>
+            <plugin>
+              <artifactId>maven-release-plugin</artifactId>
+              <version>2.5.3</version>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+        <plugins>
+          <plugin>
+            <groupId>net.nicoulaj.maven.plugins</groupId>
+            <artifactId>checksum-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>generate-dist-checksum</id>
+                <phase>install</phase>
+                <goals>
+                  <goal>artifacts</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-release-plugin</artifactId>
+            <configuration>
+              <allowTimestampedSnapshots>true</allowTimestampedSnapshots>
+              <preparationGoals>initialize</preparationGoals>
+              <goals>deploy</goals>
+              <arguments><![CDATA["-DskipTests -Dmaven.javadoc.skip=true"]]></arguments>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

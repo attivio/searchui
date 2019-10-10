@@ -1,6 +1,6 @@
 {
   "name": "@attivio/searchui",
-  "version": "0.0.1",
+  "version": "5.6.4",
   "description": "Framework for building search user-interface applications on top of the Attivio platform.",
   "keywords": [
     "Attivio",
@@ -35,7 +35,7 @@
     "validateComponents:linux:darwin": "./scripts/validateComponents.sh"
   },
   "dependencies": {
-    "@attivio/suit": "0.0.57",
+    "@attivio/suit": "^1.0.7",
     "@mapbox/mapbox-gl-draw": "^1.0.4",
     "babel-polyfill": "^6.26.0",
     "es6-object-assign": "^1.1.0",
@@ -45,13 +45,13 @@
     "moment": "^2.20.1",
     "prop-types": "^15.5.10",
     "query-string": "^5.0.0",
-    "react": "^15.6.2",
+    "react": "^16.8.6",
     "react-addons-shallow-compare": "^0.14",
     "react-bootstrap": "^0.31.1",
     "react-dates": "^12.7.1",
     "react-docgen": "^2.17.0",
     "react-document-title": "^2.0.3",
-    "react-dom": "^15.6.2",
+    "react-dom": "^16.8.6",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "vis": "^4.20.1",
