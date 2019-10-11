@@ -42,7 +42,7 @@ As a module in the Attivio project is the most straightforward way to deploy Sea
 
 The Search UI module is included with the Attivio Platform installer. You can also obtain the latest build of the module on the [Attivio Answers](https://answers.attivio.com/display/extranet55/Search+UI+Download) website.
 
-### Stand-alone(DeploymentTomcat.md)**
+### Stand-alone
 
 Stand-alone deployments are recommended when Search UI is used as the primary user interface in your production environment as this approach allows you to manage and scale the Search UI application separately from the Attivio nodes. If you require integration with a SAML-based identity provider (IdP) for single-sign-on authentication, you will need to perform a stand-alone deployment. (Of course, if you are using the Search UI application with a non-Attivio back end, then you have no chioice but to use the stand-alone method for deploying it since there will be no Attivio nodes.)
 
