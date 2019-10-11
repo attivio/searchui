@@ -36,23 +36,25 @@ The individual UI elements that make up the Search UI application are defined in
 ## Installation and Deployment of Search UI
 As was alluded to in discussing the organization of the Search UI repository, there are two options when deploying Search UI. It can be run “embedded,” hosted by the Attivio node server or it can be run “stand-alone,” hosted by a servlet container:
 
-### **[Embedded](https://answers.attivio.com/display/extranet55/Search+UI+Download)**
+### Embedded
 
 As a module in the Attivio project is the most straightforward way to deploy Search UI. When you do this, a link in the Attivio Administration UI will be created under the “Query” heading. This will open a new tab and take the user to the Search UI application. (The actual URL for Search UI will be the server’s name and port followed by `/searchui`, for example, `http://localhost:17000/searchui`.)
 
-**[Stand-alone](DeploymentTomcat.md)**
+The Search UI module is included with the Attivio Platform installer. You can also obtain the latest build of the module on the [Attivio Answers](https://answers.attivio.com/display/extranet55/Search+UI+Download) website.
+
+### Stand-alone(DeploymentTomcat.md)**
 
 Stand-alone deployments are recommended when Search UI is used as the primary user interface in your production environment as this approach allows you to manage and scale the Search UI application separately from the Attivio nodes. If you require integration with a SAML-based identity provider (IdP) for single-sign-on authentication, you will need to perform a stand-alone deployment. (Of course, if you are using the Search UI application with a non-Attivio back end, then you have no chioice but to use the stand-alone method for deploying it since there will be no Attivio nodes.)
 
 Stand-alone deployments can be done on the same host as Attivio nodes provided there are sufficient resources, though in many situations, dedicated Search UI hosts are recommended to decouple the two.
 
-See the instructions at the link above for details on how to configure Apache Tomcat to host the Search UI application. (Although they are written specifically for Tomcat, they are generally useful for deploying to other servlet containers such as Jetty, GlassFish, JBoss, WebSphere, etc…)
+See the [stand-alone deployment documentation](DeploymentTomcat.md) for details on how to configure Apache Tomcat to host the Search UI application. (Although they are written specifically for Tomcat, they are generally useful for deploying to other servlet containers such as Jetty, GlassFish, JBoss, WebSphere, etc…)
 
 For instructions on building the application for one of the above deployment options, or if, instead, you wish to customize and build your own application for either deployment option, see the [Developer’s Guide](DevelopersGuide.md) for instructions on setting up your development environment and building.
 
-* **[SSO for REST](ConfiguringRESTSSO.md)**  - *use SSO to access the Attivio REST APIs*
+#### Using SSO for the Attivio REST APIs
 
-This last option is useful in case you don’t want to run the Search UI application and instead have a custom SSO-enabled web application which needs to be able to call the Attivio REST APIs directly from the user’s browser (as opposed to accessing them from a server), so you don’t expose the credentials of the Attivio server in your JavaScript code. This configuration can enable this functionality.
+If you are writing your own front-end search application that needs access to the Attivio REST APIs but you don't want to use Search UI and SUIT, you can leverage the Search UI servlet used when deploying to Tomcat in order to provide SAML-based access to these APIs. This prevents you from having to expose the credentials of the Attivio server in your JavaScript code. To learn more about how you can do this, see [Configuring REST SSO](ConfiguringRESTSSO.md).
 
 ## How Can I Customize the Search UI?
 
