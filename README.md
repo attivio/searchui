@@ -19,25 +19,28 @@
 ## Overview
 The Attivio **Search UI** is an application built on top of Attivio’s Search UI Toolkit, or **SUIT**. The SUIT library is available in a [separate repository](https://github.com/attivio/suit) and via NPM (see “What is SUIT?” below for more details).
 
-The Attivio Search UI allows you to search across and view the data in the index of your Attivio, Elasticsearch, or Solr installation. You can customize it to suit your needs and can also use it as the basis for creating your own brand-new search application.
+The Attivio Search UI allows you to search across and view the data in the index of your Attivio, Elasticsearch, or Solr installation. You can use it as-is, you can customize it to meet your needs, or you can use it as the starting point when creating your own search-centered application.
+
+## Using Search UI
+If you are interested in how to use the Search UI application as an end-user, see [Using the Search UI](UsingSearchUI.md). The remainder of the current README file deals with deploying and customizing the Search UI application.
 
 ## Project Organization
-The Attivio Search UI is a web application written in JavaScript and based on the React project. It runs entirely in the user’s browser. The code for the web application is in the [**frontend**](https://github.com/attivio/searchui/tree/master/frontend) directory of the repository and consists of application-level code for searching the index, including the definitions of the pages in the application and the logic of how they’re connected. The application-level code is relatively minimal, dictating how the components (defined in the SUIT library mentioned above) are laid out and condfigured. 
+The Attivio Search UI is a web application written in JavaScript and based on the [React](https://reactjs.org) project. It runs entirely in the user’s browser. The code for the web application is in the [**frontend**](https://github.com/attivio/searchui/tree/master/frontend) directory of the repository and consists of application-level code for searching the index including the definition of the pages in the application and the logic of how they’re connected. The application-level code is relatively minimal, merely dictating how the components (defined in the SUIT library mentioned above) are laid out and condfigured; the bulk of the code that implements the application is in the SUIT library itself.
 
-The repository also contains two additional components that allow hosting of the web application, either on one or more Attivio node servers as a module ([**module**](https://github.com/attivio/searchui/tree/master/module)) or in a servlet container such as Apache Tomcat ([**servlet**](https://github.com/attivio/searchui/tree/master/servlet)). The functionality of the Search UI application varies slightly depending on how it is hostyed and configured, as described below.
+The repository also contains two additional components that allow hosting of the Search UI web application, either on one or more Attivio node servers as a module ([**module**](https://github.com/attivio/searchui/tree/master/module)) or in a servlet container such as Apache Tomcat ([**servlet**](https://github.com/attivio/searchui/tree/master/servlet)). The functionality of the Search UI application varies slightly depending on how it is hosted and configured, as described below.
 
-## What is SUIT?
+## What is the SUIT Library?
 
-The UI elements that make up the Search UI application are defined in the SUIT library. These include more basic components such as pop-up menus and text fields as well as more complex components such as one that renders an entire document from the index or one that knows how to take the search criteria provided by the user and perform a search with them. In addition to UI components, SUIT contains a number of API and utility classes which facilitate the interactions between the UI and the back-end server. See the [GitHub repository](https://github.com/attivio/suit) for the SUIT library for detailed documentation on its components and other functionality.
+The individual UI elements that make up the Search UI application are defined in the SUIT library. These include more basic components such as pop-up menus and text fields as well as more complex components such as one that renders an entire document from the index or one that knows how to take the search criteria provided by the user and perform a search of the index. In addition to UI components, SUIT contains a number of API and utility classes which facilitate the interactions between the UI and the back-end server. See the [GitHub repository](https://github.com/attivio/suit) for the SUIT library for detailed documentation on its components and other functionality.
 
 ## Installation and Deployment of Search UI
-As was alluded to when describing the project’s organization, there are two options when deploying Search UI. It can be run “embedded,” hosted by the Attivio node server or servers or it can be run “stand-alone,” hosted by a servlet container:
+As was alluded to in discussing the organization of the Search UI repository, there are two options when deploying Search UI. It can be run “embedded,” hosted by the Attivio node server or it can be run “stand-alone,” hosted by a servlet container:
 
-* **[Embedded](https://answers.attivio.com/display/extranet55/Search+UI+Download)** - *deploy as a module making it available from the Attivio Admin UI*
+### **[Embedded](https://answers.attivio.com/display/extranet55/Search+UI+Download)**
 
-As a module in the Attivio project is the most straightforward way to deploy Search UI. When you do this, a link in the Attivio Administration UI will be created in the “Query” section along the left side that will take the user to the Search UI application. (The actual URL for Search UI will be the server’s name and port followed by `/searchui`, for example, `http://localhost:17000/searchui`.)
+As a module in the Attivio project is the most straightforward way to deploy Search UI. When you do this, a link in the Attivio Administration UI will be created under the “Query” heading. This will open a new tab and take the user to the Search UI application. (The actual URL for Search UI will be the server’s name and port followed by `/searchui`, for example, `http://localhost:17000/searchui`.)
 
-* **[Stand-alone](DeploymentTomcat.md)**  - *deploy to an external web server such as Tomcat*
+**[Stand-alone](DeploymentTomcat.md)**
 
 Stand-alone deployments are recommended when Search UI is used as the primary user interface in your production environment as this approach allows you to manage and scale the Search UI application separately from the Attivio nodes. If you require integration with a SAML-based identity provider (IdP) for single-sign-on authentication, you will need to perform a stand-alone deployment. (Of course, if you are using the Search UI application with a non-Attivio back end, then you have no chioice but to use the stand-alone method for deploying it since there will be no Attivio nodes.)
 
