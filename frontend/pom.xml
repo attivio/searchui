@@ -43,10 +43,10 @@
             <!-- This is the main build of the JavaScript code -->
             <id>webpack-build</id>
             <goals>
-              <goal>webpack</goal>
+              <goal>npm</goal>
             </goals>
             <configuration>
-              <arguments>--output-path=${project.build.directory}/dist</arguments>
+              <arguments>run build -- --output-path="${project.build.directory}/dist"</arguments>
             </configuration>
           </execution>
           <execution>
