@@ -25,6 +25,8 @@ import {
   SpellCheckMessage,
 } from '@attivio/suit';
 
+import type { Map } from '../../flow-typed/custom';
+
 import SearchUIApp from '../SearchUIApp';
 
 type SearchUISearchPageProps = {
@@ -90,7 +92,8 @@ type SearchUISearchPageProps = {
    * response.facets array of the parent Searcher component.
    */
   orderHint: Array<string>;
-  /** Controls the colors used to show various entity types (the value can be any valid CSS color) */
+  /** Controls the colors used to show various entity types (the value can be any valid
+   *  CSS color) */
   entityColors: Map<string, string>;
   /**
    * The type of engine being used to do the searching. This will affect the way the
@@ -102,7 +105,11 @@ type SearchUISearchPageProps = {
 /**
  * Page for doing a simple search using a <Searcher> component.
  */
-class SearchUISearchPage extends React.Component<SearchUISearchPageProps, SearchUISearchPageProps, void> {
+class SearchUISearchPage extends React.Component<
+  SearchUISearchPageProps,
+  SearchUISearchPageProps,
+  void
+> {
   static defaultProps = {
     baseUri: '',
     searchEngineType: 'attivio',
@@ -139,7 +146,7 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
     app: PropTypes.shape({ type: PropTypes.oneOf([SearchUIApp]) }),
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.context.searcher.doSearch();
   }
 

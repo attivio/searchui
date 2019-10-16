@@ -3,16 +3,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
-import xmlJs from 'xml-js';
-import looseParseJson from 'loose-json';
 import 'whatwg-fetch';
-import 'babel-polyfill';
+import 'core-js';
+import 'es6-promise';
 
 import {
   AuthRoute,
   AuthUtils,
   Configuration,
-  Logger,
+  Logger, 
   MastheadNavTabs,
   ObjectUtils,
   Searcher,
@@ -26,14 +25,14 @@ import SearchUIInsightsPage from './pages/SearchUIInsightsPage';
 import SearchUILandingPage from './pages/SearchUILandingPage';
 import SearchUISearchPage from './pages/SearchUISearchPage';
 
-require('es6-object-assign').polyfill();
-require('es6-promise').polyfill();
+import ConfigurationApi from './api/ConfigurationApi';
+import UsersApi from './api/UsersApi';
 
 type SearchUIAppState = {
   config: any;
-  users: any;
-  loading: boolean;
   configurationError: string | null;
+  loading: boolean;
+  users: any;
 };
 
 /**
@@ -75,74 +74,16 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
     '/error',
   ];
 
-  /**
-   * Convert the URL of the current page to be a base
-   * path so we can get the configuration files before
-   * we officially know what the server is. Will return
-   * the first segment of the URL if there is one, or,
-   * if not, then will return just the slash.
-   * NOTE: This will not work properly if the servlet's
-   * context path is more than one level deep.
-   */
-  static getBasePath(): string {
-    let path = window.location.pathname;
-    // Make sure it starts with a slash
-    if (!path.startsWith('/')) {
-      path = `/${path}`;
-    }
-    // Find the next slash, if any
-    const slashIndex = path.indexOf('/', 1);
-    if (slashIndex >= 0) {
-      // Remove anything after (and including) the second slash
-      path = path.substring(0, slashIndex);
-    }
-    // Check to see if the first segment we found is one of
-    // the known routes we expect. In this case, we assume
-    // It's not part of the base path and return / instead.
-    if (SearchUIApp.knownRoutes.find((route) => {
-      return route === path;
-    })) {
-      path = '/';
-    }
-    return path;
-  }
-
-  static loadConfig(url: string, callback: (data: string | null, error: string | null) => void) {
-    fetch(`${SearchUIApp.getBasePath()}/${url}`, { credentials: 'include' }).then((response) => {
-      response.text().then((rawData) => {
-        if (rawData.startsWith('<html') && rawData.includes('j_security_check')) {
-          // We're not logged in yet... let's redirect to the login page
-          callback(null, 'Not yet logged in.');
-        } else {
-          let data = rawData;
-          // Account for case where the data comes quoted...
-          if (rawData.startsWith('"') && rawData.endsWith('"')) {
-            data = JSON.parse(rawData);
-          }
-          callback(data, null);
-        }
-      }, (error) => {
-        callback(null, error.toString());
-      });
-    });
-  }
-
   static childContextTypes = {
     app: PropTypes.shape({ type: PropTypes.oneOf([SearchUIApp]) }),
   };
 
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      config: null,
-      users: null,
-      loading: true,
-      configurationError: null,
-    };
-    (this: any).configureSuit = this.configureSuit.bind(this);
-  }
-
-  state: SearchUIAppState;
+  state: SearchUIAppState = {
+    config: null,
+    configurationError: null,
+    loading: true,
+    users: null,
+  };
 
   getChildContext() {
     return {
@@ -150,54 +91,27 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
     };
   }
 
-  componentWillMount() {
-    SearchUIApp.loadConfig('configuration', (data: string | null, error: string | null) => {
-      if (data) {
-        try {
-          const jsonData = looseParseJson(data);
-          // Handle any map massaging...
-          const config = SearchUIApp.updateData(jsonData);
-          this.updateState(config, null, null);
-        } catch (parsingError) {
-          this.updateState(null, null, `Failed to parse the application\u2019s configuration data: ${parsingError}`);
-        }
-      } else {
-        let message;
-        if (error) {
-          message = `Failed to load the application\u2019s configuration data: ${error}`;
-        } else {
-          message = 'Failed to load the application\u2019s configuration data.';
-        }
-        this.updateState(null, null, message);
-      }
+  componentDidMount() {
+    ConfigurationApi.getConfiguration().then((data: string | null) => {
+      // Handle any map massaging...
+      const config = SearchUIApp.updateData(data);
+      this.updateState(config, null, null);
+    }, (parsingError: string | null) => {
+      this.updateState(null, null, `Failed to parse the application\u2019s configuration data: ${parsingError}`);
     });
-    SearchUIApp.loadConfig('users', (data: string | null) => {
-      // Users are not required so we set them to an empty object by default.
-      // If there weas an error loading the users, we'll pretend there wasn't—
-      // even if the server isn't sending us users, we don't care unless we're
-      // configured for XML authentication and, in that case, the AuthUtils.configure()
-      // method will complain about that...
-      let users = {};
-      if (data) {
-        if (data && data.length > 0) {
-          users = xmlJs.xml2js(data, {
-            compact: true,
-            nativeType: true,
-            trim: true,
-            attributesKey: '$',
-            ignoreDeclaration: true,
-            ignoreInstruction: true,
-            ignoreComment: true,
-            ignoreDoctype: true,
-          });
-        }
-      }
+    UsersApi.getUsers().then((users: Array<string>) => {
+      console.group('<SearchUIApp />');
+      console.log('users: ', users);
+      console.groupEnd();
       this.updateState(null, users, null);
     });
   }
 
   getMastheadNavTabs(): Array<MastheadNavTabs.NavTabInfo> {
-    if (this.state.config.searchEngineTypen && this.state.config.searchEngineType !== 'attivio') {
+    const { config } = this.state;
+    if ((config !== null && config.searchEngineType && config.searchEngineType !== 'attivio')
+      || !config || !config.searchEngineType
+    ) {
       return [];
     }
     return [
@@ -207,13 +121,22 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
   }
 
   configureSuit() {
-    if (this.state.loading) {
-      if (this.state.configurationError) {
+    const {
+      loading,
+      configurationError,
+      config,
+      users,
+    } = this.state;
+    if (loading) {
+      if (configurationError) {
         this.setState({
           loading: false,
         });
-      } else if (this.state.users && this.state.config) {
-        const configurationError = AuthUtils.configure(this.state.users, this.state.config);
+      } else if (config !== null) {
+        const configurationError = users && users.length > 0
+          ? AuthUtils.configure(users, config)
+          : AuthUtils.configure(null, config, true);
+
         const newState = {};
         newState.loading = false;
         if (configurationError) {
@@ -239,7 +162,13 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
   }
 
   render() {
-    if (this.state.loading) {
+    const {
+      config,
+      configurationError,
+      loading,
+    } = this.state;
+
+    if (loading) {
       return (
         <div>
           <h2>Loading{'\u2026'}</h2>
@@ -248,27 +177,25 @@ export default class SearchUIApp extends React.Component<void, {}, SearchUIAppSt
           </p>
         </div>
       );
-    } else if (this.state.configurationError) {
+    } else if (configurationError) {
       return (
         <div>
           <h2>Configuration Error</h2>
           <p>
-            {this.state.configurationError.toString()}
+            {configurationError.toString() || 'An Unexpected Error occurred'}
           </p>
         </div>
       );
     }
 
-    let pageTitle = 'Attivio Search UI';
-    if (this.state.config && this.state.config.SearchUIApp && this.state.config.SearchUIApp.pageTitle) {
-      pageTitle = this.state.config.SearchUIApp.pageTitle;
-    }
+    const useConfigTitle = config && config.SearchUIApp && config.SearchUIApp.pageTitle;
+    const pageTitle = useConfigTitle ? config.SearchUIApp.pageTitle : 'Attivio Search UI';
 
     return (
-      <Configuration config={this.state.config}>
+      <Configuration config={config}>
         <Logger />
         <DocumentTitle title={pageTitle}>
-          <Router basename={this.state.config.ALL.basename}>
+          <Router basename={config.ALL.basename}>
             <Searcher>
               <Switch>
                 <AuthRoute exact path="/" component={SearchUILandingPage} />

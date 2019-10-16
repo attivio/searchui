@@ -14,6 +14,8 @@ import {
   SecondaryNavBar,
 } from '@attivio/suit';
 
+import type { Map } from '../../flow-typed/custom';
+
 import SearchUIApp from '../SearchUIApp';
 
 type SearchUIInsightsPageProps = {
@@ -39,11 +41,16 @@ type SearchUIInsightsPageProps = {
    * the highest counts, will be shown.
    */
   maxFacetBuckets: number;
-  /** Controls the colors used to show various entity types (the value can be any valid CSS color) */
+  /** Controls the colors used to show various entity types (the value can
+   *  be any valid CSS color) */
   entityColors: Map<string, string>;
 };
 
-class SearchUIInsightsPage extends React.Component<SearchUIInsightsPageProps, SearchUIInsightsPageProps, void> {
+class SearchUIInsightsPage extends React.Component<
+  SearchUIInsightsPageProps,
+  SearchUIInsightsPageProps,
+  void
+> {
   static contextTypes = {
     app: PropTypes.shape({ type: PropTypes.oneOf([SearchUIApp]) }),
   };

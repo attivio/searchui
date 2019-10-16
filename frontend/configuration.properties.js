@@ -1,4 +1,4 @@
-{
+const config = {
   /**
    * These properties are not specific to any page/component but may apply to any/all of them.
    */
@@ -30,14 +30,14 @@
     //   **  using 'myHandler' handler **
     //   baseUri: 'http://example.com:8983/solr/mycollection/myHandler'
     // in the case of 'attivio', only the Attivio instance URI is needed.
-    baseUri: '${searchui.baseUri}',
+    baseUri: '',
 
     // If searchEngineType is 'elastic' or 'solr', the property customOptions
     // needs to be added.
 
     // customOptions: {
-    //
-    //   customId: "id", // field to be used as id, in the case of elastic defaults to _id, in solr is mandatory.
+    //   // field to be used as id, in the case of elastic defaults to _id, in solr is mandatory.
+    //   customId: "id", 
     //   /**
     //    * The valid fields for mappings are:
     //    *  - title
@@ -64,8 +64,9 @@
     //    *  displayName: a name to display for those facets (for example 'People').
     //    *  field: the field used to build the facets on the search engine,
     //    *         NOTE: This field needs to be non-tokenized to work in solr
-    //    *               So for example, if the collection contains a field of type textField (tokenized),
-    //    *               this field needs to be copied to a strField (non-tokenized) to be displayed as Facet.
+    //    *               So for example, if the collection contains a field of type textField 
+    //    *               (tokenized), this field needs to be copied to a strField (non-tokenized)
+    //    *               to be displayed as Facet.
     //    */
     //   facets: [
     //     {
@@ -80,8 +81,8 @@
     // },
 
     // This is the prefix to use for routes in the application. For example, if it will be
-    // running under '/searchui', you will want to set this value to '/searchui' (note the leading slash
-    // and lack of a trailing slash). For running the application at the root of the baseUri,
+    // running under '/searchui', you will want to set this value to '/searchui' (note the leading
+    // slash and lack of a trailing slash). For running the application at the root of the baseUri,
     // simply set this to '/'. This may be the same as the baseUri.
     // The value here MUST match the server.contextPath in the application.properties file
     // used when running the servlet and/or the servlet name and mapping in the web.xml
@@ -103,7 +104,7 @@
     // IMPORTANT: The XML-based authentication is only suitable for use in proof-of-concept
     // or development settings and should NEVER be used for a production system as it is
     // inherently insecure.
-    authType: '${searchui.authType}',
+    authType: 'NONE',
 
     // If the authType property is set to XML, this must be set so that the SUIT library knows
     // where to redirect when the user has logged out. If the user logs out, then when this
@@ -127,7 +128,8 @@
       languages: 'Languages',
       date: 'Date',
       keyphrases: 'Key Phrases',
-      // Factbook fields: uncomment the following lines if the Factbook module has been included in your project
+      // Factbook fields: uncomment the following lines if the Factbook module has been included in
+      //   your project:
       // spokenLanguage: 'Spoken Languages',
       // resource: 'Resources',
       // climate: 'Climate',
@@ -203,7 +205,8 @@
 
 
     // The public key with which to connect to the mapbox public apis
-    // See https://www.mapbox.com/help/how-access-tokens-work/ for more information on how to acquire a public key
+    // See https://www.mapbox.com/help/how-access-tokens-work/ for more information on how to
+    //  acquire a public key
     mapboxKey: '',
   },
 
@@ -234,8 +237,8 @@
     placeholder: 'Search\u2026',
     // The placeholder text to display when the input field is empty and the language is advanced.
     placeholderAdvanced: 'Enter an advanced query\u2026',
-    // If true, the "microphone" button is displayed beside the search bar and the user can use speech recognition to input the
-    // query
+    // If true, the "microphone" button is displayed beside the search bar and the user can use
+    //  speech recognition to input the query
     allowVoice: true,
     // Whether to show a toggle for simple/advanced language in the search bar
     allowLanguageSelect: true,
@@ -280,7 +283,8 @@
       'location',
       'date(sortby=VALUE,maxbuckets=60,dateIntervals=auto)',
     ],
-    // The maximum number of facets the Facet Finder attempts to add to the query. Set this to 0 to turn off Facet Finder.
+    // The maximum number of facets the Facet Finder attempts to add to the query. Set this to 0 to
+    // turn off Facet Finder.
     facetFinderCount: 20,
     // An optional filter to apply to all queries when using the advanced query language
     queryFilter: '',
@@ -294,8 +298,8 @@
     // Determines how joined results are returned by the server, either as child
     // documents, or rolled up as a part of the parent/top level document. */
     joinRollupMode: 'tree',
-    // The name of the Business Center profile to use for queries. If set, this will enable Profile level
-    // campaigns and promotions.
+    // The name of the Business Center profile to use for queries. If set, this will enable Profile
+    // level campaigns and promotions.
     businessCenterProfile: null,
     // Maximum times a query can be resubmitted, such as for And-to-Or resubmission
     maxResubmits: 1,
@@ -425,7 +429,8 @@
     maxFacetBuckets: 15,
   },
 
-  // These properties configure the Document360Page, which provides contextual insight for a single document.
+  // These properties configure the Document360Page, which provides contextual insight for a single
+  // document.
   Document360Page: {
     // Show the list of documents which are similar to the focused document on the 360 page
     showMoreLikeThisResults: true,
@@ -437,7 +442,8 @@
       'author',
       'cc',
       'to',
-      // Factbook fields - uncomment lines below if factbook module has been included in your project
+      // Factbook fields - uncomment lines below if factbook module has been included in your
+      //   project:
       // 'country',
       // 'spokenlanguage',
       // 'resource',
@@ -447,7 +453,10 @@
     // The maximum number of linked documents to show per entity in the document 360 insight graph
     maxLinkedDocs: 3,
     // If true, then the 360° page will show links to documents from any table. Set this to false to
-    // only show links to documents that come from tables other than the one the main document is in.
+    // only show links to documents that come from tables other than the one the main document is
+    // in.
     includeAllTables: false,
   },
 }
+
+export default config;

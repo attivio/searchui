@@ -1,9 +1,23 @@
 [ignore]
-
+<PROJECT_ROOT>/_templates/**/.*
+<PROJECT_ROOT>/coverage/**/.*
+<PROJECT_ROOT>/docs/**/.*
+<PROJECT_ROOT>/documentation/**/.*
+<PROJECT_ROOT>/scripts/**/.*
+<PROJECT_ROOT>/styleguide/**/.*
+<PROJECT_ROOT>/es/**/.*
+<PROJECT_ROOT>/lib/**/.*
+<PROJECT_ROOT>/node_modules/jsonlint-lines/.*
+<PROJECT_ROOT>/node_modules/findup/.*
+<PROJECT_ROOT>/node_modules/@mapbox/jsonlint-lines-primitives/.*
+<PROJECT_ROOT>/node_modules/@attivio/suit/node_modules/mapbox-gl/src/source/.*
+<PROJECT_ROOT>/node_modules/findup/test/fixture/.*
+<PROJECT_ROOT>/node_modules/jsonlint-lines-primitives/.*
+<PROJECT_ROOT>/node_modules/mapbox-gl/src/style-spec/node_modules/jsonlint-lines-primitives/test/.*
 
 [include]
-
-[libs]
+<PROJECT_ROOT>/src/**/.*
+<PROJECT_ROOT>/flow-typed/**/.*
 
 [options]
 esproposal.class_static_fields=enable
@@ -15,4 +29,8 @@ module.name_mapper='.*\(.css\)' -> 'empty/object'
 module.name_mapper='.*\(.less\)' -> 'empty/object'
 emoji=true
 
-[lints]
+[untyped]
+<PROJECT_ROOT>/node_modules/**/.*
+
+[libs]
+<PROJECT_ROOT>/flow-typed/**/.*

@@ -31,6 +31,8 @@ import {
 
 import SearchUIApp from '../SearchUIApp';
 
+import type { Map } from '../../flow-typed/custom';
+
 type Document360PageProps = {
   location: PropTypes.object.isRequired;
   history: PropTypes.object.isRequired;
@@ -81,38 +83,31 @@ type Document360PageProps = {
 type Document360PageDefaultProps = {
   baseUri: string;
   entityFields: Map<string, string>;
-  title: string;
-  uri: string;
+  includeAllTables: boolean;
+  insightGraphLinkingFields: Array<string>;
+  moreLikeThisQuery: string;
+  previewImageUri: string;
   table: string;
   teaser: string;
   text: string;
-  previewImageUri: string;
   thumbnailImageUri: string;
-  moreLikeThisQuery: string;
-  insightGraphLinkingFields: Array<string>;
-  includeAllTables: boolean;
+  title: string;
+  uri: string;
 };
 
 type Document360PageState = {
-  docId: string | null;
   doc: SearchDocument | null;
-  error: string | null;
+  docId: string | null;
   entityName: string | null;
   entityValue: string | null;
+  error: string | null;
 };
 
 class Document360Page extends React.Component<Document360PageDefaultProps, Document360PageProps, Document360PageState> { // eslint-disable-line max-len
   static defaultProps = {
     baseUri: '',
     entityFields: new Map(),
-    title: FieldNames.TITLE,
-    uri: FieldNames.URI,
-    table: FieldNames.TABLE,
-    teaser: 'SCOPETEASER(text, fragment=true, numFragments=4, fragmentScope=sentence)',
-    text: 'SCOPETEASER(text, fragment=true, numFragments=1, fragmentScope=2147483647)',
-    previewImageUri: 'img.uri.preview',
-    thumbnailImageUri: 'img.uri.thumbnail',
-    moreLikeThisQuery: 'morelikethisquery',
+    includeAllTables: false,
     insightGraphLinkingFields: [
       'people',
       'company',
@@ -121,7 +116,14 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
       'cc',
       'to',
     ],
-    includeAllTables: false,
+    moreLikeThisQuery: 'morelikethisquery',
+    previewImageUri: 'img.uri.preview',
+    table: FieldNames.TABLE,
+    teaser: 'SCOPETEASER(text, fragment=true, numFragments=4, fragmentScope=sentence)',
+    text: 'SCOPETEASER(text, fragment=true, numFragments=1, fragmentScope=2147483647)',
+    thumbnailImageUri: 'img.uri.thumbnail',
+    title: FieldNames.TITLE,
+    uri: FieldNames.URI,
   };
 
   static contextTypes = {
@@ -154,40 +156,46 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
 
   state: Document360PageState;
 
-  componentWillMount() {
+  componentDidMount() {
     const search = QueryString.parse(this.props.location.search);
-    const docId = search.docId;
+    const { docId } = search;
     this.setDocId(docId);
   }
 
   componentWillReceiveProps(nextProps: Document360PageProps) {
-    const oldDocId = this.state.docId;
+    const { docId: oldDocId } = this.state;
     const search = QueryString.parse(nextProps.location.search);
-    const docId = search.docId;
+    const { docId } = search;
     if (oldDocId !== docId) {
       this.setDocId(docId);
     }
   }
 
   shouldComponentUpdate(nextProps: Document360PageProps, nextState: Document360PageState) {
-    const oldDocId = this.state.docId;
+    const {
+      doc,
+      docId: oldDocId,
+      entityName,
+      entityValue,
+      error,
+    } = this.state;
     const search = QueryString.parse(nextProps.location.search);
-    const docId = search.docId;
+    const { docId } = search;
 
     // If the doc ID has changed or the document has changed, we need to update
     if (oldDocId !== docId) {
       return true;
     }
-    if (this.state.doc !== nextState.doc) {
+    if (doc !== nextState.doc) {
       return true;
     }
-    if (this.state.entityName !== nextState.entityName) {
+    if (entityName !== nextState.entityName) {
       return true;
     }
-    if (this.state.entityValue !== nextState.entityValue) {
+    if (entityValue !== nextState.entityValue) {
       return true;
     }
-    if (this.state.error !== nextState.error) {
+    if (error !== nextState.error) {
       return true;
     }
 
@@ -238,17 +246,20 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
         const entityFields = Array.from(this.props.entityFields.keys());
         req.fields = fields.concat(entityFields);
 
-        this.context.searcher.doCustomSearch(req, (response: QueryResponse | null, error: string | null) => {
-          if (response && response.documents && response.documents.length >= 1) {
-            const doc = response.documents[0];
-            this.setState({ doc });
-          } else if (response) {
-            // Got a response but no documents? Bad ID?
-            this.setState({ error: `No document with ID ${docId} was found.` });
-          } else if (error) {
-            this.setState({ error });
+        this.context.searcher.doCustomSearch(
+          req,
+          (response: QueryResponse | null, error: string | null) => {
+            if (response && response.documents && response.documents.length >= 1) {
+              const doc = response.documents[0];
+              this.setState({ doc });
+            } else if (response) {
+              // Got a response but no documents? Bad ID?
+              this.setState({ error: `No document with ID ${docId} was found.` });
+            } else if (error) {
+              this.setState({ error });
+            }
           }
-        });
+        );
       }
     }
   }
@@ -281,15 +292,27 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
     });
   }
 
-  render() {
-    let pageContents;
+  renderPageContents() {
+    const {
+      doc,
+      docId,
+      entityName,
+      entityValue,
+      error,
+    } = this.state;
 
-    if (this.state.doc) {
-      const doc = this.state.doc;
+    const {
+      baseUri,
+      entityFields,
+      includeAllTables,
+      insightGraphLinkingFields,
+    } = this.props;
+
+    if (doc) {
       const text = doc.getFirstValue('teaser');
       const thumbnailUri = doc.getFirstValue('thumbnailImageUri');
 
-      pageContents = (
+      return (
         <Grid fluid>
           <Row>
             <Col xs={10} sm={10}>
@@ -300,11 +323,12 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
                 <Col xs={8} sm={8}>
                   <p
                     className="attivio-search-result-desc"
-                    dangerouslySetInnerHTML={{ __html: text }} // eslint-disable-line react/no-danger
+                    // eslint-disable-next-line react/no-danger
+                    dangerouslySetInnerHTML={{ __html: text }}
                   />
                 </Col>
                 <Col xs={4} sm={4}>
-                  <DocumentEntityList doc={doc} entityFields={this.props.entityFields} />
+                  <DocumentEntityList doc={doc} entityFields={entityFields} />
                 </Col>
               </Row>
             </Col>
@@ -319,41 +343,45 @@ class Document360Page extends React.Component<Document360PageDefaultProps, Docum
                 doc={doc}
                 navigateToDoc={this.navigateToDoc}
                 navigateToEntity={this.navigateToEntity}
-                entityName={this.state.entityName}
-                entityValue={this.state.entityValue}
-                linkingFields={this.props.insightGraphLinkingFields}
-                includeAllTables={this.props.includeAllTables}
+                entityName={entityName}
+                entityValue={entityValue}
+                linkingFields={insightGraphLinkingFields}
+                includeAllTables={includeAllTables}
               />
             </Col>
             <Col xs={4} sm={4}>
               <Subheader360 label="Similar Results" />
-              <SimilarDocuments baseDoc={this.state.doc} baseUri={this.props.baseUri} />
+              <SimilarDocuments baseDoc={doc} baseUri={baseUri} />
             </Col>
           </Row>
         </Grid>
       );
-    } else if (!this.state.docId) {
-      pageContents = <div>No document ID was set.</div>;
-    } else if (this.state.error) {
-      pageContents = <div>{this.state.error}</div>;
-    } else {
-      pageContents = <div>Loading\u2026</div>;
+    } else if (!docId) {
+      return <div>No document ID was set.</div>;
+    } else if (error) {
+      return <div>{error}</div>;
     }
+    return <div>Loading\u2026</div>;
+  }
+
+  render() {
+    const { doc } = this.state;
+    const { app } = this.context;
 
     return (
       <div>
         <Masthead multiline homeRoute="/landing" logoutFunction={AuthUtils.logout}>
-          <MastheadNavTabs tabInfo={this.context.app.getMastheadNavTabs()} />
+          <MastheadNavTabs tabInfo={app.getMastheadNavTabs()} />
           <SearchBar
             inMasthead
             route="/results"
           />
         </Masthead>
         <SecondaryNavBar>
-          <Doc360Breadcrumbs currentDoc={this.state.doc} />
+          <Doc360Breadcrumbs currentDoc={doc} />
         </SecondaryNavBar>
         <div style={{ padding: '10px' }}>
-          {pageContents}
+          {this.renderPageContents()}
         </div>
       </div>
     );

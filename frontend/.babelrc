@@ -1,19 +1,17 @@
 {
-  "presets":[
-    "react",
-    "flow",
-    "stage-0",
+  "presets": [
     [
-      "env",
-      {
-        "targets": {
-          "browsers": [
-            "last 2 versions",
-            "ie >= 11"
-          ]
-        }
+      "@babel/preset-env",
+      { "useBuiltIns": "entry",
+        "corejs": { "version": "3", "proposals": true }
       }
-    ]
+    ],
+    "@babel/preset-react"
   ],
-  "plugins": ["transform-decorators-legacy", "transform-class-properties"]
+  "plugins": [
+    "@babel/plugin-transform-flow-strip-types",
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-transform-react-jsx",
+    "@babel/plugin-proposal-class-properties"
+  ]
 }

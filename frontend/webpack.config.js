@@ -1,114 +1,58 @@
 const path = require('path');
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
-const EncodingPlugin = require('webpack-encoding-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserJSPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 // This is the base URI for the webapp and is used when links get created for resources
 // such as images and font files. It MUST match the value in the configuration.properties
 // file.
-const prefix = '/searchui';
-const publicPath = `${prefix}/`;
+const basePath = 'searchui';
+const publicPath = `/${basePath}/`;
 
 module.exports = {
-  // An array of files to run at startup...
-  entry: [
-    './src/main.js',
-  ],
-
-  // Tell the server where to serve files from
-  output: {
-    filename: '[name].js', // Single file that's built
-    path: path.resolve(__dirname, 'target/dist'),
+  // Provides a source map for use in development.
+  //  https://webpack.js.org/guides/development/#using-source-maps
+  devtool: 'inline-source-map',
+  devServer: {
     publicPath,
+    watchContentBase: true,
+    open: true,
+    openPage: `${basePath}/`,
   },
-  resolve: {
-    extensions: ['.js', '.jsx'],
-    alias: {
-      react: path.resolve('./node_modules/react'),
-    },
-  },
-  node: {
-    fs: "empty"
-  },
-  module: {
-    // The mapping of file patterns to loaders
-    rules: [
-      {
-        // This loader transforms .js and .jsx files using the babel-loader.
-        // It uses the env, stage-0, and react plug-ins to enable different language features.
-        test: /\.jsx?$/,
-        include: path.join(__dirname, 'src'),
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        query: {
-          presets: [
-            'env',
-            'stage-0',
-            'react'
-          ],
-        },
-      },
-      {
-        test: /\.(less|css)$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [`css-loader?publicPath=${publicPath}`, `less-loader?publicPath=${publicPath}`],
-        }),
-        //loader: 'style-loader!css-loader!autoprefixer-loader!less-loader',
-      },
-      {
-        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: `url-loader?limit=10000&minetype=application/font-woff&publicPath=${publicPath}`,
-      },
-      {
-        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: `file-loader?publicPath=${publicPath}`,
-      },
-      {
-        test: /\.png$/,
-        loader: `url-loader?limit=100000&publicPath=${publicPath}`,
-      },
-      {
-        test: /\.gif$/,
-        loader: `url-loader?limit=100000&publicPath=${publicPath}`,
-      },
-      {
-        test: /\.jpg$/,
-        loader: `file-loader?publicPath=${publicPath}`,
-      },
-      {
-        test: /\.svg$/,
-        loader: `url-loader?limit=10000&mimetype=image/svg+xml&publicPath=${publicPath}`,
-      },
-      {
-        test: /\.xml$/,
-        loader: 'xml-loader',
-        options: {
-          trim: true,
-          explicitArray: false,
-          explicitRoot: false,
-        },
-      },
+  optimization: {
+    // Setting optimization.minimizer overrides the defaults provided by webpack,
+    //  so we must also now specify a JS minimizer.
+    // https://github.com/webpack-contrib/mini-css-extract-plugin#minimizing-for-production
+    minimizer: [
+      new TerserJSPlugin({}),
+      new OptimizeCSSAssetsPlugin({})
     ],
   },
-  devtool: 'eval-source-map', // Stuff to do for dev... in this case, generate source maps
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'common',
+    // Clean the /dist folder before each build
+    //  https://webpack.js.org/guides/output-management/#cleaning-up-the-dist-folder
+    new CleanWebpackPlugin(),
+
+    // Simplifies HTML file creation for dynamic hash names.
+    //  https://webpack.js.org/guides/output-management/#setting-up-htmlwebpackplugin
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+      filename: "./index.html",
     }),
+
     new FaviconsWebpackPlugin({
       logo: './src/favicon.png',
     }),
-    new HtmlWebpackPlugin({
-      template: './src/index.template.ejs',
-      inject: 'body',
-      title: 'Attivio UI',
+    // Replacement for deprecated ExtractTextPluginz
+    // https://github.com/webpack-contrib/mini-css-extract-plugin
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css',
     }),
-    new ExtractTextPlugin('style.css'),
     new CopyWebpackPlugin([
       {
         from: './src/img',
@@ -123,12 +67,130 @@ module.exports = {
         to: 'factbook_resources/',
       },
     ]),
-    new HtmlWebpackIncludeAssetsPlugin({
-      assets: ['style.css'],
-      append: true,
-    }),
-    new EncodingPlugin({
-      encoding: 'utf-8',
-    }),
   ],
+  output: {
+    // Give the bundled output file a name. Use [name] for dynamically generated naming. Requires
+    //  HtmlWebpackPlugin.
+    filename: '[name].js',
+    // Tell webpack where to put the bundled file.
+    path: path.resolve(__dirname, 'target/dist'),
+    // Where the page is served from
+    publicPath,
+  },
+  module: {
+    // These rules tell webpack how to load different file types. Without these, webpack can't load anything.
+    //  https://webpack.js.org/guides/asset-management/#setup
+    rules: [
+      {
+        // Tell webpack how to load style files.
+        //  https://webpack.js.org/guides/asset-management/#loading-css
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              // Support hot-module-reload for style files in development.
+              hmr: process.env.NODE_ENV === 'development',
+            },
+          },
+          'css-loader',
+          'sass-loader',
+        ],
+      },
+      {
+        test: /\.less$/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'less-loader',
+            options: {
+              paths: [path.resolve(__dirname, 'node_modules')],
+            },
+          },
+        ],
+      },
+      {
+        // Tell webpack how to load images.
+        //  https://webpack.js.org/guides/asset-management/#loading-images
+        test: /\.(png|jpg|gif|svg)$/i,
+        use: [
+          {
+            // Tell webpack to use url-loader to load images.
+            //  https://webpack.js.org/loaders/url-loader/#root
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              // url-loader is not suitable for larger images. Specify a fallback for files larger 
+              //  than the limit set above.
+              //  https://webpack.js.org/loaders/file-loader/
+              fallback: 'file-loader',
+            },
+          },
+        ],
+      },
+      {
+        // Tell webpack how to load font files.
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [
+          // Tell webpack to use file-loader for font files.
+          //  https://webpack.js.org/loaders/file-loader/
+          'file-loader',
+        ],
+      },
+      {
+        // Tell webpack how to load xml files. 
+        //  Note: JSON data loading is built into webpack and requires no loading configuration.
+        // https://webpack.js.org/guides/asset-management/#loading-data
+        test: /\.xml$/,
+        use: [
+          // Tell webpack to use xml-loader for xml files.
+          // https://github.com/gisikw/xml-loader
+          'xml-loader',
+        ],
+      },
+      {
+        // Tell webpack to check source files, before modification by other loaders (like babel-loader).
+        enforce: 'pre',
+        test: /\.(js|jsx)$/,
+        // Tell eslint to ignore node-modules.
+        exclude: /node_modules/,
+        // Tell webpack to use eslint-loader on js and jsx source files.
+        // https://webpack.js.org/loaders/eslint-loader/#install
+        loader: 'eslint-loader',
+        options: {
+          // The module build will fail if there are any eslint errors. Enforces best practices.
+          //  https://webpack.js.org/loaders/eslint-loader/#failonerror-default-false
+          failOnError: true,
+        },
+      },
+      {
+        // Tell webpack how to load javascript and JSX files.
+        //  https://webpack.js.org/configuration/configuration-languages/#babel-and-jsx
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          // Tell webpack to use babel-loader for js and jsx files.
+          //  https://webpack.js.org/loaders/babel-loader/
+          loader: 'babel-loader',
+        },
+      },
+      {
+        // Tell webpack how to load html pages.
+        // https://webpack.js.org/loaders/html-loader/#root
+        test: /\.(html)$/,
+        use: {
+          loader: 'html-loader',
+          options: {
+            attrs: [':data-src'],
+            minimize: true,
+          }
+        }
+      }
+    ],
+  },
 };
