@@ -391,6 +391,10 @@
       'socialsecurity',
       'zipcode',
     ],
+    /** List of profiles from which users can select a query to be executed with */
+    profiles: [],
+    /** List of query workflows for which a user can choose to have process their query */
+    searchWorkflows: [],
   },
 
   // These properties configure the SearchUIInsightsPage, which displays facet information
