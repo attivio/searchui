@@ -5,7 +5,7 @@
     <!-- Update this when renaming the project -->
     <groupId>com.attivio.searchui</groupId>
     <artifactId>parent</artifactId>
-    <version>1.0.7-SNAPSHOT</version>
+    <version>5.6.5-SNAPSHOT</version>
   </parent>
   <artifactId>module</artifactId>
   <name>Module</name>

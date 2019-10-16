@@ -10,8 +10,8 @@ class SearchUIFakeLandingPage extends React.Component<void, {}, void> {
   };
 
   componentDidMount() {
-    const searcher = this.context.searcher;
-    const router = this.context.router;
+    const { searcher, router } = this.context;
+
     if (searcher && router) {
       searcher.reset(() => {
         const newQueryString = searcher.generateLocationQueryStringFromState(searcher.state);
