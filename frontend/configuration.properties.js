@@ -16,7 +16,7 @@
 
     // This is the base URI that will be used for making REST API calls to the
     // Attivio server. When running as a module within the Attivio node, this should
-    // be the empty string (''). When running in the servlet, it should match the 
+    // be the empty string (''). When running in the servlet, it should match the
     // baseName property where the servlet is running relative to the machine (without
     // the hostname or port).
 
@@ -243,7 +243,7 @@
     // Whether signal needs to be generated when autocomplete item is selected
     createAutoCompleteSignal: true,
   },
-  
+
   // These properties configure the default properties for FacetSearchBar components in the UI.
   // These allow searching among all values of a specific facet, as well as being able to export
   // the list of all values for that facet to a CSV file.
