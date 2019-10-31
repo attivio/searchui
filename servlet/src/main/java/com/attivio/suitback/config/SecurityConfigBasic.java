@@ -21,6 +21,7 @@ public class SecurityConfigBasic extends WebSecurityConfigurerAdapter {
   static final Logger LOG = LoggerFactory.getLogger(SecurityConfigBasic.class);
   
   public static final String[] NOT_AUTHENTICATED_MATCHERS = new String[] {
+      "/autherror.html",
       "/error",
       "/loggedout",
       "/users",

@@ -197,6 +197,11 @@ public class SecurityConfigSAML extends ServiceProviderConfigurerAdapter {
         .requestMatchers(samlConfigurer.endpointsMatcher())
         .permitAll()
     .and()
+      // The REST API, the special sockjs-node URLs, and any static files are NOT to be authenticated
+      .authorizeRequests()
+        .antMatchers(SecurityConfigBasic.NOT_AUTHENTICATED_MATCHERS)
+        .permitAll()
+    .and()
       // Finally, everything else IS to be authenticated
       .authorizeRequests()
         .anyRequest()
