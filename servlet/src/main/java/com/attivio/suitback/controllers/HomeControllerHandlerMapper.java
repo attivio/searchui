@@ -18,7 +18,6 @@ public class HomeControllerHandlerMapper extends AbstractHandlerMapping {
         "/",
         "/login",
         "/loggededout",
-        "/error",
         "/landing",
         "/results",
         "/results-no-mast",

@@ -122,6 +122,10 @@ module.exports = {
         from: './src/factbook_resources',
         to: 'factbook_resources/',
       },
+      {
+        from: './src/autherror.html',
+        to: 'autherror.html',
+      },
     ]),
     new HtmlWebpackIncludeAssetsPlugin({
       assets: ['style.css'],
