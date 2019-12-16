@@ -11,10 +11,22 @@
   <packaging>war</packaging>
   <name>Servlet</name>
   <description>Wraps the front-end application in a WAR file that can be deployed to a serlvet container like Tomcat</description>
+  <repositories>
+    <repository>
+      <!--
+        This Alfresco repository is needed to get version 2.6.6 of org.opensaml.opensaml
+        which is an indirect dependency of com.github.ulisesbocchio:spring-boot-security-saml version 1.17
+        (via org.springframework.security.extensions:spring-security-saml2-core version 1.0.9.RELEASE).
+      -->
+      <id>alfresco</id>
+      <name>Alfresco repository</name>
+      <url>https://artifacts.alfresco.com/nexus/content/repositories/public/</url>
+    </repository>
+  </repositories>
   <properties>
-    <version.spring>1.5.9.RELEASE</version.spring>
+    <version.spring>2.2.1.RELEASE</version.spring>
     <version.httpclient>4.5.3</version.httpclient>
-    <version.spring.boot.securitry.saml>1.13</version.spring.boot.securitry.saml>
+    <version.spring.boot.securitry.saml>1.17</version.spring.boot.securitry.saml>
     <version.gson>2.8.2</version.gson>
     <searchui.authType>SAML</searchui.authType>
     <searchui.baseUri>/searchui</searchui.baseUri>
