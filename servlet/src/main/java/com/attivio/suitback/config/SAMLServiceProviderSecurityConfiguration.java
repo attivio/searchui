@@ -206,11 +206,6 @@ public class SAMLServiceProviderSecurityConfiguration implements InitializingBea
                 .requestMatchers(saml().endpointsMatcher()).permitAll();
 
             serviceProviderConfigurers.forEach(unchecked(spc -> spc.configure(http)));
-
-            http
-                .authorizeRequests()
-                .anyRequest()
-                .authenticated();
             // @formatter:on
         }
 
