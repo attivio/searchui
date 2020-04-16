@@ -12,7 +12,8 @@
   <name>Front End</name>
   <description>The front-end JavaScript application</description>
   <properties>
-    <frontend.node.version>v11.4.0</frontend.node.version>
+    <frontend.node.version>v13.3.0</frontend.node.version>
+    <frontend.yarn.version>v1.21.1</frontend.yarn.version>
   </properties>
   <build>
     <sourceDirectory>src</sourceDirectory>
@@ -27,16 +28,17 @@
           <execution>
             <id>install-frontend-build-tools</id>
             <goals>
-              <goal>install-node-and-npm</goal>
+              <goal>install-node-and-yarn</goal>
             </goals>
             <configuration>
               <nodeVersion>${frontend.node.version}</nodeVersion>
+              <yarnVersion>${frontend.yarn.version}</yarnVersion>
             </configuration>
           </execution>
           <execution>
-            <id>npm-install</id>
+            <id>yarn install</id>
             <goals>
-              <goal>npm</goal>
+              <goal>yarn</goal>
             </goals>
           </execution>
           <execution>
@@ -53,20 +55,20 @@
             <!-- Coding style validation of the JavaScript code -->
             <id>lint-validation</id>
             <goals>
-              <goal>npm</goal>
+              <goal>yarn</goal>
             </goals>
             <configuration>
-              <arguments>run lint</arguments>
+              <arguments>lint</arguments>
             </configuration>
           </execution>
           <execution>
             <!-- Build the Styleguide for the components in the project -->
             <id>styleguide-build</id>
             <goals>
-              <goal>npm</goal>
+              <goal>yarn</goal>
             </goals>
             <configuration>
-              <arguments>run styleguide</arguments>
+              <arguments>styleguide:build</arguments>
             </configuration>
           </execution>
         </executions>
@@ -112,20 +114,20 @@
                 <!-- Type validation of the JavaScript code -->
                 <id>flow-validation</id>
                 <goals>
-                  <goal>npm</goal>
+                  <goal>yarn</goal>
                 </goals>
                 <configuration>
-                  <arguments>run flow</arguments>
+                  <arguments>flow</arguments>
                 </configuration>
               </execution>
               <execution>
                 <!-- Do additional custom validation of the components in the project -->
                 <id>component-validation</id>
                 <goals>
-                  <goal>npm</goal>
+                  <goal>yarn</goal>
                 </goals>
                 <configuration>
-                  <arguments>run validateComponents</arguments>
+                  <arguments>validateComponents</arguments>
                 </configuration>
               </execution>
             </executions>

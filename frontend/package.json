@@ -29,8 +29,8 @@
     "flow:win32": "flow --show-all-errors",
     "lint": "eslint src --ext .js --ext .jsx",
     "prod": "webpack -p --progress",
-    "styleguide": "styleguidist build",
-    "styleguide:serve": "styleguidist server",
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build",
     "validateComponents": "run-script-os",
     "validateComponents:linux:darwin": "./scripts/validateComponents.sh"
   },
