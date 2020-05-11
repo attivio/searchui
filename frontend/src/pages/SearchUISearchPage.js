@@ -12,6 +12,8 @@ import {
   FacetResults,
   Masthead,
   MastheadNavTabs,
+  NavbarProfileSelector,
+  NavbarWorkflowSelector,
   NavbarSort,
   PlacementResults,
   SearchBar,
@@ -101,6 +103,10 @@ type SearchUISearchPageProps = {
    * location object injected by withRouter.
    */
   location: {};
+  /** List of profiles to populate the profile dropdown with */
+  profiles: Array<string>;
+  /** List of workflows to use for executing the query */
+  searchWorkflows: Array<string>;
 };
 
 /**
@@ -136,6 +142,8 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
     maxFacetBuckets: 15,
     orderHint: [],
     entityColors: new Map(),
+    profiles: [],
+    searchWorkflows: [],
   };
 
   static contextTypes = {
@@ -155,7 +163,15 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
       baseUri,
       relevancyModels,
       sortableFields,
+      profiles,
+      searchWorkflows,
     } = this.props;
+
+    const profileSelectorComp = profiles && profiles.length > 0 ?
+      <NavbarProfileSelector right profiles={profiles} /> : null;
+
+    const workflowSelectorComp = searchWorkflows && searchWorkflows.length > 0 ?
+      <NavbarWorkflowSelector right workflows={searchWorkflows} /> : null;
 
     return (
       <SecondaryNavBar>
@@ -163,6 +179,8 @@ class SearchUISearchPage extends React.Component<SearchUISearchPageProps, Search
         {hideMasthead && <SearchBar />}
         <SearchResultsFacetFilters />
         <SearchResultsPager right />
+        {profileSelectorComp}
+        {workflowSelectorComp}
         <SearchRelevancyModel
           right
           baseUri={baseUri}
